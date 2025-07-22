@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PokedexManager {
+    private static final PokedexManager INSTANCE = new PokedexManager();
 
     // 🔹 Singleton instance
     private static PokedexManager instance;
@@ -18,7 +19,9 @@ public class PokedexManager {
             instance = new PokedexManager();
         }
         return instance;
+
     }
+
 
     private List<Pokemon> pokedex = new ArrayList<>();
 
@@ -133,7 +136,10 @@ public class PokedexManager {
         }
         return null;
     }
-
+    public void setAllPokemon(List<Pokemon> loaded) {
+        pokedex.clear();
+        pokedex.addAll(loaded);
+    }
     public List<Pokemon> getAllPokemon() {
         return new ArrayList<>(pokedex); // returns a copy for safe external use
     }

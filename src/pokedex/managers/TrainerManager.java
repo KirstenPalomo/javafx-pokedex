@@ -28,7 +28,10 @@ public class TrainerManager {
     public List<Trainer> getAllTrainers() {
         return List.copyOf(trainers);
     }
-
+    public void setTrainers(List<Trainer> loaded) {
+    trainers.clear();
+    trainers.addAll(loaded);
+}
     /**
      * Displays all trainers along with their lineup and storage details.
      * This is a convenience method; for submenu-driven interaction, use getAllTrainers().
@@ -98,6 +101,7 @@ public class TrainerManager {
         }
         return false;
     }
+
 
     public Trainer getTrainerWithName(String name) {
         for (Trainer t : trainers) {

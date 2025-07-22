@@ -8,7 +8,13 @@ public class MoveManager {
     private static MoveManager instance; // 🔹 Singleton instance
 
     private List<Move> moves = new ArrayList<>();
-
+     public List<Move> getAllMoves() {
+        return List.copyOf(moves);
+    }
+    public void setAllMoves(List<Move> loaded) {
+        moves.clear();
+        moves.addAll(loaded);
+    }
     private MoveManager() {} // 🔐 private constructor
 
     public static MoveManager getInstance() {
