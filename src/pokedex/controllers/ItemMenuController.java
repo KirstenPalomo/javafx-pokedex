@@ -42,8 +42,15 @@ public class ItemMenuController {
     }
 
     @FXML
-    private void handleBack() {
-        System.out.println("🔙 Back button clicked!");
-        // TODO: Navigate back to main menu or previous scene
+    private void handleBack(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/MainMenu.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
