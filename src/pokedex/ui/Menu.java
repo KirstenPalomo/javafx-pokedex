@@ -1,5 +1,6 @@
 package pokedex.ui;
 
+import pokedex.JsonManager;
 import pokedex.managers.PokedexManager;
 import pokedex.managers.MoveManager;
 import pokedex.managers.ItemManager;
@@ -246,8 +247,15 @@ public class Menu {
                     searchTrainer();
                     break;
                 case 12:
-                    System.out.println("Exiting Pokédex. Goodbye!");
+                    // 1) save before exit
+                    System.out.println("Saving trainers to disk...");
+                    JsonManager.saveTrainers(trainerManager.getAllTrainers());
+                    JsonManager.savePokemons(pokedexManager.getAllPokemon());
+                    JsonManager.saveMoves(moveManager.getAllMoves());
+
+                    System.out.println("Data saved. Exiting Pokédex. Goodbye!");
                     break;
+
                 default:
                     System.out.println("Invalid option.");
             }
