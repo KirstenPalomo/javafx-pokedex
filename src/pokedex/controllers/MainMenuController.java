@@ -45,8 +45,17 @@ public class MainMenuController {
     }
 
     @FXML
-    private void goToItems(ActionEvent event) {
-        System.out.println("Navigate to Items screen");
+    private void goToItems(ActionEvent event)
+    {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ItemMenu.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
