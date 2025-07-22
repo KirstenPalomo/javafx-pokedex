@@ -9,6 +9,9 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import pokedex.models.Move;
 import pokedex.managers.MoveManager;
+import pokedex.managers.PokedexManager;
+import pokedex.managers.ItemManager;
+import pokedex.managers.TrainerManager;
 
 import java.util.List;
 
@@ -21,16 +24,28 @@ public class AddMoveController {
     @FXML private ComboBox<String> type2Combo;
     @FXML private Label feedbackLabel;
 
+    private final MoveManager moveManager;
+    private final PokedexManager pokedexManager;
+    private final ItemManager itemManager;
+    private final TrainerManager trainerManager;
+
     private final List<String> validTypes = List.of(
             "Normal", "Fire", "Water", "Grass", "Electric", "Ice", "Fighting", "Poison",
             "Ground", "Flying", "Psychic", "Bug", "Rock", "Ghost", "Dragon", "Dark",
             "Steel", "Fairy"
     );
 
+    public AddMoveController(PokedexManager pokedexManager, MoveManager moveManager,
+                             ItemManager itemManager, TrainerManager trainerManager) {
+        this.pokedexManager = pokedexManager;
+        this.moveManager = moveManager;
+        this.itemManager = itemManager;
+        this.trainerManager = trainerManager;
+    }
+
     @FXML
     public void initialize() {
         classificationCombo.getItems().addAll("HM", "TM");
-
         type1Combo.getItems().addAll(validTypes);
         type2Combo.getItems().add("None");
         type2Combo.getItems().addAll(validTypes);
@@ -47,15 +62,13 @@ public class AddMoveController {
             String type2 = type2Combo.getValue();
             if ("None".equals(type2)) type2 = null;
 
-            // Required field check
             if (name.isEmpty() || description.isEmpty() || classification == null || type1 == null) {
                 feedbackLabel.setStyle("-fx-text-fill: red;");
                 feedbackLabel.setText("Invalid inputs");
                 return;
             }
 
-            // Check for duplicates
-            if (MoveManager.getInstance().hasMoveWithName(name)) {
+            if (moveManager.hasMoveWithName(name)) {
                 Alert duplicateAlert = new Alert(Alert.AlertType.ERROR);
                 duplicateAlert.setTitle("Duplicate Move");
                 duplicateAlert.setHeaderText(null);
@@ -64,7 +77,6 @@ public class AddMoveController {
                 return;
             }
 
-            // Confirm add
             Alert confirmAlert = new Alert(Alert.AlertType.CONFIRMATION);
             confirmAlert.setTitle("Confirm Move Add");
             confirmAlert.setHeaderText("Are you sure you want to add this move?");
@@ -72,31 +84,27 @@ public class AddMoveController {
             confirmAlert.getButtonTypes().setAll(ButtonType.YES, ButtonType.NO);
             confirmAlert.showAndWait();
 
-            if (confirmAlert.getResult() != ButtonType.YES) return;
+            if (confirmAlert.getResult() == ButtonType.NO) {
+                returnToMoveMenu(event);
+                return;
+            }
 
-            // Create and add move
             Move move = new Move(name, description, classification, type1, type2);
-            MoveManager.getInstance().addMove(move);
+            moveManager.addMove(move);
             clearFields();
 
-            // Optional: Show "Move Added!" info alert
             Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
             successAlert.setTitle("Move Added");
             successAlert.setHeaderText(null);
-            successAlert.setContentText(name + "\" has been successfully added.");
+            successAlert.setContentText("\"" + name + "\" has been successfully added.");
             successAlert.showAndWait();
 
-            // Go back to MoveMenu.fxml
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/MoveMenu.fxml"));
-            Parent root = loader.load();
-            Stage stage = (Stage) nameField.getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.show();
+            returnToMoveMenu(event);
 
         } catch (Exception e) {
             feedbackLabel.setStyle("-fx-text-fill: red;");
             feedbackLabel.setText("Invalid input");
-            e.printStackTrace(); // Keep this for debugging while coding
+            e.printStackTrace();
         }
     }
 
@@ -106,5 +114,20 @@ public class AddMoveController {
         classificationCombo.getSelectionModel().clearSelection();
         type1Combo.getSelectionModel().clearSelection();
         type2Combo.setValue("None");
+    }
+
+    private void returnToMoveMenu(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/MoveMenu.fxml"));
+            loader.setControllerFactory(param -> new MoveMenuController(
+                    pokedexManager, moveManager, itemManager, trainerManager
+            ));
+            Parent root = loader.load();
+            Stage stage = (Stage) nameField.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

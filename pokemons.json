@@ -1,0 +1,49 @@
+[
+  {
+    "pokedexNumber": 25,
+    "name": "Pikachu",
+    "type1": "Electric",
+    "baseLevel": 10,
+    "evolutionLevel": 10,
+    "hp": 100,
+    "attack": 100,
+    "defense": 100,
+    "speed": 100,
+    "moveSet": [
+      "Tackle",
+      "Defend"
+    ]
+  },
+  {
+    "pokedexNumber": 19,
+    "name": "Kirsten",
+    "type1": "Water",
+    "type2": "Ice",
+    "baseLevel": 10,
+    "evolutionLevel": 10,
+    "hp": 100,
+    "attack": 100,
+    "defense": 100,
+    "speed": 100,
+    "moveSet": [
+      "Tackle",
+      "Defend"
+    ]
+  },
+  {
+    "pokedexNumber": 4,
+    "name": "China",
+    "type1": "Psychic",
+    "baseLevel": 10,
+    "evolvesFrom": 12,
+    "evolutionLevel": 10,
+    "hp": 100,
+    "attack": 100,
+    "defense": 100,
+    "speed": 100,
+    "moveSet": [
+      "Tackle",
+      "Defend"
+    ]
+  }
+]

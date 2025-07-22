@@ -1,0 +1,14 @@
+[
+  {
+    "name": "kick",
+    "description": "someone save me",
+    "classification": "TM",
+    "type1": "Normal"
+  },
+  {
+    "name": "save",
+    "description": "plsplspls save me",
+    "classification": "HM",
+    "type1": "Psychic"
+  }
+]

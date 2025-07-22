@@ -54,26 +54,19 @@ public class PokedexManager {
         }
     }
 
-    public void searchByName(String name){
+    public List<Pokemon> searchByName(String name) {
         List<Pokemon> found = new ArrayList<>();
         String keyword = name.toLowerCase();
 
-        for(Pokemon p: pokedex){
-            if(p.getName().toLowerCase().contains(keyword)){
+        for (Pokemon p : pokedex) {
+            if (p.getName().toLowerCase().contains(keyword)) {
                 found.add(p);
             }
         }
-        if (found.isEmpty()) {
-            System.out.println("No Pokémon found with keyword containing: " + name);
-        } else {
-            System.out.printf("Pokémon found:\n\n");
-            for (Pokemon p : found) {
-                System.out.println(p);
-            }
-        }
+        return found;
     }
 
-    public void searchByType(String type) {
+    public List<Pokemon> searchByType(String type) {
         List<Pokemon> found = new ArrayList<>();
         String keyword = type.toLowerCase();
 
@@ -83,12 +76,16 @@ public class PokedexManager {
                 found.add(p);
             }
         }
-        if (found.isEmpty()) {
-            System.out.println("No Pokémon found with type: " + type);
-        } else {
-            System.out.println();
-            found.forEach(System.out::println);
+        return found;
+    }
+
+    public Pokemon getByPokedexNumber(int number) {
+        for (Pokemon p : pokedex) {
+            if (p.getPokedexNumber() == number) {
+                return p;
+            }
         }
+        return null;
     }
 
     public void searchByNumber(int number) {
