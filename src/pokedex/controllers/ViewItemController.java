@@ -3,7 +3,10 @@ package pokedex.controllers;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -12,6 +15,10 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import pokedex.managers.ItemManager;
 import pokedex.models.Item;
+import javafx.event.ActionEvent;
+import javafx.scene.Node;
+import java.io.IOException;
+
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -64,8 +71,16 @@ public class ViewItemController implements Initializable {
     }
 
     @FXML
-    private void handleBack() {
-        Stage stage = (Stage) itemTableView.getScene().getWindow();
-        stage.close();
+    private void handleBack(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ItemMenu.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace(); // OK for now
+        }
     }
+
 }
