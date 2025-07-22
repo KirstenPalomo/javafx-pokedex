@@ -8,7 +8,6 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pokedex.controllers.ViewPokemonController">
    <children>
       <ImageView fitHeight="420.0" fitWidth="606.0" layoutX="-2.0" layoutY="-2.0" pickOnBounds="true" preserveRatio="true">
@@ -16,14 +15,15 @@
             <Image url="@../assets/viewPokemon.png" />
          </image>
       </ImageView>
-      <ListView fx:id="pokemonListView" layoutX="73.0" layoutY="122.0" prefHeight="185.0" prefWidth="133.0" />
-      <VBox alignment="CENTER" layoutX="225.0" layoutY="124.0" prefHeight="184.0" prefWidth="159.0" spacing="25.0">
+      <ListView fx:id="listViewPokemon" layoutX="73.0" layoutY="122.0" prefHeight="185.0" prefWidth="133.0" />
+      <VBox alignment="CENTER" layoutX="225.0" layoutY="124.0" prefHeight="184.0" prefWidth="159.0" spacing="10.0">
          <children>
-            <Label fx:id="labelNumber" text="Pokedex Number :" />
-            <Label fx:id="labelNumber1" layoutX="10.0" layoutY="10.0" text="Type :" />
+            <Label fx:id="labelPokedexNumber" text="Pokedex Number :" />
+            <Label fx:id="labelType" layoutX="10.0" layoutY="10.0" text="Type :" />
             <Label fx:id="labelLevel" layoutX="10.0" layoutY="27.0" text="Level :" />
             <Label fx:id="labelEvolvesFrom" layoutX="10.0" layoutY="44.0" text="Evolves From :" />
             <Label fx:id="labelEvolvesTo" layoutX="10.0" layoutY="61.0" text="Evolves To :" />
+            <Label fx:id="labelMoves" prefWidth="43.0" text="Moves :" wrapText="true" />
          </children>
       </VBox>
       <VBox alignment="CENTER" layoutX="403.0" layoutY="124.0" prefHeight="176.0" prefWidth="113.0" spacing="15.0">
@@ -32,7 +32,6 @@
             <Label fx:id="labelAtk" layoutX="10.0" layoutY="10.0" text="ATK :" />
             <Label fx:id="labelDef" layoutX="10.0" layoutY="27.0" text="DEF :" />
             <Label fx:id="labelSpd" layoutX="10.0" layoutY="44.0" text="SPD :" />
-            <Label fx:id="labelMoves" layoutX="10.0" layoutY="61.0" text="Moves :" />
             <Label fx:id="labelHeldItem" layoutX="10.0" layoutY="78.0" text="Held Item :" />
          </children>
       </VBox>

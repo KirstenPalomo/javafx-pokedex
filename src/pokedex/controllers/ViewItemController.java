@@ -17,9 +17,8 @@ import pokedex.managers.ItemManager;
 import pokedex.models.Item;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
+
 import java.io.IOException;
-
-
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -45,29 +44,28 @@ public class ViewItemController implements Initializable {
         colBuy.setCellValueFactory(new PropertyValueFactory<>("buyingPrice"));
         colSell.setCellValueFactory(new PropertyValueFactory<>("sellingPrice"));
 
-        // Add tooltip for Description column
-        colDescription.setCellFactory(tc -> new TableCell<>() {
-            @Override
-            protected void updateItem(String item, boolean empty) {
-                super.updateItem(item, empty);
-                setText(item);
-                setTooltip(item == null || empty ? null : new Tooltip(item));
-            }
-        });
+        // Apply tooltip on hover for all relevant columns (except Sell)
+        applyTooltip(colName);
+        applyTooltip(colCategory);
+        applyTooltip(colDescription);
+        applyTooltip(colEffects);
+        applyTooltip(colBuy);
 
-        // Add tooltip for Buying Price column
-        colBuy.setCellFactory(tc -> new TableCell<>() {
-            @Override
-            protected void updateItem(String item, boolean empty) {
-                super.updateItem(item, empty);
-                setText(item);
-                setTooltip(item == null || empty ? null : new Tooltip(item));
-            }
-        });
-
-        // Load data into the table
+        // Load data
         ObservableList<Item> data = FXCollections.observableArrayList(itemManager.getAllItems());
         itemTableView.setItems(data);
+    }
+
+    // Helper method to apply tooltip to a column
+    private void applyTooltip(TableColumn<Item, String> column) {
+        column.setCellFactory(tc -> new TableCell<>() {
+            @Override
+            protected void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+                setText(item);
+                setTooltip((item == null || empty) ? null : new Tooltip(item));
+            }
+        });
     }
 
     @FXML
@@ -79,8 +77,7 @@ public class ViewItemController implements Initializable {
             stage.setScene(new Scene(root));
             stage.show();
         } catch (IOException e) {
-            e.printStackTrace(); // OK for now
+            e.printStackTrace(); // Simple logging for now
         }
     }
-
 }
