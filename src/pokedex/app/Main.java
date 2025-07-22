@@ -14,6 +14,7 @@ import pokedex.managers.TrainerManager;
 import pokedex.models.Move;
 import pokedex.models.Pokemon;
 import pokedex.models.Trainer;
+import pokedex.controllers.StartScreenController;
 
 import java.util.List;
 import java.util.Objects;
@@ -21,24 +22,32 @@ import java.util.Objects;
 public class Main extends Application {
     @Override
     public void start(Stage stage) throws Exception {
-        // 🔹 Load custom font BEFORE loading the FXML
         Font.loadFont(Objects.requireNonNull(getClass().getResourceAsStream("/assets/PressStart2P-Regular.ttf")), 12);
-        PokedexManager pokedexManager   = PokedexManager.getInstance();
-    MoveManager moveManager         = MoveManager.getInstance();
-    ItemManager itemManager         = new ItemManager();
-    TrainerManager trainerManager   = new TrainerManager();
-    List<Trainer> savedTrainers = JsonManager.loadTrainers();
-    if (savedTrainers != null) trainerManager.setTrainers(savedTrainers);
 
-    List<Pokemon> savedPokemons = JsonManager.loadPokemons();
-    if (savedPokemons != null) pokedexManager.setAllPokemon(savedPokemons);
+        // Instantiate managers
+        PokedexManager pokedexManager = PokedexManager.getInstance();
+        MoveManager moveManager = MoveManager.getInstance();
+        ItemManager itemManager = new ItemManager();
+        TrainerManager trainerManager = new TrainerManager();
 
-    List<Move> savedMoves = JsonManager.loadMoves();
-    if (savedMoves != null) moveManager.setAllMoves(savedMoves);
+        // Load from JSON
+        List<Trainer> savedTrainers = JsonManager.loadTrainers();
+        if (savedTrainers != null) trainerManager.setTrainers(savedTrainers);
 
+        List<Pokemon> savedPokemons = JsonManager.loadPokemons();
+        if (savedPokemons != null) pokedexManager.setAllPokemon(savedPokemons);
 
+        List<Move> savedMoves = JsonManager.loadMoves();
+        if (savedMoves != null) moveManager.setAllMoves(savedMoves);
 
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/fxml/StartScreen.fxml")));
+        // 💡 Use FXMLLoader with controller factory
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/StartScreen.fxml"));
+        loader.setControllerFactory(param -> new StartScreenController(
+                pokedexManager, moveManager, itemManager, trainerManager
+        ));
+
+        Parent root = loader.load();
+
         Scene scene = new Scene(root);
         scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/css/style.css")).toExternalForm());
 
@@ -46,7 +55,6 @@ public class Main extends Application {
         stage.setScene(scene);
         stage.show();
     }
-
     public static void main(String[] args) {
         launch(args);
     }

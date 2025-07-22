@@ -14,6 +14,9 @@ import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import pokedex.managers.ItemManager;
+import pokedex.managers.MoveManager;
+import pokedex.managers.PokedexManager;
+import pokedex.managers.TrainerManager;
 import pokedex.models.Item;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
@@ -32,7 +35,19 @@ public class ViewItemController implements Initializable {
     @FXML private TableColumn<Item, String> colBuy;
     @FXML private TableColumn<Item, String> colSell;
 
-    private final ItemManager itemManager = new ItemManager();
+    private final PokedexManager pokedexManager;
+    private final MoveManager moveManager;
+    private final ItemManager itemManager;
+    private final TrainerManager trainerManager;
+
+    // ✅ Constructor to receive managers
+    public ViewItemController(PokedexManager pokedexManager, MoveManager moveManager,
+                              ItemManager itemManager, TrainerManager trainerManager) {
+        this.pokedexManager = pokedexManager;
+        this.moveManager = moveManager;
+        this.itemManager = itemManager;
+        this.trainerManager = trainerManager;
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -72,12 +87,15 @@ public class ViewItemController implements Initializable {
     private void handleBack(ActionEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ItemMenu.fxml"));
+            loader.setControllerFactory(param -> new ItemMenuController(
+                    pokedexManager, moveManager, itemManager, trainerManager
+            ));
             Parent root = loader.load();
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.show();
         } catch (IOException e) {
-            e.printStackTrace(); // Simple logging for now
+            e.printStackTrace();
         }
     }
 }

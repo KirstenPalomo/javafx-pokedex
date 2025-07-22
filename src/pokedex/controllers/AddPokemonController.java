@@ -7,8 +7,12 @@ import javafx.event.ActionEvent;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import java.io.IOException;
 import pokedex.models.Pokemon;
+import pokedex.managers.ItemManager;
+import pokedex.managers.MoveManager;
 import pokedex.managers.PokedexManager;
+import pokedex.managers.TrainerManager;
 
 import java.util.List;
 
@@ -26,7 +30,6 @@ public class AddPokemonController {
     @FXML private TextField evolutionLevelField;
 
     @FXML private Label feedbackLabel;
-
     @FXML private ComboBox<String> type1ComboBox;
     @FXML private ComboBox<String> type2ComboBox;
 
@@ -35,6 +38,19 @@ public class AddPokemonController {
             "Ground", "Flying", "Psychic", "Bug", "Rock", "Ghost", "Dragon", "Dark",
             "Steel", "Fairy"
     );
+
+    private final PokedexManager pokedexManager;
+    private final MoveManager moveManager;
+    private final ItemManager itemManager;
+    private final TrainerManager trainerManager;
+
+    public AddPokemonController(PokedexManager pokedexManager, MoveManager moveManager,
+                                ItemManager itemManager, TrainerManager trainerManager) {
+        this.pokedexManager = pokedexManager;
+        this.moveManager = moveManager;
+        this.itemManager = itemManager;
+        this.trainerManager = trainerManager;
+    }
 
     @FXML
     public void initialize() {
@@ -59,8 +75,8 @@ public class AddPokemonController {
             String evolvesToText = evolvesToField.getText().trim();
             String evolutionLevelText = evolutionLevelField.getText().trim();
 
-            Integer evolvesFrom = evolvesFromText.isEmpty() ? null : Integer.parseInt(evolvesFromText);
-            Integer evolvesTo = evolvesToText.isEmpty() ? null : Integer.parseInt(evolvesToText);
+            Integer evolvesFrom = evolvesFromText.isEmpty() || evolvesFromText.equals("-1") ? null : Integer.parseInt(evolvesFromText);
+            Integer evolvesTo = evolvesToText.isEmpty() || evolvesToText.equals("-1") ? null : Integer.parseInt(evolvesToText);
             Integer evolutionLevel = evolutionLevelText.isEmpty() ? null : Integer.parseInt(evolutionLevelText);
 
             String type1 = type1ComboBox.getValue();
@@ -68,22 +84,14 @@ public class AddPokemonController {
             if (type2.equals("None")) type2 = null;
 
             // ✅ Duplicate number check
-            if (PokedexManager.getInstance().hasPokemonWithNumber(number)) {
-                Alert numberAlert = new Alert(Alert.AlertType.ERROR);
-                numberAlert.setTitle("Duplicate Number");
-                numberAlert.setHeaderText(null);
-                numberAlert.setContentText("A Pokémon with number #" + number + " already exists.");
-                numberAlert.showAndWait();
+            if (pokedexManager.hasPokemonWithNumber(number)) {
+                showAlert(Alert.AlertType.ERROR, "Duplicate Number", "A Pokémon with number #" + number + " already exists.");
                 return;
             }
 
-// ✅ Duplicate name check
-            if (PokedexManager.getInstance().hasPokemonWithName(name)) {
-                Alert nameAlert = new Alert(Alert.AlertType.ERROR);
-                nameAlert.setTitle("Duplicate Name");
-                nameAlert.setHeaderText(null);
-                nameAlert.setContentText("The name \"" + name + "\" already exists in the Pokédex.");
-                nameAlert.showAndWait();
+            // ✅ Duplicate name check
+            if (pokedexManager.hasPokemonWithName(name)) {
+                showAlert(Alert.AlertType.ERROR, "Duplicate Name", "The name \"" + name + "\" already exists in the Pokédex.");
                 return;
             }
 
@@ -95,9 +103,11 @@ public class AddPokemonController {
             confirmAlert.getButtonTypes().setAll(ButtonType.YES, ButtonType.NO);
             confirmAlert.showAndWait();
 
-            if (confirmAlert.getResult() != ButtonType.YES) return;
+            if (confirmAlert.getResult() == ButtonType.NO) {
+                goBackToMenu(event);
+                return;
+            }
 
-            // Add the Pokémon
             Pokemon newPokemon = new Pokemon(
                     number, name, type1, type2, level,
                     evolvesFrom, evolvesTo, evolutionLevel,
@@ -105,10 +115,10 @@ public class AddPokemonController {
                     List.of(), null
             );
 
-            PokedexManager.getInstance().addPokemon(newPokemon);
+            pokedexManager.addPokemon(newPokemon);
             clearFields();
 
-            // Ask if Pokémon should cry out
+            // Cry out
             Alert cryAlert = new Alert(Alert.AlertType.CONFIRMATION);
             cryAlert.setTitle("Cry Out?");
             cryAlert.setHeaderText("Let " + name + " cry out?");
@@ -117,24 +127,26 @@ public class AddPokemonController {
             cryAlert.showAndWait();
 
             if (cryAlert.getResult() == ButtonType.YES) {
-                Alert soundAlert = new Alert(Alert.AlertType.INFORMATION);
-                soundAlert.setTitle("Pokémon Cries");
-                soundAlert.setHeaderText(null);
-                soundAlert.setContentText(name.toUpperCase() + "!");
-                soundAlert.showAndWait();
+                showAlert(Alert.AlertType.INFORMATION, "Pokémon Cries", name.toUpperCase() + "!");
             }
 
-            // Go back to Pokémon main menu (PokemonMenu.fxml)
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/PokemonMenu.fxml"));
-            Parent root = loader.load();
-            Stage stage = (Stage) nameField.getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.show();
+            goBackToMenu(event);
 
         } catch (Exception e) {
             feedbackLabel.setStyle("-fx-text-fill: red;");
             feedbackLabel.setText("Invalid inputs");
         }
+    }
+
+    private void goBackToMenu(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/PokemonMenu.fxml"));
+        loader.setControllerFactory(param -> new PokemonMenuController(
+                pokedexManager, moveManager, itemManager, trainerManager
+        ));
+        Parent root = loader.load();
+        Stage stage = (Stage) nameField.getScene().getWindow();
+        stage.setScene(new Scene(root));
+        stage.show();
     }
 
     private void clearFields() {
@@ -150,5 +162,13 @@ public class AddPokemonController {
         evolutionLevelField.clear();
         type1ComboBox.getSelectionModel().clearSelection();
         type2ComboBox.setValue("None");
+    }
+
+    private void showAlert(Alert.AlertType type, String title, String message) {
+        Alert alert = new Alert(type);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 }
