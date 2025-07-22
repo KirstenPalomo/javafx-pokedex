@@ -75,6 +75,9 @@ public class ItemManager {
         }
     }
 
+    public List<Item> getAllItems() {
+        return items;
+    }
     public void searchItemByEffect(String effect) {
         List<Item> found = new ArrayList<>();
         String keyword = effect.toLowerCase();
