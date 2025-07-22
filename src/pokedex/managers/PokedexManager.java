@@ -1,0 +1,141 @@
+package pokedex.managers;
+
+import pokedex.models.Pokemon;
+import java.util.ArrayList;
+import java.util.List;
+
+public class PokedexManager {
+
+    // 🔹 Singleton instance
+    private static PokedexManager instance;
+
+    // 🔹 Private constructor to prevent external instantiation
+    private PokedexManager() {}
+
+    // 🔹 Public method to access the single instance
+    public static PokedexManager getInstance() {
+        if (instance == null) {
+            instance = new PokedexManager();
+        }
+        return instance;
+    }
+
+    private List<Pokemon> pokedex = new ArrayList<>();
+
+    private static final List<String> ALLOWED_STONE_EVOLUTION_NAMES = List.of(
+            "pikachu", "clefairy", "jigglypuff", "skitty", "eevee"
+    );
+
+    public List<String> getAllowedStoneEvolutionNames() {
+        return ALLOWED_STONE_EVOLUTION_NAMES;
+    }
+
+    public boolean addPokemon(Pokemon p) {
+        for (Pokemon existing : pokedex) {
+            if (existing.getPokedexNumber() == p.getPokedexNumber() ||
+                    existing.getName().equalsIgnoreCase(p.getName())) {
+                return false;
+            }
+        }
+        pokedex.add(p);
+        return true;
+    }
+
+    public void viewAll() {
+        if (pokedex.isEmpty()) {
+            System.out.println("Pokedex is empty.");
+            return;
+        }
+        for (Pokemon p : pokedex) {
+            System.out.println(p);
+        }
+    }
+
+    public void searchByName(String name){
+        List<Pokemon> found = new ArrayList<>();
+        String keyword = name.toLowerCase();
+
+        for(Pokemon p: pokedex){
+            if(p.getName().toLowerCase().contains(keyword)){
+                found.add(p);
+            }
+        }
+        if (found.isEmpty()) {
+            System.out.println("No Pokémon found with keyword containing: " + name);
+        } else {
+            System.out.printf("Pokémon found:\n\n");
+            for (Pokemon p : found) {
+                System.out.println(p);
+            }
+        }
+    }
+
+    public void searchByType(String type) {
+        List<Pokemon> found = new ArrayList<>();
+        String keyword = type.toLowerCase();
+
+        for (Pokemon p : pokedex) {
+            if (p.getType1().toLowerCase().equals(keyword) ||
+                    (p.getType2() != null && p.getType2().toLowerCase().equals(keyword))) {
+                found.add(p);
+            }
+        }
+        if (found.isEmpty()) {
+            System.out.println("No Pokémon found with type: " + type);
+        } else {
+            System.out.println();
+            found.forEach(System.out::println);
+        }
+    }
+
+    public void searchByNumber(int number) {
+        for (Pokemon p : pokedex) {
+            if (p.getPokedexNumber() == number) {
+                System.out.println("Pokémon found:\n\n" + p);
+                return;
+            }
+        }
+        System.out.println("No Pokémon found with Pokédex #" + number);
+    }
+
+    public boolean hasPokemonWithNumber(int number) {
+        for (Pokemon p : pokedex) {
+            if (p.getPokedexNumber() == number) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public Pokemon getPokemonByNumber(int number) {
+        for (Pokemon p : pokedex) {
+            if (p.getPokedexNumber() == number) {
+                return p;
+            }
+        }
+        return null;
+    }
+
+    public boolean hasPokemonWithName(String name) {
+        for (Pokemon p : pokedex) {
+            if (p.getName().equalsIgnoreCase(name)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public Pokemon getPokemonByName(String name) {
+        for (Pokemon p : pokedex) {
+            if (p.getName().equalsIgnoreCase(name.trim())) {
+                return p;
+            }
+        }
+        return null;
+    }
+
+    public List<Pokemon> getAllPokemon() {
+        return new ArrayList<>(pokedex); // returns a copy for safe external use
+    }
+
+}
