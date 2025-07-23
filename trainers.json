@@ -1,1 +1,26 @@
-[]
+[
+  {
+    "trainerID": "1",
+    "name": "Sunghoon",
+    "birthdate": "2002-12-08",
+    "sex": "M",
+    "hometown": "SK",
+    "description": "WOAHHHHHHHH",
+    "money": 1000000,
+    "lineup": [],
+    "storage": [],
+    "itemBag": {}
+  },
+  {
+    "trainerID": "21",
+    "name": "JAKE",
+    "birthdate": "2002-11-15",
+    "sex": "M",
+    "hometown": "AUSTRALIA",
+    "description": "HE IS FROM AUSTRALIA",
+    "money": 1000000,
+    "lineup": [],
+    "storage": [],
+    "itemBag": {}
+  }
+]

@@ -56,10 +56,21 @@ public class ItemMenuController {
     }
 
     @FXML
-    private void handleSearch() {
-        // Intentionally left blank for now
-        System.out.println("🔍 Search Items clicked (not implemented yet).");
+private void handleSearch(ActionEvent event) {
+    try {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/SearchItem.fxml"));
+        loader.setControllerFactory(param -> new SearchItemController(
+            pokedexManager, moveManager, itemManager, trainerManager
+        ));
+        Parent root = loader.load();
+        Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        stage.setScene(new Scene(root));
+        stage.show();
+    } catch (IOException e) {
+        e.printStackTrace();
     }
+}
+
 
     @FXML
     private void handleBack(ActionEvent event) {
