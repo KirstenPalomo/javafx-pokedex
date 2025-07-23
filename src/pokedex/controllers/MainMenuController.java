@@ -9,6 +9,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.scene.Node;
 import pokedex.JsonManager;
+import pokedex.controllers.MainMenuController;
 import pokedex.managers.ItemManager;
 import pokedex.managers.MoveManager;
 import pokedex.managers.PokedexManager;
@@ -22,6 +23,7 @@ public class MainMenuController {
     private final MoveManager moveManager;
     private final ItemManager itemManager;
     private final TrainerManager trainerManager;
+
 
     public MainMenuController(PokedexManager pokedexManager, MoveManager moveManager,
                               ItemManager itemManager, TrainerManager trainerManager) {
@@ -98,10 +100,16 @@ public class MainMenuController {
     }
 
     @FXML
-    private void goToTrainer(ActionEvent event) {
-        System.out.println("Navigate to Trainer screen");
-        // TODO: Add TrainerMenuController and scene switch logic here when ready
+    private void goToTrainerMenu(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/TrainerMenu.fxml"));
+        loader.setControllerFactory(param -> new TrainerMenuController(pokedexManager, moveManager, itemManager, trainerManager));
+        Parent root = loader.load();
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(new Scene(root));
+        stage.show();
     }
+
+
 
     @FXML
     private void exitApp(ActionEvent event) {

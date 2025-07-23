@@ -45,5 +45,22 @@
       "Tackle",
       "Defend"
     ]
+  },
+  {
+    "pokedexNumber": 1,
+    "name": "Layla",
+    "type1": "Normal",
+    "baseLevel": 1,
+    "evolvesFrom": 0,
+    "evolvesTo": 21,
+    "evolutionLevel": 20,
+    "hp": 24,
+    "attack": 78,
+    "defense": 43,
+    "speed": 56,
+    "moveSet": [
+      "Tackle",
+      "Defend"
+    ]
   }
 ]
