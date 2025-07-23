@@ -62,5 +62,22 @@
       "Tackle",
       "Defend"
     ]
+  },
+  {
+    "pokedexNumber": 20,
+    "name": "Kelsey",
+    "type1": "Ice",
+    "type2": "Fire",
+    "baseLevel": 23,
+    "evolvesTo": 10,
+    "evolutionLevel": 10,
+    "hp": 1100,
+    "attack": 1100,
+    "defense": 1100,
+    "speed": 1100,
+    "moveSet": [
+      "Tackle",
+      "Defend"
+    ]
   }
 ]

@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.event.ActionEvent;
@@ -24,7 +25,7 @@ public class AddTrainerController {
     @FXML private TextField idField;
     @FXML private TextField nameField;
     @FXML private TextField sexField;
-    @FXML private TextField birthdateField;
+    @FXML private DatePicker birthdateField;
     @FXML private TextField hometownField;
     @FXML private TextArea descriptionArea;
 
@@ -46,12 +47,12 @@ public class AddTrainerController {
         String id = idField.getText().trim();
         String name = nameField.getText().trim();
         String sex = sexField.getText().trim().toUpperCase();
-        String birthdateStr = birthdateField.getText().trim();
+        LocalDate birthdateStr = birthdateField.getValue();
         String hometown = hometownField.getText().trim();
         String description = descriptionArea.getText().trim();
 
         // Basic validation
-        if (id.isEmpty() || name.isEmpty() || sex.isEmpty() || birthdateStr.isEmpty() || hometown.isEmpty()) {
+        if (id.isEmpty() || name.isEmpty() || sex.isEmpty() || birthdateStr == null || hometown.isEmpty()) {
             showAlert(Alert.AlertType.ERROR, "Please fill in all required fields.");
             return;
         }
@@ -61,13 +62,7 @@ public class AddTrainerController {
             return;
         }
 
-        LocalDate birthdate;
-        try {
-            birthdate = LocalDate.parse(birthdateStr);
-        } catch (DateTimeParseException e) {
-            showAlert(Alert.AlertType.ERROR, "Birthdate must be in format YYYY-MM-DD.");
-            return;
-        }
+        LocalDate birthdate = birthdateStr;
 
         if (trainerManager.hasTrainerWithID(id)) {
             showAlert(Alert.AlertType.ERROR, "A trainer with this ID already exists.");

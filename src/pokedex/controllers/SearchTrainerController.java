@@ -8,6 +8,7 @@ import javafx.scene.control.*;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
+import javafx.scene.layout.Region;
 import pokedex.managers.ItemManager;
 import pokedex.managers.MoveManager;
 import pokedex.managers.PokedexManager;
@@ -46,67 +47,62 @@ public class SearchTrainerController {
         String hometownInput = hometownField.getText().trim();
         LocalDate birthdateInput = birthdatePicker.getValue();
 
-        Trainer found = null;
+        if (idInput.isEmpty() && nameInput.isEmpty() && (sexInput == null || sexInput.isEmpty()) &&
+                hometownInput.isEmpty() && birthdateInput == null) {
+            showAlert(AlertType.WARNING, "Missing Input", "Please fill in at least one field to search.");
+            return;
+        }
 
-        if (!idInput.isEmpty()) {
-            found = trainerManager.getTrainerWithID(idInput);
-        } else if (!nameInput.isEmpty()) {
-            found = trainerManager.getTrainerWithName(nameInput);
-        } else if (sexInput != null && !sexInput.isEmpty()) {
-            for (Trainer t : trainerManager.getAllTrainers()) {
-                if (t.getSex().equalsIgnoreCase(sexInput)) {
-                    found = t;
-                    break;
-                }
+        StringBuilder resultBuilder = new StringBuilder();
+
+        for (Trainer t : trainerManager.getAllTrainers()) {
+            boolean match = idInput.isEmpty() || t.getTrainerID().equalsIgnoreCase(idInput);
+
+            if (!nameInput.isEmpty() && !t.getName().equalsIgnoreCase(nameInput)) {
+                match = false;
             }
-        } else if (!hometownInput.isEmpty()) {
-            for (Trainer t : trainerManager.getAllTrainers()) {
-                if (t.getHometown().equalsIgnoreCase(hometownInput)) {
-                    found = t;
-                    break;
-                }
+            if (sexInput != null && !sexInput.isEmpty() && !t.getSex().equalsIgnoreCase(sexInput)) {
+                match = false;
             }
-        } else if (birthdateInput != null) {
-            for (Trainer t : trainerManager.getAllTrainers()) {
-                if (t.getBirthdate().equals(birthdateInput)) {
-                    found = t;
-                    break;
-                }
+            if (!hometownInput.isEmpty() && !t.getHometown().equalsIgnoreCase(hometownInput)) {
+                match = false;
+            }
+            if (birthdateInput != null && !t.getBirthdate().equals(birthdateInput)) {
+                match = false;
+            }
+
+            if (match) {
+                resultBuilder.append(formatTrainer(t)).append("\n\n");
             }
         }
 
-        if (found != null) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Trainer Found");
-            alert.setHeaderText(null);
-            alert.setContentText(formatTrainer(found));
-            alert.showAndWait(); // Wait until OK is pressed
-
-            // Navigate back to Trainer Menu
-            try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/TrainerMenu.fxml"));
-                loader.setControllerFactory(param -> new TrainerMenuController(
-                        pokedexManager, moveManager, itemManager, trainerManager
-                ));
-                Parent root = loader.load();
-                Stage stage = (Stage) idField.getScene().getWindow();
-                stage.setScene(new Scene(root));
-                stage.show();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
+        if (!resultBuilder.isEmpty()) {
+            showAlert(AlertType.INFORMATION, "Trainer(s) Found", resultBuilder.toString());
         } else {
             showAlert(AlertType.WARNING, "No Match", "No trainer matched the given input.");
         }
-    }
 
+        // Navigate back to Trainer Menu after showing results
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/TrainerMenu.fxml"));
+            loader.setControllerFactory(param -> new TrainerMenuController(
+                    pokedexManager, moveManager, itemManager, trainerManager
+            ));
+            Parent root = loader.load();
+            Stage stage = (Stage) idField.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     private void showAlert(AlertType type, String title, String message) {
         Alert alert = new Alert(type);
         alert.setTitle(title);
         alert.setHeaderText(null);
         alert.setContentText(message);
+        alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE); // So it expands for long messages
         alert.showAndWait();
     }
 
