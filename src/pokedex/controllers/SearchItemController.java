@@ -7,6 +7,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
 import pokedex.managers.ItemManager;
 import pokedex.managers.MoveManager;
@@ -28,7 +31,6 @@ public class SearchItemController {
     private final ItemManager itemManager;
     private final TrainerManager trainerManager;
 
-    // your DI constructor
     public SearchItemController(PokedexManager pokedexManager,
                                 MoveManager moveManager,
                                 ItemManager itemManager,
@@ -47,39 +49,17 @@ public class SearchItemController {
             return;
         }
 
-        // do the search
         List<Item> found = itemManager.getAllItems().stream()
                 .filter(i -> i.getName().toLowerCase().contains(kw.toLowerCase()))
                 .toList();
 
-        // build content text
-        String content;
         if (found.isEmpty()) {
-            content = "No items found matching: " + kw;
+            showSimpleAlert(Alert.AlertType.INFORMATION, "No items found matching: " + kw);
         } else {
             StringBuilder sb = new StringBuilder();
             found.forEach(i -> sb.append(i).append("\n"));
-            content = sb.toString();
+            showScrollableDialog("Search Results", sb.toString());
         }
-
-        // show single Alert with OK + Back buttons
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.initOwner(submitBtn.getScene().getWindow());
-        alert.setTitle("Search Results");
-        alert.setHeaderText(null);
-        alert.setContentText(content);
-        alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
-
-        // replace buttons
-        ButtonType okBtn   = new ButtonType("OK", ButtonBar.ButtonData.OK_DONE);
-        ButtonType backBtn = new ButtonType("Back to Main Menu", ButtonBar.ButtonData.CANCEL_CLOSE);
-        alert.getButtonTypes().setAll(okBtn, backBtn);
-
-        Optional<ButtonType> choice = alert.showAndWait();
-        if (choice.isPresent() && choice.get() == backBtn) {
-            goToMainMenu();
-        }
-        // otherwise just close and stay
     }
 
     private void showSimpleAlert(Alert.AlertType type, String msg) {
@@ -89,12 +69,37 @@ public class SearchItemController {
         a.showAndWait();
     }
 
+    private void showScrollableDialog(String title, String content) {
+        Dialog<ButtonType> dialog = new Dialog<>();
+        dialog.setTitle(title);
+        dialog.initOwner(submitBtn.getScene().getWindow());
+
+        DialogPane dialogPane = dialog.getDialogPane();
+        dialogPane.getButtonTypes().addAll(ButtonType.OK, new ButtonType("Back to Main Menu", ButtonBar.ButtonData.CANCEL_CLOSE));
+
+        TextArea textArea = new TextArea(content);
+        textArea.setWrapText(true);
+        textArea.setEditable(false);
+        textArea.setPrefWidth(500);
+        textArea.setPrefHeight(400);
+
+        ScrollPane scrollPane = new ScrollPane(textArea);
+        scrollPane.setFitToWidth(true);
+        scrollPane.setFitToHeight(true);
+
+        VBox container = new VBox(scrollPane);
+        container.setPrefSize(500, 400);
+        dialogPane.setContent(container);
+
+        Optional<ButtonType> choice = dialog.showAndWait();
+        if (choice.isPresent() && choice.get().getButtonData() == ButtonBar.ButtonData.CANCEL_CLOSE) {
+            goToMainMenu();
+        }
+    }
+
     private void goToMainMenu() {
         try {
-            FXMLLoader loader = new FXMLLoader(
-                    getClass().getResource("/fxml/MainMenu.fxml")
-            );
-            // ensure your custom constructor is called:
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/MainMenu.fxml"));
             loader.setControllerFactory(param -> new MainMenuController(
                     pokedexManager, moveManager, itemManager, trainerManager
             ));

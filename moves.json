@@ -10,5 +10,18 @@
     "description": "plsplspls save me",
     "classification": "HM",
     "type1": "Psychic"
+  },
+  {
+    "name": "flee",
+    "description": "run away",
+    "classification": "HM",
+    "type1": "Normal",
+    "type2": "Fighting"
+  },
+  {
+    "name": "sleep",
+    "description": "I wanna sleep",
+    "classification": "TM",
+    "type1": "Normal"
   }
 ]

@@ -22,7 +22,6 @@ public class AddMoveController {
     @FXML private ComboBox<String> classificationCombo;
     @FXML private ComboBox<String> type1Combo;
     @FXML private ComboBox<String> type2Combo;
-    @FXML private Label feedbackLabel;
 
     private final MoveManager moveManager;
     private final PokedexManager pokedexManager;
@@ -63,17 +62,12 @@ public class AddMoveController {
             if ("None".equals(type2)) type2 = null;
 
             if (name.isEmpty() || description.isEmpty() || classification == null || type1 == null) {
-                feedbackLabel.setStyle("-fx-text-fill: red;");
-                feedbackLabel.setText("Invalid inputs");
+                showAlert(Alert.AlertType.ERROR, "Missing Fields", "Please fill in all required fields.");
                 return;
             }
 
             if (moveManager.hasMoveWithName(name)) {
-                Alert duplicateAlert = new Alert(Alert.AlertType.ERROR);
-                duplicateAlert.setTitle("Duplicate Move");
-                duplicateAlert.setHeaderText(null);
-                duplicateAlert.setContentText("A move named \"" + name + "\" already exists.");
-                duplicateAlert.showAndWait();
+                showAlert(Alert.AlertType.ERROR, "Duplicate Move", "A move named \"" + name + "\" already exists.");
                 return;
             }
 
@@ -85,7 +79,6 @@ public class AddMoveController {
             confirmAlert.showAndWait();
 
             if (confirmAlert.getResult() == ButtonType.NO) {
-                returnToMoveMenu(event);
                 return;
             }
 
@@ -93,17 +86,11 @@ public class AddMoveController {
             moveManager.addMove(move);
             clearFields();
 
-            Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
-            successAlert.setTitle("Move Added");
-            successAlert.setHeaderText(null);
-            successAlert.setContentText("\"" + name + "\" has been successfully added.");
-            successAlert.showAndWait();
-
+            showAlert(Alert.AlertType.INFORMATION, "Move Added", "Move \"" + name + "\" was successfully added.");
             returnToMoveMenu(event);
 
         } catch (Exception e) {
-            feedbackLabel.setStyle("-fx-text-fill: red;");
-            feedbackLabel.setText("Invalid input");
+            showAlert(Alert.AlertType.ERROR, "Error", "An unexpected error occurred.");
             e.printStackTrace();
         }
     }
@@ -129,5 +116,13 @@ public class AddMoveController {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private void showAlert(Alert.AlertType type, String title, String message) {
+        Alert alert = new Alert(type);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 }

@@ -22,5 +22,29 @@
     "lineup": [],
     "storage": [],
     "itemBag": {}
+  },
+  {
+    "trainerID": "663",
+    "name": "Haewon",
+    "birthdate": "1999-01-01",
+    "sex": "M",
+    "hometown": "HongKong",
+    "description": "Tall, Handsome",
+    "money": 1000000,
+    "lineup": [],
+    "storage": [],
+    "itemBag": {}
+  },
+  {
+    "trainerID": "6",
+    "name": "Yujin",
+    "birthdate": "2003-09-01",
+    "sex": "F",
+    "hometown": "SK",
+    "description": "Leader of Ive",
+    "money": 1000000,
+    "lineup": [],
+    "storage": [],
+    "itemBag": {}
   }
 ]

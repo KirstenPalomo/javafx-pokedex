@@ -28,8 +28,6 @@ public class AddPokemonController {
     @FXML private TextField evolvesFromField;
     @FXML private TextField evolvesToField;
     @FXML private TextField evolutionLevelField;
-
-    @FXML private Label feedbackLabel;
     @FXML private ComboBox<String> type1ComboBox;
     @FXML private ComboBox<String> type2ComboBox;
 
@@ -64,12 +62,26 @@ public class AddPokemonController {
     private void handleAddPokemon(ActionEvent event) {
         try {
             String name = nameField.getText().trim();
-            int number = Integer.parseInt(pokedexNumberField.getText().trim());
-            int level = Integer.parseInt(levelField.getText().trim());
-            int hp = Integer.parseInt(hpField.getText().trim());
-            int attack = Integer.parseInt(attackField.getText().trim());
-            int defense = Integer.parseInt(defenseField.getText().trim());
-            int speed = Integer.parseInt(speedField.getText().trim());
+            String pokedexText = pokedexNumberField.getText().trim();
+            String levelText = levelField.getText().trim();
+            String hpText = hpField.getText().trim();
+            String attackText = attackField.getText().trim();
+            String defenseText = defenseField.getText().trim();
+            String speedText = speedField.getText().trim();
+
+            if (name.isEmpty() || pokedexText.isEmpty() || levelText.isEmpty() || hpText.isEmpty()
+                    || attackText.isEmpty() || defenseText.isEmpty() || speedText.isEmpty()
+                    || type1ComboBox.getValue() == null) {
+                showAlert(Alert.AlertType.ERROR, "Missing Fields", "Please fill in all required fields.");
+                return;
+            }
+
+            int number = Integer.parseInt(pokedexText);
+            int level = Integer.parseInt(levelText);
+            int hp = Integer.parseInt(hpText);
+            int attack = Integer.parseInt(attackText);
+            int defense = Integer.parseInt(defenseText);
+            int speed = Integer.parseInt(speedText);
 
             String evolvesFromText = evolvesFromField.getText().trim();
             String evolvesToText = evolvesToField.getText().trim();
@@ -83,15 +95,13 @@ public class AddPokemonController {
             String type2 = type2ComboBox.getValue();
             if (type2.equals("None")) type2 = null;
 
-            // ✅ Duplicate number check
             if (pokedexManager.hasPokemonWithNumber(number)) {
-                showAlert(Alert.AlertType.ERROR, "Duplicate Number", "A Pokémon with number #" + number + " already exists.");
+                showAlert(Alert.AlertType.ERROR, "Duplicate Pokedex Number", "A Pokémon with this Pokedex number already exists.");
                 return;
             }
 
-            // ✅ Duplicate name check
             if (pokedexManager.hasPokemonWithName(name)) {
-                showAlert(Alert.AlertType.ERROR, "Duplicate Name", "The name \"" + name + "\" already exists in the Pokédex.");
+                showAlert(Alert.AlertType.ERROR, "Duplicate Name", "A Pokémon with this name already exists.");
                 return;
             }
 
@@ -104,7 +114,6 @@ public class AddPokemonController {
             confirmAlert.showAndWait();
 
             if (confirmAlert.getResult() == ButtonType.NO) {
-                goBackToMenu(event);
                 return;
             }
 
@@ -118,7 +127,6 @@ public class AddPokemonController {
             pokedexManager.addPokemon(newPokemon);
             clearFields();
 
-            // Cry out
             Alert cryAlert = new Alert(Alert.AlertType.CONFIRMATION);
             cryAlert.setTitle("Cry Out?");
             cryAlert.setHeaderText("Let " + name + " cry out?");
@@ -132,9 +140,11 @@ public class AddPokemonController {
 
             goBackToMenu(event);
 
+        } catch (NumberFormatException e) {
+            showAlert(Alert.AlertType.ERROR, "Invalid Numbers", "All numeric fields must contain valid numbers.");
+            e.printStackTrace();
         } catch (Exception e) {
-            feedbackLabel.setStyle("-fx-text-fill: red;");
-            feedbackLabel.setText("Invalid inputs");
+            e.printStackTrace();
         }
     }
 
