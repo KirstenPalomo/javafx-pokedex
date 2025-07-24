@@ -21,7 +21,7 @@
     "type2": "Ice",
     "baseLevel": 10,
     "evolutionLevel": 10,
-    "hp": 100,
+    "hp": 110,
     "attack": 100,
     "defense": 100,
     "speed": 100,
@@ -75,6 +75,40 @@
     "attack": 1100,
     "defense": 1100,
     "speed": 1100,
+    "moveSet": [
+      "Tackle",
+      "Defend"
+    ]
+  },
+  {
+    "pokedexNumber": 23,
+    "name": "Chanel",
+    "type1": "Fighting",
+    "baseLevel": 1,
+    "evolvesFrom": 0,
+    "evolvesTo": 10,
+    "evolutionLevel": 9,
+    "hp": 57,
+    "attack": 21,
+    "defense": 54,
+    "speed": 43,
+    "moveSet": [
+      "Tackle",
+      "Defend"
+    ]
+  },
+  {
+    "pokedexNumber": 45,
+    "name": "Smiski",
+    "type1": "Ice",
+    "baseLevel": 22,
+    "evolvesFrom": 0,
+    "evolvesTo": 54,
+    "evolutionLevel": 32,
+    "hp": 23,
+    "attack": 76,
+    "defense": 98,
+    "speed": 87,
     "moveSet": [
       "Tackle",
       "Defend"

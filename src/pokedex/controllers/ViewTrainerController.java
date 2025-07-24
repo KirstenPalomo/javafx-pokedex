@@ -28,6 +28,8 @@ public class ViewTrainerController {
     @FXML private Label sexLabel;
     @FXML private Label hometownLabel;
     @FXML private TextArea descriptionArea;
+    @FXML private Label trainerIDLabel;
+    @FXML private Label moneyLabel;
     @FXML private Button manageButton;
 
     private final PokedexManager pokedexManager;
@@ -62,6 +64,8 @@ public class ViewTrainerController {
                     sexLabel.setText("Sex: " + selected.getSex());
                     hometownLabel.setText("Hometown: " + selected.getHometown());
                     descriptionArea.setText(selected.getDescription());
+                    trainerIDLabel.setText("Trainer ID: " + selected.getTrainerID());
+                    moneyLabel.setText(String.format("Money: ₱%,d", selected.getMoney()));
                 }
             }
         });
@@ -113,6 +117,7 @@ public class ViewTrainerController {
         }
     }
 
+
     private void showAlert(String title, String message, Alert.AlertType type) {
         Alert alert = new Alert(type);
         alert.setTitle(title);
@@ -120,4 +125,8 @@ public class ViewTrainerController {
         alert.setContentText(message);
         alert.showAndWait();
     }
+
+
+
+
 }
