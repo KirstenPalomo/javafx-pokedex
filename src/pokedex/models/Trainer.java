@@ -48,6 +48,10 @@ public class Trainer implements Serializable {
         public int getQuantity() {
             return quantity;
         }
+        public void decrement()
+        {
+            quantity--;
+        }
     }
 
     /** Default constructor—₱1,000,000 starting money. */
@@ -481,6 +485,10 @@ public boolean forgetAndLearnMove(Pokemon target, String forgetMove, Move newMov
     public void releasePokemon(Scanner sc) {
         System.out.print("Name to release: ");
         releasePokemon(sc.nextLine().trim());
+        boolean removed = lineup.removeIf(p -> p.getName().equalsIgnoreCase(name));
+        if (!removed) {
+            removed = storage.removeIf(p -> p.getName().equalsIgnoreCase(name));
+        }
     }
 
     /** Prompts for and teaches a new move via MoveManager. */

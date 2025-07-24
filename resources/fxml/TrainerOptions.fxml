@@ -15,5 +15,13 @@
       <Button fx:id="backBtn" layoutX="274.0" layoutY="354.0" mnemonicParsing="false" onAction="#handleBack" opacity="0.0" text="Button" />
       <Button layoutX="182.0" layoutY="168.0" mnemonicParsing="false" onAction="#handleBuyItem" opacity="0.0" prefHeight="26.0" prefWidth="86.0" text="Button" />
       <Button layoutX="329.0" layoutY="314.0" mnemonicParsing="false" onAction="#handleViewProfile" opacity="0.0" prefHeight="26.0" prefWidth="92.0" text="Button" />
+      <Button fx:id="sellBtn" layoutX="182.0" layoutY="207.0" mnemonicParsing="false" onAction="#handleSell" opacity="0.0" prefHeight="26.0" prefWidth="86.0" text="Button" />
+      <Button fx:id="useBtn" layoutX="182.0" layoutY="242.0" mnemonicParsing="false" onAction="#handleUse" opacity="0.0" prefHeight="26.0" prefWidth="86.0" text="Button" />
+      <Button fx:id="addBtn" layoutX="335.0" layoutY="168.0" mnemonicParsing="false" onAction="#handleAdd" opacity="0.0" prefHeight="26.0" prefWidth="86.0" text="Button" />
+      <Button fx:id="giveBtn" layoutX="182.0" layoutY="275.0" mnemonicParsing="false" onAction="#handleGive" opacity="0.0" prefHeight="26.0" prefWidth="86.0" text="Button" />
+      <Button fx:id="removeBtn" layoutX="182.0" layoutY="314.0" mnemonicParsing="false" onAction="#handleRemove" opacity="0.0" prefHeight="26.0" prefWidth="86.0" text="Button" />
+      <Button fx:id="switchBtn" layoutX="335.0" layoutY="207.0" mnemonicParsing="false" onAction="#handleSwitch" opacity="0.0" prefHeight="26.0" prefWidth="86.0" text="Button" />
+      <Button fx:id="releaseBtn" layoutX="332.0" layoutY="242.0" mnemonicParsing="false" onAction="#handleRelease" opacity="0.0" prefHeight="26.0" prefWidth="86.0" text="Button" />
+      <Button fx:id="teachBtn" layoutX="332.0" layoutY="275.0" mnemonicParsing="false" onAction="#handleTeach" opacity="0.0" prefHeight="26.0" prefWidth="86.0" text="Button" />
    </children>
 </AnchorPane>
