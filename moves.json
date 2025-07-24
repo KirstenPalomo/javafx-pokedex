@@ -23,5 +23,26 @@
     "description": "I wanna sleep",
     "classification": "TM",
     "type1": "Normal"
+  },
+  {
+    "name": "freeze",
+    "description": "cold",
+    "classification": "HM",
+    "type1": "Ice",
+    "type2": "Water"
+  },
+  {
+    "name": "punch",
+    "description": "hand",
+    "classification": "TM",
+    "type1": "Normal",
+    "type2": "Fighting"
+  },
+  {
+    "name": "scream",
+    "description": "voice",
+    "classification": "TM",
+    "type1": "Normal",
+    "type2": "Fighting"
   }
 ]
