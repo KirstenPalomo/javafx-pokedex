@@ -27,8 +27,18 @@
     "speed": 100,
     "moveSet": [
       "Tackle",
-      "Defend"
-    ]
+      "Defend",
+      "freeze"
+    ],
+    "heldItem": {
+      "name": "HP Up",
+      "category": "Vitamin",
+      "description": "A nutritious drink for Pokémon.",
+      "effects": "+10 HP EVs",
+      "minBuyingPrice": 10000,
+      "maxBuyingPrice": 10000,
+      "sellingPrice": 5000
+    }
   },
   {
     "pokedexNumber": 4,
@@ -112,6 +122,26 @@
     "moveSet": [
       "Tackle",
       "Defend"
+    ]
+  },
+  {
+    "pokedexNumber": 333,
+    "name": "siwan",
+    "type1": "Normal",
+    "type2": "Fighting",
+    "baseLevel": 10,
+    "evolvesFrom": 10,
+    "evolvesTo": 10,
+    "evolutionLevel": 10,
+    "hp": 100,
+    "attack": 100,
+    "defense": 100,
+    "speed": 100,
+    "moveSet": [
+      "kick",
+      "Defend",
+      "scream",
+      "flee"
     ]
   }
 ]

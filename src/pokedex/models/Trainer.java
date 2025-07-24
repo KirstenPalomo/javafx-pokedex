@@ -205,61 +205,71 @@ public class Trainer implements Serializable {
         System.out.println(removed ? "✅ Released " + pokeName : "⚠️ Pokémon not found.");
     }
 
-    /** Teaches a move, enforcing compatibility and 4‑move/HM rules. */
     public String teachMove(Pokemon target, Move move, MoveManager moveManager) {
         List<String> moves = target.getMoveSet();
         String mName = move.getName();
-        boolean isHM =move.getClassification().equalsIgnoreCase("HM");
+
+        // Skip if already known
         if (moves.contains(mName)) return "Already knows " + mName;
 
-      String t1 = target.getType1(), t2 = target.getType2();
-    boolean compatible =
-        move.getType1().equalsIgnoreCase(t1) ||
-        (t2 != null && move.getType1().equalsIgnoreCase(t2)) ||
-        (move.getType2() != null && (
-            move.getType2().equalsIgnoreCase(t1) ||
-            (t2 != null && move.getType2().equalsIgnoreCase(t2))
-        ));
-    if (!compatible) {
-        return "⚠️ " + mName + " isn’t compatible with " + target.getName() + ".";
+        // Compatibility check
+        String t1 = target.getType1(), t2 = target.getType2();
+        boolean compatible =
+                move.getType1().equalsIgnoreCase(t1) ||
+                        (t2 != null && move.getType1().equalsIgnoreCase(t2)) ||
+                        (move.getType2() != null && (
+                                move.getType2().equalsIgnoreCase(t1) ||
+                                        (t2 != null && move.getType2().equalsIgnoreCase(t2))
+                        ));
+        if (!compatible) {
+            return "⚠️ " + mName + " isn’t compatible with " + target.getName() + ".";
+        }
+
+        boolean isHM = move.getClassification().equalsIgnoreCase("HM");
+
+        // Prevent learning if already has 4 moves
+        if (moves.size() >= 4) {
+            return "PROMPT_FORGET";
+        }
+
+        // All good — add the move
+        moves.add(mName);
+        return target.getName() + " learned " + mName + (isHM ? " (HM)." : "!");
     }
 
-    // 3) Count only TM moves toward the limit:
-    long tmCount = moves.stream()
-        .map(moveManager::getMoveByName)
-        .filter(Objects::nonNull)
-        .filter(m -> m.getClassification().equalsIgnoreCase("TM"))
-        .count();
-
-    // 4) If teaching a TM and already have 4 TMs, block:
-    if (!isHM && tmCount >= 2) {
-        return "⚠️ Move set is full. You must forget a TM move first.";
-    }
-
-    // 5) All good—add:
-    moves.add(mName);
-    return "✅ " + target.getName() + " learned " + mName + (isHM ? " (HM)." : "!");
-}
-
-/**
+    /**
  * Forgets `forgetMove` (if TM) and learns `newMove` in its place.
  * @return true if swap succeeded.
  */
-public boolean forgetAndLearnMove(Pokemon target, String forgetMove, Move newMove, MoveManager moveManager) {
-    List<String> moves = target.getMoveSet();
-    int idx = moves.indexOf(forgetMove);
-    if (idx < 0) return false;
+    public boolean forgetAndLearnMove(Pokemon target, String forgetMove, Move newMove, MoveManager moveManager) {
+        List<String> moves = target.getMoveSet();
+        int idx = moves.indexOf(forgetMove);
+        if (idx < 0) return false;
 
-    Move oldMoveObj = moveManager.getMoveByName(forgetMove);
-    // can't forget HMs
-    if (oldMoveObj != null && oldMoveObj.getClassification().equalsIgnoreCase("HM")) {
-        return false;
+        Move oldMoveObj = moveManager.getMoveByName(forgetMove);
+        if (oldMoveObj != null && oldMoveObj.getClassification().equalsIgnoreCase("HM")) {
+            return false; // HMs cannot be forgotten
+        }
+
+        // Do not allow more than 4 moves total
+        if (moves.size() > 4) return false;
+
+        // Compatibility check (optional, for safety)
+        String t1 = target.getType1(), t2 = target.getType2();
+        boolean compatible =
+                newMove.getType1().equalsIgnoreCase(t1) ||
+                        (t2 != null && newMove.getType1().equalsIgnoreCase(t2)) ||
+                        (newMove.getType2() != null && (
+                                newMove.getType2().equalsIgnoreCase(t1) ||
+                                        (t2 != null && newMove.getType2().equalsIgnoreCase(t2))
+                        ));
+        if (!compatible) return false;
+
+        // All good — replace move
+        moves.set(idx, newMove.getName());
+        return true;
     }
 
-    // swap in the new move
-    moves.set(idx, newMove.getName());
-    return true;
-}
 
     // ── Interactive Wrappers ────────────────────────────────────────────────
 

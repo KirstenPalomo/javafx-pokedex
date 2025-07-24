@@ -42,7 +42,7 @@
     "sex": "F",
     "hometown": "SK",
     "description": "Leader of Ive",
-    "money": 975000,
+    "money": 965000,
     "lineup": [
       {
         "pokedexNumber": 19,
@@ -57,8 +57,18 @@
         "speed": 100,
         "moveSet": [
           "Tackle",
-          "Defend"
-        ]
+          "Defend",
+          "freeze"
+        ],
+        "heldItem": {
+          "name": "HP Up",
+          "category": "Vitamin",
+          "description": "A nutritious drink for Pokémon.",
+          "effects": "+10 HP EVs",
+          "minBuyingPrice": 10000,
+          "maxBuyingPrice": 10000,
+          "sellingPrice": 5000
+        }
       },
       {
         "pokedexNumber": 25,
@@ -107,7 +117,8 @@
         "moveSet": [
           "Tackle",
           "Defend",
-          "kick"
+          "kick",
+          "sleep"
         ]
       },
       {
@@ -158,7 +169,178 @@
           "sellingPrice": 5000
         },
         "quantity": 1
+      },
+      "HP Up": {
+        "item": {
+          "name": "HP Up",
+          "category": "Vitamin",
+          "description": "A nutritious drink for Pokémon.",
+          "effects": "+10 HP EVs",
+          "minBuyingPrice": 10000,
+          "maxBuyingPrice": 10000,
+          "sellingPrice": 5000
+        },
+        "quantity": 1
       }
     }
+  },
+  {
+    "trainerID": "16",
+    "name": "Charles Leclerc",
+    "birthdate": "2025-07-24",
+    "sex": "M",
+    "hometown": "Monaco",
+    "description": "F1 Driver",
+    "money": 1000000,
+    "lineup": [
+      {
+        "pokedexNumber": 25,
+        "name": "Pikachu",
+        "type1": "Electric",
+        "baseLevel": 10,
+        "evolutionLevel": 10,
+        "hp": 100,
+        "attack": 100,
+        "defense": 100,
+        "speed": 100,
+        "moveSet": [
+          "Tackle",
+          "Defend"
+        ]
+      },
+      {
+        "pokedexNumber": 19,
+        "name": "Kirsten",
+        "type1": "Water",
+        "type2": "Ice",
+        "baseLevel": 10,
+        "evolutionLevel": 10,
+        "hp": 110,
+        "attack": 100,
+        "defense": 100,
+        "speed": 100,
+        "moveSet": [
+          "Tackle",
+          "Defend",
+          "freeze"
+        ],
+        "heldItem": {
+          "name": "HP Up",
+          "category": "Vitamin",
+          "description": "A nutritious drink for Pokémon.",
+          "effects": "+10 HP EVs",
+          "minBuyingPrice": 10000,
+          "maxBuyingPrice": 10000,
+          "sellingPrice": 5000
+        }
+      },
+      {
+        "pokedexNumber": 4,
+        "name": "China",
+        "type1": "Psychic",
+        "baseLevel": 10,
+        "evolvesFrom": 12,
+        "evolutionLevel": 10,
+        "hp": 100,
+        "attack": 100,
+        "defense": 100,
+        "speed": 100,
+        "moveSet": [
+          "Tackle",
+          "Defend"
+        ]
+      },
+      {
+        "pokedexNumber": 333,
+        "name": "siwan",
+        "type1": "Normal",
+        "type2": "Fighting",
+        "baseLevel": 10,
+        "evolvesFrom": 10,
+        "evolvesTo": 10,
+        "evolutionLevel": 10,
+        "hp": 100,
+        "attack": 100,
+        "defense": 100,
+        "speed": 100,
+        "moveSet": [
+          "kick",
+          "Defend",
+          "scream",
+          "flee"
+        ]
+      },
+      {
+        "pokedexNumber": 20,
+        "name": "Kelsey",
+        "type1": "Ice",
+        "type2": "Fire",
+        "baseLevel": 23,
+        "evolvesTo": 10,
+        "evolutionLevel": 10,
+        "hp": 1100,
+        "attack": 1100,
+        "defense": 1100,
+        "speed": 1100,
+        "moveSet": [
+          "Tackle",
+          "Defend"
+        ]
+      },
+      {
+        "pokedexNumber": 45,
+        "name": "Smiski",
+        "type1": "Ice",
+        "baseLevel": 22,
+        "evolvesFrom": 0,
+        "evolvesTo": 54,
+        "evolutionLevel": 32,
+        "hp": 23,
+        "attack": 76,
+        "defense": 98,
+        "speed": 87,
+        "moveSet": [
+          "Tackle",
+          "Defend"
+        ]
+      }
+    ],
+    "storage": [
+      {
+        "pokedexNumber": 23,
+        "name": "Chanel",
+        "type1": "Fighting",
+        "baseLevel": 1,
+        "evolvesFrom": 0,
+        "evolvesTo": 10,
+        "evolutionLevel": 9,
+        "hp": 57,
+        "attack": 21,
+        "defense": 54,
+        "speed": 43,
+        "moveSet": [
+          "Tackle",
+          "Defend"
+        ]
+      },
+      {
+        "pokedexNumber": 1,
+        "name": "Layla",
+        "type1": "Normal",
+        "baseLevel": 1,
+        "evolvesFrom": 0,
+        "evolvesTo": 21,
+        "evolutionLevel": 20,
+        "hp": 24,
+        "attack": 78,
+        "defense": 43,
+        "speed": 56,
+        "moveSet": [
+          "Tackle",
+          "Defend"
+        ]
+      }
+    ],
+    "itemBag": {}
   }
 ]

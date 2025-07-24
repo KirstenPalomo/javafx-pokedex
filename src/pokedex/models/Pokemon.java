@@ -132,6 +132,9 @@ public class Pokemon {
     public void setHeldItem(Item heldItem) {
         this.heldItem = heldItem;
     }
+    public void setMoveSet(List<String> moveSet) { this.moveSet = new ArrayList<>(moveSet); // Deep copy to avoid shared reference
+    }
+
 
     public void increaseHp(int amount) {
         this.hp += amount;

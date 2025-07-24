@@ -10,6 +10,7 @@ import javafx.scene.control.ChoiceDialog;
 import javafx.stage.Stage;
 import javafx.scene.Node;
 import javafx.event.ActionEvent;
+import pokedex.JsonManager;
 import pokedex.managers.ItemManager;
 import pokedex.managers.MoveManager;
 import pokedex.managers.PokedexManager;
@@ -269,6 +270,7 @@ public class TrainerOptionsController {
             }
         });
     }
+
     @FXML
     private void handleGive(ActionEvent event) {
         List<Pokemon> lineup = selectedTrainer.getLineup();
@@ -313,7 +315,6 @@ public class TrainerOptionsController {
                     return;
                 }
 
-                // If already holding an item
                 if (selectedPokemon.getHeldItem() != null) {
                     Alert confirm = new Alert(Alert.AlertType.CONFIRMATION);
                     confirm.setTitle("Replace Held Item");
@@ -328,9 +329,18 @@ public class TrainerOptionsController {
 
                 selectedPokemon.setHeldItem(item);
                 showAlert("Give Item", selectedPokemon.getName() + " is now holding " + item.getName() + ".", Alert.AlertType.INFORMATION);
+
+                // ✅ SYNC AND SAVE
+                Pokemon global = pokedexManager.getPokemonByNumber(selectedPokemon.getPokedexNumber());
+                if (global != null) {
+                    global.setHeldItem(selectedPokemon.getHeldItem());
+                }
+                JsonManager.saveTrainers(trainerManager.getAllTrainers());
+                JsonManager.savePokemons(pokedexManager.getAllPokemon());
             });
         });
     }
+
     @FXML
     private void handleRemove(ActionEvent event) {
         List<Pokemon> lineup = selectedTrainer.getLineup();
@@ -375,8 +385,17 @@ public class TrainerOptionsController {
             String removedItem = selectedPokemon.getHeldItem().getName();
             selectedPokemon.setHeldItem(null);
             showAlert("Remove Held Item", removedItem + " was removed and discarded.", Alert.AlertType.INFORMATION);
+
+            // ✅ SYNC AND SAVE
+            Pokemon global = pokedexManager.getPokemonByNumber(selectedPokemon.getPokedexNumber());
+            if (global != null) {
+                global.setHeldItem(null);
+            }
+            JsonManager.saveTrainers(trainerManager.getAllTrainers());
+            JsonManager.savePokemons(pokedexManager.getAllPokemon());
         });
     }
+
     @FXML
     private void handleSwitch(ActionEvent event) {
         List<Pokemon> lineup = selectedTrainer.getLineup();
@@ -506,7 +525,7 @@ public class TrainerOptionsController {
 
         // Step 3: Attempt to teach move
         String result = selectedTrainer.teachMove(selectedPokemon, move, moveManager);
-        if (result.equals("Needs to forget a move first")) {
+        if (result.equals("PROMPT_FORGET")) {
             List<String> currentMoves = selectedPokemon.getMoveSet();
             ChoiceDialog<String> forgetDialog = new ChoiceDialog<>(currentMoves.get(0), currentMoves);
             forgetDialog.setTitle("Forget a Move");
@@ -519,7 +538,6 @@ public class TrainerOptionsController {
                 return;
             }
 
-            // Confirm
             Alert confirm = new Alert(Alert.AlertType.CONFIRMATION);
             confirm.setTitle("Confirm Move");
             confirm.setHeaderText("Replace " + moveToForget.get() + " with " + move.getName() + "?");
@@ -537,12 +555,19 @@ public class TrainerOptionsController {
                 showAlert("Canceled", "Move teaching canceled.", Alert.AlertType.INFORMATION);
             }
         } else {
-            // Success or failure directly from teachMove
             showAlert("Result", result, Alert.AlertType.INFORMATION);
         }
+
+        // ✅ Step 4: Sync changes to Pokedex
+        Pokemon globalPoke = pokedexManager.getPokemonByNumber(selectedPokemon.getPokedexNumber());
+        if (globalPoke != null) {
+            globalPoke.setMoveSet(new ArrayList<>(selectedPokemon.getMoveSet()));
+        }
+
+        // ✅ Step 5: Save both JSON files
+        JsonManager.saveTrainers(trainerManager.getAllTrainers());
+        JsonManager.savePokemons(pokedexManager.getAllPokemon());
     }
-
-
 
 
     private void showAlert(String title, String message, Alert.AlertType type) {
