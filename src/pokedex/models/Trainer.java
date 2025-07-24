@@ -32,11 +32,11 @@ public class Trainer implements Serializable {
     // ── Item bag ────────────────────────────────────────────────────────────
     private final Map<String, BagItem> itemBag;
 
-    private static class BagItem implements Serializable {
+    public static class BagItem implements Serializable {
         final Item item;
         int quantity;
 
-        BagItem(Item item, int quantity) {
+        public BagItem(Item item, int quantity) {
             this.item = item;
             this.quantity = quantity;
         }
@@ -90,6 +90,8 @@ public class Trainer implements Serializable {
     public int getMoney()           { return money; }
     public List<Pokemon> getLineup()  { return Collections.unmodifiableList(lineup); }
     public List<Pokemon> getStorage() { return Collections.unmodifiableList(storage); }
+    public Map<String, BagItem> getItemBag() { return itemBag; }
+
 
     // ── Core Item Logic ──────────────────────────────────────────────────────
 
@@ -103,7 +105,7 @@ public class Trainer implements Serializable {
         int price = priceObj;
 
         if (money < price) {
-            return "⚠️ Not enough money.";
+            return "ERROR: Not enough money.";
         }
 
         int totalCount = itemBag.values().stream().mapToInt(b -> b.quantity).sum();
@@ -119,7 +121,7 @@ public class Trainer implements Serializable {
         money -= price;
         itemBag.putIfAbsent(nm, new BagItem(item, 0));
         itemBag.get(nm).quantity++;
-        return String.format("✅ Bought %s for ₱%,d", nm, price);
+        return "SUCCESS: Bought " + nm + " for ₱" + price;
     }
 
     /** Sells one item, refunding 50% of its base price. */
@@ -206,31 +208,6 @@ public class Trainer implements Serializable {
         boolean isHM =move.getClassification().equalsIgnoreCase("HM");
         if (moves.contains(mName)) return "Already knows " + mName;
 
-//        String t1 = target.getType1(), t2 = target.getType2();
-//        boolean ok = move.getType1().equalsIgnoreCase(t1) ||
-//                move.getType1().equalsIgnoreCase(t2) ||
-//                (move.getType2() != null && (move.getType2().equalsIgnoreCase(t1) || move.getType2().equalsIgnoreCase(t2)));
-//
-//        if (!ok) return mName + " isn’t compatible with " + target.getName();
-//
-//        if (moves.size() < 4 || move.getClassification().equalsIgnoreCase("HM")) {
-//            moves.add(mName);
-//            return target.getName() + " learned " + mName;
-//        }
-//
-//        return "Needs to forget a move first";
-//    }
-//
-//    public boolean forgetAndLearnMove(Pokemon target, String forgetMove, Move newMove, MoveManager moveManager) {
-//        List<String> moves = target.getMoveSet();
-//        if (!moves.contains(forgetMove)) return false;
-//
-//        Move check = moveManager.getMoveByName(forgetMove);
-//        if (check != null && check.getClassification().equalsIgnoreCase("HM")) return false;
-//
-//        moves.set(moves.indexOf(forgetMove), newMove.getName());
-//        return true;
-//    }
       String t1 = target.getType1(), t2 = target.getType2();
     boolean compatible =
         move.getType1().equalsIgnoreCase(t1) ||

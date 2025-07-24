@@ -42,9 +42,22 @@
     "sex": "F",
     "hometown": "SK",
     "description": "Leader of Ive",
-    "money": 1000000,
+    "money": 990000,
     "lineup": [],
     "storage": [],
-    "itemBag": {}
+    "itemBag": {
+      "HP Up": {
+        "item": {
+          "name": "HP Up",
+          "category": "Vitamin",
+          "description": "A nutritious drink for Pokémon.",
+          "effects": "+10 HP EVs",
+          "minBuyingPrice": 10000,
+          "maxBuyingPrice": 10000,
+          "sellingPrice": 5000
+        },
+        "quantity": 1
+      }
+    }
   }
 ]

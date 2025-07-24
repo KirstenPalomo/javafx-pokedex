@@ -32,7 +32,7 @@ public class Item {
     public String getEffects(){
         return effects;
     }
-    public int getMinBuyingPrice(){
+    public Integer getMinBuyingPrice(){
         return minBuyingPrice;
     }
     public int getMaxBuyingPrice(){
@@ -66,10 +66,16 @@ public class Item {
 
     @Override
     public String toString() {
-        return String.format(
-                "\n%s [%s]\n  Description: %s\n  Effect: %s\n  Buy: %s | Sell: %s\n",
-                name, category, description, effects,
-                getFormattedBuyingPrice(), getFormattedSellingPrice()
-        );
+        return name + " (₱" + (minBuyingPrice != null ? minBuyingPrice : "?") + ")";
     }
+
+
+//    @Override
+//    public String toString() {
+//        return String.format(
+//                "\n%s [%s]\n  Description: %s\n  Effect: %s\n  Buy: %s | Sell: %s\n",
+//                name, category, description, effects,
+//                getFormattedBuyingPrice(), getFormattedSellingPrice()
+//        );
+//    }
 }

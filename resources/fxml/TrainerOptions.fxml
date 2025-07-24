@@ -13,5 +13,7 @@
          </image>
       </ImageView>
       <Button fx:id="backBtn" layoutX="274.0" layoutY="354.0" mnemonicParsing="false" onAction="#handleBack" opacity="0.0" text="Button" />
+      <Button layoutX="182.0" layoutY="168.0" mnemonicParsing="false" onAction="#handleBuyItem" opacity="0.0" prefHeight="26.0" prefWidth="86.0" text="Button" />
+      <Button layoutX="329.0" layoutY="314.0" mnemonicParsing="false" onAction="#handleViewProfile" opacity="0.0" prefHeight="26.0" prefWidth="92.0" text="Button" />
    </children>
 </AnchorPane>
