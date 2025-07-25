@@ -262,6 +262,15 @@ public class TrainerOptionsController {
                 return;
             }
 
+            // Check for duplicates first
+            boolean alreadyInLineup = selectedTrainer.getLineup().stream()
+                    .anyMatch(existing -> existing.getName().equalsIgnoreCase(p.getName()));
+
+            if (alreadyInLineup) {
+                showAlert("Add Pokémon", p.getName() + " is already in your lineup.", Alert.AlertType.WARNING);
+                return;
+            }
+
             boolean addedToLineup = selectedTrainer.addPokemon(p);
             if (addedToLineup) {
                 showAlert("Add Pokémon", p.getName() + " was added to your lineup.", Alert.AlertType.INFORMATION);
@@ -270,6 +279,7 @@ public class TrainerOptionsController {
             }
         });
     }
+
 
     @FXML
     private void handleGive(ActionEvent event) {
