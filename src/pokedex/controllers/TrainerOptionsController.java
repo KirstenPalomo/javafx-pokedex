@@ -4,11 +4,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.ChoiceDialog;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 import javafx.scene.Node;
 import javafx.event.ActionEvent;
@@ -48,7 +44,7 @@ public class TrainerOptionsController {
 
     @FXML
     private void handleBuyItem(ActionEvent event) {
-        // Filter only items that can be bought (have a minBuyingPrice)
+        // Filter buyable items
         var buyableItems = itemManager.getAllItems().stream()
                 .filter(item -> item.getMinBuyingPrice() != null)
                 .toList();
@@ -58,24 +54,68 @@ public class TrainerOptionsController {
             return;
         }
 
+        // Let user choose item
         ChoiceDialog<Item> dialog = new ChoiceDialog<>(buyableItems.get(0), buyableItems);
         dialog.setTitle("Buy Item");
         dialog.setHeaderText("Select an item to buy");
         dialog.setContentText("Choose item:");
 
         dialog.showAndWait().ifPresent(selectedItem -> {
-            String feedback = selectedTrainer.buyItem(selectedItem);
-            Alert.AlertType type = feedback.startsWith("SUCCESS:")
-                    ? Alert.AlertType.INFORMATION
-                    : Alert.AlertType.ERROR;
+            TextInputDialog quantityDialog = new TextInputDialog("1");
+            quantityDialog.setTitle("Quantity");
+            quantityDialog.setHeaderText("How many \"" + selectedItem.getName() + "\" do you want to buy?");
+            quantityDialog.setContentText("Enter quantity:");
 
-            String displayMessage = feedback
-                    .replace("SUCCESS: ", "")
-                    .replace("ERROR: ", "");
+            Optional<String> quantityInput = quantityDialog.showAndWait();
+            if (quantityInput.isEmpty()) return;
 
-            showAlert("Buy Result", displayMessage, type);
+            int quantity;
+            try {
+                quantity = Integer.parseInt(quantityInput.get().trim());
+                if (quantity <= 0) {
+                    showAlert("Invalid Input", "Quantity must be a positive number.", Alert.AlertType.ERROR);
+                    return;
+                }
+            } catch (NumberFormatException e) {
+                showAlert("Invalid Input", "Please enter a valid number.", Alert.AlertType.ERROR);
+                return;
+            }
+
+            int unitPrice = selectedItem.getMinBuyingPrice();
+            int totalBought = 0;
+            int rareCandiesReceived = 0;
+            int totalSpent = 0;
+
+            for (int i = 0; i < quantity; i++) {
+                String result = selectedTrainer.buyItem(selectedItem);
+                if (result.startsWith("SUCCESS:")) {
+                    totalBought++;
+                    totalSpent += unitPrice;
+                    if (result.contains("Bonus:")) {
+                        rareCandiesReceived++;
+                    }
+                } else {
+                    break; // Stop buying when funds or item limits are hit
+                }
+            }
+
+            if (totalBought == 0) {
+                showAlert("Buy Failed", "No items were bought.\nPossible reasons: insufficient funds or item limits.", Alert.AlertType.WARNING);
+                return;
+            }
+
+            StringBuilder resultMsg = new StringBuilder();
+            resultMsg.append("Bought ").append(selectedItem.getName()).append(" ×").append(totalBought)
+                    .append(" for ₱").append(String.format("%,d", totalSpent)).append(".");
+
+            if (rareCandiesReceived > 0) {
+                resultMsg.append("\n🎁 Bonus: Received ").append(rareCandiesReceived).append(" Rare Cand").append(rareCandiesReceived == 1 ? "y!" : "ies!");
+            }
+
+            showAlert("Buy Result", resultMsg.toString(), Alert.AlertType.INFORMATION);
         });
     }
+
 
     @FXML
     private void handleViewProfile(ActionEvent event) {
@@ -180,27 +220,62 @@ public class TrainerOptionsController {
         dialog.setContentText("Choose item:");
 
         dialog.showAndWait().ifPresent(itemName -> {
-            // Check again in case the quantity is 0 or was removed during another action
-            Trainer.BagItem item = bag.get(itemName);
-            if (item == null || item.getQuantity() == 0) {
+            Trainer.BagItem bagItem = bag.get(itemName);
+            if (bagItem == null || bagItem.getQuantity() == 0) {
                 showAlert("Sell Item", "You no longer have that item.", Alert.AlertType.ERROR);
                 return;
             }
 
-            // Pre-sale money for refund calculation (since Trainer.sellItem doesn't return anything)
+            int maxQuantity = bagItem.getQuantity();
+
+            // Ask how many to sell
+            TextInputDialog quantityDialog = new TextInputDialog("1");
+            quantityDialog.setTitle("Sell Quantity");
+            quantityDialog.setHeaderText("How many \"" + itemName + "\" do you want to sell?");
+            quantityDialog.setContentText("You currently own: " + maxQuantity);
+
+            Optional<String> quantityInput = quantityDialog.showAndWait();
+            if (quantityInput.isEmpty()) return;
+
+            int quantity;
+            try {
+                quantity = Integer.parseInt(quantityInput.get().trim());
+                if (quantity <= 0 || quantity > maxQuantity) {
+                    showAlert("Invalid Quantity", "Please enter a number from 1 to " + maxQuantity + ".", Alert.AlertType.ERROR);
+                    return;
+                }
+            } catch (NumberFormatException e) {
+                showAlert("Invalid Input", "Please enter a valid number.", Alert.AlertType.ERROR);
+                return;
+            }
+
             int originalMoney = selectedTrainer.getMoney();
-            selectedTrainer.sellItem(itemName);
-            int updatedMoney = selectedTrainer.getMoney();
+            int unitPrice = bagItem.getItem().getSellingPrice();
+            int totalEarned = 0;
+            int totalSold = 0;
 
-            int earned = updatedMoney - originalMoney;
+            for (int i = 0; i < quantity; i++) {
+                int before = selectedTrainer.getMoney();
+                selectedTrainer.sellItem(itemName);
+                int after = selectedTrainer.getMoney();
 
-            if (earned > 0) {
-                showAlert("Sell Item", "Sold 1 " + itemName + " for ₱" + earned + ".", Alert.AlertType.INFORMATION);
+                if (after > before) {
+                    totalEarned += (after - before);
+                    totalSold++;
+                } else {
+                    break; // stop if item can no longer be sold (e.g., not sellable)
+                }
+            }
+
+            if (totalSold == 0) {
+                showAlert("Sell Failed", "⚠️ This item cannot be sold.", Alert.AlertType.WARNING);
             } else {
-                showAlert("Sell Item", "⚠️ This item cannot be sold.", Alert.AlertType.WARNING);
+                showAlert("Sell Success", "Sold " + totalSold + " × " + itemName +
+                        "\nTotal earned: ₱" + String.format("%,d", totalEarned), Alert.AlertType.INFORMATION);
             }
         });
     }
+
 
     @FXML
     private void handleUse(ActionEvent event) {
@@ -584,39 +659,59 @@ public class TrainerOptionsController {
     }
     @FXML
     private void handleRelease(ActionEvent event) {
-        List<Pokemon> allPokemon = new ArrayList<>();
-        allPokemon.addAll(selectedTrainer.getLineup());
-        allPokemon.addAll(selectedTrainer.getStorage());
+        List<String> options = List.of("Lineup", "Storage");
 
-        if (allPokemon.isEmpty()) {
-            showAlert("Release Pokémon", "You have no Pokémon to release.", Alert.AlertType.INFORMATION);
+        ChoiceDialog<String> sourceDialog = new ChoiceDialog<>(options.get(0), options);
+        sourceDialog.setTitle("Release Pokémon");
+        sourceDialog.setHeaderText("Select a source");
+        sourceDialog.setContentText("Release from:");
+
+        Optional<String> sourceChoice = sourceDialog.showAndWait();
+        if (sourceChoice.isEmpty()) return;
+
+        String source = sourceChoice.get();
+        List<Pokemon> targetList = source.equals("Lineup") ? selectedTrainer.getLineup() : selectedTrainer.getStorage();
+
+        if (targetList.isEmpty()) {
+            showAlert("Release Pokémon", "There are no Pokémon in your " + source.toLowerCase() + ".", Alert.AlertType.WARNING);
             return;
         }
 
-        List<String> pokemonNames = allPokemon.stream()
-                .map(Pokemon::getName)
-                .toList();
+        List<String> pokeNames = targetList.stream().map(Pokemon::getName).toList();
 
-        ChoiceDialog<String> dialog = new ChoiceDialog<>(pokemonNames.get(0), pokemonNames);
-        dialog.setTitle("Release Pokémon");
-        dialog.setHeaderText("Select a Pokémon to release");
-        dialog.setContentText("Choose Pokémon:");
+        ChoiceDialog<String> pokeDialog = new ChoiceDialog<>(pokeNames.get(0), pokeNames);
+        pokeDialog.setTitle("Release Pokémon");
+        pokeDialog.setHeaderText("Select a Pokémon to release from " + source);
+        pokeDialog.setContentText("Choose Pokémon:");
 
-        dialog.showAndWait().ifPresent(nameToRelease -> {
-            Alert confirmAlert = new Alert(Alert.AlertType.CONFIRMATION);
-            confirmAlert.setTitle("Confirm Release");
-            confirmAlert.setHeaderText("Are you sure you want to release " + nameToRelease + "?");
-            confirmAlert.setContentText("This cannot be undone.");
+        Optional<String> selectedPoke = pokeDialog.showAndWait();
+        if (selectedPoke.isEmpty()) return;
 
-            Optional<ButtonType> result = confirmAlert.showAndWait();
-            if (result.isPresent() && result.get() == ButtonType.OK) {
-                selectedTrainer.releasePokemon(nameToRelease);
-                showAlert("Released", nameToRelease + " has been released.", Alert.AlertType.INFORMATION);
+        String nameToRelease = selectedPoke.get();
+
+        Alert confirmAlert = new Alert(Alert.AlertType.CONFIRMATION);
+        confirmAlert.setTitle("Confirm Release");
+        confirmAlert.setHeaderText("Are you sure you want to release " + nameToRelease + "?");
+        confirmAlert.setContentText("This cannot be undone.");
+        Optional<ButtonType> result = confirmAlert.showAndWait();
+
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            int before = targetList.size();
+            selectedTrainer.releasePokemon(nameToRelease);
+            int after = targetList.size();
+
+            if (after < before) {
+                // ✅ Save trainer updates to file
+                JsonManager.saveTrainers(trainerManager.getAllTrainers());
+                showAlert("Released", nameToRelease + " has been released from your " + source.toLowerCase() + ".", Alert.AlertType.INFORMATION);
             } else {
-                showAlert("Canceled", "Release canceled.", Alert.AlertType.INFORMATION);
+                showAlert("Error", nameToRelease + " was not found or could not be released.", Alert.AlertType.ERROR);
             }
-        });
+        } else {
+            showAlert("Canceled", "Release canceled.", Alert.AlertType.INFORMATION);
+        }
     }
+
 
     @FXML
     private void handleTeach(ActionEvent event) {
