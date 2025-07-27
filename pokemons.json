@@ -3,146 +3,172 @@
     "pokedexNumber": 25,
     "name": "Pikachu",
     "type1": "Electric",
-    "baseLevel": 2,
-    "evolvesTo": 5,
-    "evolutionLevel": 5,
-    "hp": 195,
-    "attack": 195,
-    "defense": 195,
-    "speed": 195,
+    "baseLevel": 9,
+    "evolvesTo": 26,
+    "evolutionLevel": 10,
+    "hp": 35,
+    "attack": 55,
+    "defense": 40,
+    "speed": 90,
     "moveSet": [
-      "Tackle",
-      "Defend"
+      "Growl",
+      "Quick Attack"
     ]
   },
   {
-    "pokedexNumber": 19,
-    "name": "Kirsten",
-    "type1": "Water",
-    "type2": "Ice",
+    "pokedexNumber": 26,
+    "name": "Raichu",
+    "type1": "Electric",
     "baseLevel": 10,
-    "evolutionLevel": 10,
-    "hp": 110,
-    "attack": 100,
-    "defense": 100,
-    "speed": 100,
+    "evolvesFrom": 25,
+    "hp": 60,
+    "attack": 90,
+    "defense": 55,
+    "speed": 110,
     "moveSet": [
-      "Tackle",
-      "Defend",
-      "freeze"
-    ],
-    "heldItem": {
-      "name": "HP Up",
-      "category": "Vitamin",
-      "description": "A nutritious drink for Pokémon.",
-      "effects": "+10 HP EVs",
-      "minBuyingPrice": 10000,
-      "maxBuyingPrice": 10000,
-      "sellingPrice": 5000
-    }
+      "Thunder Punch",
+      "Defend"
+    ]
   },
   {
-    "pokedexNumber": 4,
-    "name": "China",
-    "type1": "Psychic",
+    "pokedexNumber": 37,
+    "name": "Vulpix",
+    "type1": "Fire",
+    "baseLevel": 8,
+    "evolvesTo": 38,
+    "evolutionLevel": 10,
+    "hp": 38,
+    "attack": 41,
+    "defense": 40,
+    "speed": 65,
+    "moveSet": [
+      "Ember",
+      "Tail Whip"
+    ]
+  },
+  {
+    "pokedexNumber": 38,
+    "name": "Ninetales",
+    "type1": "Fire",
     "baseLevel": 10,
-    "evolvesFrom": 12,
-    "evolutionLevel": 10,
-    "hp": 100,
-    "attack": 100,
-    "defense": 100,
-    "speed": 100,
-    "moveSet": [
-      "Tackle",
-      "Defend"
-    ]
-  },
-  {
-    "pokedexNumber": 1,
-    "name": "Layla",
-    "type1": "Normal",
-    "baseLevel": 1,
-    "evolvesFrom": 0,
-    "evolvesTo": 21,
-    "evolutionLevel": 20,
-    "hp": 24,
-    "attack": 78,
-    "defense": 43,
-    "speed": 56,
-    "moveSet": [
-      "Tackle",
-      "Defend"
-    ]
-  },
-  {
-    "pokedexNumber": 20,
-    "name": "Kelsey",
-    "type1": "Ice",
-    "type2": "Fire",
-    "baseLevel": 23,
-    "evolvesTo": 10,
-    "evolutionLevel": 10,
-    "hp": 1100,
-    "attack": 1100,
-    "defense": 1100,
-    "speed": 1100,
-    "moveSet": [
-      "Tackle",
-      "Defend"
-    ]
-  },
-  {
-    "pokedexNumber": 23,
-    "name": "Chanel",
-    "type1": "Fighting",
-    "baseLevel": 1,
-    "evolvesFrom": 0,
-    "evolvesTo": 10,
-    "evolutionLevel": 9,
-    "hp": 57,
-    "attack": 21,
-    "defense": 54,
-    "speed": 43,
-    "moveSet": [
-      "Tackle",
-      "Defend"
-    ]
-  },
-  {
-    "pokedexNumber": 45,
-    "name": "Smiski",
-    "type1": "Ice",
-    "baseLevel": 22,
-    "evolvesFrom": 0,
-    "evolvesTo": 54,
-    "evolutionLevel": 32,
-    "hp": 23,
+    "evolvesFrom": 37,
+    "hp": 73,
     "attack": 76,
-    "defense": 98,
-    "speed": 87,
+    "defense": 75,
+    "speed": 100,
     "moveSet": [
-      "Tackle",
-      "Defend"
+      "Flamethrower",
+      "Confuse Ray"
     ]
   },
   {
-    "pokedexNumber": 333,
-    "name": "siwan",
-    "type1": "Normal",
-    "type2": "Fighting",
-    "baseLevel": 10,
-    "evolvesFrom": 10,
-    "evolvesTo": 10,
+    "pokedexNumber": 58,
+    "name": "Growlithe",
+    "type1": "Fire",
+    "baseLevel": 6,
+    "evolvesTo": 59,
     "evolutionLevel": 10,
-    "hp": 100,
-    "attack": 100,
-    "defense": 100,
-    "speed": 100,
+    "hp": 55,
+    "attack": 70,
+    "defense": 45,
+    "speed": 60,
     "moveSet": [
-      "kick",
-      "Defend",
-      "scream",
-      "flee"
+      "Bite",
+      "Roar"
+    ]
+  },
+  {
+    "pokedexNumber": 59,
+    "name": "Arcanine",
+    "type1": "Fire",
+    "baseLevel": 10,
+    "evolvesFrom": 58,
+    "hp": 90,
+    "attack": 110,
+    "defense": 80,
+    "speed": 95,
+    "moveSet": [
+      "Flare Blitz",
+      "Extreme Speed"
+    ]
+  },
+  {
+    "pokedexNumber": 175,
+    "name": "Togetic",
+    "type1": "Fairy",
+    "type2": "Flying",
+    "baseLevel": 9,
+    "evolvesTo": 176,
+    "evolutionLevel": 10,
+    "hp": 55,
+    "attack": 40,
+    "defense": 85,
+    "speed": 40,
+    "moveSet": [
+      "Charm",
+      "Metronome"
+    ]
+  },
+  {
+    "pokedexNumber": 176,
+    "name": "Togekiss",
+    "type1": "Fairy",
+    "type2": "Flying",
+    "baseLevel": 10,
+    "evolvesFrom": 175,
+    "hp": 85,
+    "attack": 50,
+    "defense": 95,
+    "speed": 80,
+    "moveSet": [
+      "Air Slash",
+      "Aura Sphere"
+    ]
+  },
+  {
+    "pokedexNumber": 133,
+    "name": "Eevee",
+    "type1": "Water",
+    "baseLevel": 5,
+    "evolvesTo": 134,
+    "evolutionLevel": 10,
+    "hp": 55,
+    "attack": 55,
+    "defense": 50,
+    "speed": 55,
+    "moveSet": [
+      "Growl",
+      "Tackle"
+    ]
+  },
+  {
+    "pokedexNumber": 134,
+    "name": "Vaporeon",
+    "type1": "Water",
+    "baseLevel": 10,
+    "evolvesFrom": 133,
+    "hp": 130,
+    "attack": 65,
+    "defense": 60,
+    "speed": 65,
+    "moveSet": [
+      "Water Gun",
+      "Aqua Ring"
+    ]
+  },
+  {
+    "pokedexNumber": 143,
+    "name": "Snorlax",
+    "type1": "Normal",
+    "baseLevel": 30,
+    "hp": 160,
+    "attack": 110,
+    "defense": 65,
+    "speed": 30,
+    "moveSet": [
+      "Body Slam",
+      "Rest",
+      "Hyper Beam"
     ]
   }
 ]

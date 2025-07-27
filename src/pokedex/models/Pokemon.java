@@ -17,7 +17,7 @@ public class Pokemon {
     private Integer evolvesTo;
     private Integer evolutionLevel;
 
-    //Base stats
+    // Base stats
     private int hp;
     private int attack;
     private int defense;
@@ -44,18 +44,13 @@ public class Pokemon {
         this.speed = speed;
         this.heldItem = heldItem;
         this.moveSet = new ArrayList<>();
-        this.moveSet.add("Tackle"); // Default move
-        this.moveSet.add("Defend"); // Default move
+        this.moveSet.add("Tackle");
+        this.moveSet.add("Defend");
 
         if (extraMoves != null) {
             for (String move : extraMoves) {
                 String trimmedMove = move.trim();
-                if (trimmedMove.isEmpty() || moveSet.contains(trimmedMove)) {
-                    continue;
-                }
-                // Limit to 4 moves
-                // If moveSet already has 4 moves, ignore any additional ones
-                // This prevents adding more than 4 moves
+                if (trimmedMove.isEmpty() || moveSet.contains(trimmedMove)) continue;
                 if (moveSet.size() >= 4) {
                     System.out.println("⚠️ \"" + trimmedMove + "\" ignored. Move set is full.");
                     continue;
@@ -65,95 +60,60 @@ public class Pokemon {
         }
     }
 
-    public void cry(){
+    public void cry() {
         System.out.println(name.toUpperCase() + "!");
     }
 
-    public int getPokedexNumber(){
-        return pokedexNumber;
-    }
-    public String getName(){
-        return name;
-    }
-    public String getType1(){
-        return type1;
-    }
-    public String getType2(){
-        return type2;
-    }
-    public int getBaseLevel() {
-        return baseLevel;
-    }
-    public Integer getEvolvesFrom(){
-        return evolvesFrom;
-    }
-    public Integer getEvolvesTo() {
-        return evolvesTo;
-    }
-    public Integer getEvolutionLevel() {
-        return evolutionLevel;
-    }
-    public int getHp() {
-        return hp;
-    }
-    public int getAttack() {
-        return attack;
-    }
-    public int getDefense() {
-        return defense;
-    }
-    public int getSpeed() {
-        return speed;
-    }
-    public List<String> getMoveSet() {
-        return moveSet;
-    }
-    public Item getHeldItem() {
-        return heldItem;
-    }
+    public int getPokedexNumber() { return pokedexNumber; }
+    public String getName() { return name; }
+    public String getType1() { return type1; }
+    public String getType2() { return type2; }
+    public int getBaseLevel() { return baseLevel; }
+    public Integer getEvolvesFrom() { return evolvesFrom; }
+    public Integer getEvolvesTo() { return evolvesTo; }
+    public Integer getEvolutionLevel() { return evolutionLevel; }
+    public int getHp() { return hp; }
+    public int getAttack() { return attack; }
+    public int getDefense() { return defense; }
+    public int getSpeed() { return speed; }
+    public List<String> getMoveSet() { return moveSet; }
+    public Item getHeldItem() { return heldItem; }
 
-    public void setBaseLevel(int baseLevel) {
-        this.baseLevel = baseLevel;
-    }
+    public void setBaseLevel(int baseLevel) { this.baseLevel = baseLevel; }
+    public void setEvolutionLevel(Integer evolutionLevel) { this.evolutionLevel = evolutionLevel; }
+    public void setEvolvesTo(Integer evolvesTo) { this.evolvesTo = evolvesTo; }
+    public void setName(String name) { this.name = name; }
+    public void setPokedexNumber(int number) { this.pokedexNumber = number; }
 
-    public void setHp(int hp) {
-        this.hp = hp;
-    }
-    public void setAttack(int attack) {
-        this.attack = attack;
-    }
-    public void setDefense(int defense) {
-        this.defense = defense;
-    }
-    public void setSpeed(int speed) {
-        this.speed = speed;
-    }
+    public void setType1(String type1) { this.type1 = type1; }
 
-    public void setHeldItem(Item heldItem) {
-        this.heldItem = heldItem;
-    }
-    public void setMoveSet(List<String> moveSet) { this.moveSet = new ArrayList<>(moveSet); // Deep copy to avoid shared reference
-    }
+    public void setType2(String type2) { this.type2 = type2; }
 
+    public void setHp(int hp) { this.hp = hp; }
+    public void setAttack(int attack) { this.attack = attack; }
+    public void setDefense(int defense) { this.defense = defense; }
+    public void setSpeed(int speed) { this.speed = speed; }
+    public void setHeldItem(Item heldItem) { this.heldItem = heldItem; }
+    public void setMoveSet(List<String> moveSet) { this.moveSet = new ArrayList<>(moveSet); }
 
     public void increaseHp(int amount) {
         this.hp += amount;
-        System.out.println("" + name + "'s HP increased by " + amount + ". New HP: " + hp);
+        System.out.println(name + "'s HP increased by " + amount + ". New HP: " + hp);
     }
 
     public void increaseAttack(int amount) {
         this.attack += amount;
-        System.out.println("" + name + "'s Attack increased by " + amount + ". New Attack: " + attack);
+        System.out.println(name + "'s Attack increased by " + amount + ". New Attack: " + attack);
     }
 
     public void increaseDefense(int amount) {
         this.defense += amount;
-        System.out.println("" + name + "'s Defense increased by " + amount + ". New Defense: " + defense);
+        System.out.println(name + "'s Defense increased by " + amount + ". New Defense: " + defense);
     }
 
     public void increaseSpeed(int amount) {
         this.speed += amount;
-        System.out.println("" + name + "'s Speed increased by " + amount + ". New Speed: " + speed);
+        System.out.println(name + "'s Speed increased by " + amount + ". New Speed: " + speed);
     }
 
     public String briefProfile() {
@@ -166,7 +126,41 @@ public class Pokemon {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Pokemon pokemon = (Pokemon) o;
+        return pokedexNumber == pokemon.pokedexNumber;
+    }
+
+    @Override
+    public int hashCode() {
+        return Integer.hashCode(pokedexNumber);
+    }
+
+    @Override
     public String toString() {
         return String.format("#%03d – %s", pokedexNumber, name);
+    }
+
+    // ✅ CLONE METHOD
+    public Pokemon clone() {
+        Pokemon copy = new Pokemon(
+                this.pokedexNumber,
+                this.name,
+                this.type1,
+                this.type2,
+                this.baseLevel,
+                this.evolvesFrom,
+                this.evolvesTo,
+                this.evolutionLevel,
+                this.hp,
+                this.attack,
+                this.defense,
+                this.speed,
+                new ArrayList<>(this.moveSet),
+                this.heldItem // NOTE: this shares the same Item reference
+        );
+        return copy;
     }
 }

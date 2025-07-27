@@ -31,12 +31,27 @@ public class PokedexManager {
     private List<Pokemon> pokedex = new ArrayList<>();
 
     private static final List<String> ALLOWED_STONE_EVOLUTION_NAMES = List.of(
-            "pikachu", "clefairy", "jigglypuff", "skitty", "eevee"
+            "pikachu", "vulpix", "growlithe", "togetic", "eevee"
     );
 
     public List<String> getAllowedStoneEvolutionNames() {
         return ALLOWED_STONE_EVOLUTION_NAMES;
     }
+
+    public boolean isCorrectStoneForEvolution(String pokemonName, String stoneUsed) {
+        String name = pokemonName.toLowerCase();
+        String stone = stoneUsed.toLowerCase();
+
+        return switch (name) {
+            case "pikachu" -> stone.contains("thunder");
+            case "vulpix" -> stone.contains("fire");
+            case "growlithe" -> stone.contains("fire");
+            case "togetic" -> stone.contains("shiny");
+            case "eevee" -> stone.contains("water");
+            default -> false;
+        };
+    }
+
 
     public boolean addPokemon(Pokemon p) {
         for (Pokemon existing : pokedex) {
@@ -142,8 +157,26 @@ public class PokedexManager {
         pokedex.clear();
         pokedex.addAll(loaded);
     }
-    public List<Pokemon> getAllPokemon() {
-        return new ArrayList<>(pokedex); // returns a copy for safe external use
-    }
 
+    public List<Pokemon> getAllPokemon() {
+        List<Pokemon> uniqueList = new ArrayList<>();
+
+        for (Pokemon p : pokedex) {
+            boolean alreadyExists = false;
+
+            for (Pokemon existing : uniqueList) {
+                if (existing.getPokedexNumber() == p.getPokedexNumber()
+                        && existing.getName().equalsIgnoreCase(p.getName())) {
+                    alreadyExists = true;
+                    break;
+                }
+            }
+
+            if (!alreadyExists) {
+                uniqueList.add(p);
+            }
+        }
+
+        return uniqueList;
+    }
 }
