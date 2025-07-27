@@ -602,20 +602,23 @@ public class Trainer implements Serializable {
     public void useItem(Item item, Pokemon target, PokedexManager pokedexManager, Scanner scanner) {
         System.out.println(name + " used " + item.getName() + " on " + target.getName());
         String itemName = item.getName().toLowerCase();
-        List <String> evolutionStones = List.of("ice stone", "fire stone", "water stone", "thunder stone",
-            "leaf stone", "moon stone", "sun stone", "shiny stone",
-            "dusk stone", "dawn stone");
+        List<String> evolutionStones = List.of(
+                "ice stone", "fire stone", "water stone", "thunder stone",
+                "leaf stone", "moon stone", "sun stone", "shiny stone",
+                "dusk stone", "dawn stone"
+        );
+
         if (item.getCategory().equalsIgnoreCase("Vitamin") || item.getCategory().equalsIgnoreCase("Feather")) {
             applyVitaminEffect(item, target);
         } else if (item.getName().equalsIgnoreCase("Rare Candy")) {
             applyRareCandyEffect(target, pokedexManager, scanner);
         } else if (item.getCategory().equalsIgnoreCase("Evolution Stone")) {
+            System.out.println("✅ REACHED item.getCategory() == Evolution Stone");
             applyEvolutionStoneEffect(item, target, pokedexManager);
         } else if (evolutionStones.contains(itemName)) {
-        applyEvolutionStoneEffect(item, target, pokedexManager);
-        return;
-    }
-        else {
+            System.out.println("✅ REACHED evolutionStones.contains(itemName)");
+            applyEvolutionStoneEffect(item, target, pokedexManager);
+        } else {
             System.out.println("⚠️ Item has no effect.");
         }
     }
@@ -637,6 +640,12 @@ public class Trainer implements Serializable {
     }
 
     private void applyRareCandyEffect(Pokemon target, PokedexManager pokedexManager, Scanner sc) {
+        if (!pokedexManager.getAllowedStoneEvolutionNames()
+                .contains(target.getName().toLowerCase())) {
+            System.out.println("⚠️ " + target.getName() + " is not allowed to evolve.");
+            return;
+        }
+
         int oldLevel = target.getBaseLevel();
         int newLevel = oldLevel + 1;
         target.setBaseLevel(newLevel);
@@ -648,8 +657,10 @@ public class Trainer implements Serializable {
 
         System.out.printf("✅ %s leveled up from %d to %d. Base stats increased by 10%%.%n",
                 target.getName(), oldLevel, newLevel);
+
         if (target.getEvolutionLevel() != null && newLevel >= target.getEvolutionLevel()) {
-            System.out.printf("🎉 %s can now evolve (Evolution Level: %d).%n", target.getName(), target.getEvolutionLevel());
+            System.out.printf("%s can now evolve (Evolution Level: %d).%n", target.getName(), target.getEvolutionLevel());
+
             String input;
             do {
                 System.out.print("Do you want to evolve this Pokémon now? (Y/N): ");
@@ -660,44 +671,79 @@ public class Trainer implements Serializable {
             } while (!input.equals("y") && !input.equals("n"));
 
             if (input.equals("n")) {
-                System.out.println("❌ Pokémon was not added to the Pokédex.");
-                return; // exit the method early
+                System.out.println("❌ Evolution cancelled.");
+                return;
+            }
+
+            Integer evolvesTo = target.getEvolvesTo();
+            if (evolvesTo != null) {
+                Pokemon evolvedForm = pokedexManager.getPokemonByNumber(evolvesTo);
+                if (evolvedForm != null) {
+                    System.out.println("🎉 " + target.getName() + " is evolving into " + evolvedForm.getName() + "!");
+
+                    // ✅ Only update name, ID, and evolution properties
+                    target.setName(evolvedForm.getName());
+                    target.setPokedexNumber(evolvedForm.getPokedexNumber());
+                    target.setEvolvesTo(evolvedForm.getEvolvesTo());
+                    target.setEvolutionLevel(evolvedForm.getEvolutionLevel());
+
+                    System.out.println("✅ Evolution complete! Stats, moves, and held item retained.");
+                } else {
+                    System.out.println("⚠️ Evolution data not found.");
+                }
+            } else {
+                System.out.println("⚠️ This Pokémon has no evolution target.");
             }
         }
     }
 
 
     private void applyEvolutionStoneEffect(Item item, Pokemon target, PokedexManager pokedexManager) {
-        Integer evolvesTo = target.getEvolvesTo();
+        String stoneUsed = item.getName(); // e.g., "Fire Stone", "Water Stone"
+        String targetNameLower = target.getName().toLowerCase();
 
-        if (pokedexManager.getAllowedStoneEvolutionNames().stream()
-                .noneMatch(name -> name.equalsIgnoreCase(target.getName()))) {
+        // ✅ Check if Pokémon is allowed to evolve via stone
+        if (!pokedexManager.getAllowedStoneEvolutionNames().contains(targetNameLower)) {
             System.out.println("⚠️ " + target.getName() + " cannot evolve using an evolution stone.");
             return;
         }
 
-        if (evolvesTo == null) {
-            System.out.println("⚠️ " + target.getName() + " cannot evolve using this stone.");
+        // ✅ Check if the stone used is the correct one
+        if (!pokedexManager.isCorrectStoneForEvolution(target.getName(), stoneUsed)) {
+            System.out.println("⚠️ " + stoneUsed + " cannot be used to evolve " + target.getName() + ".");
             return;
         }
 
-        Pokemon evolvedForm = pokedexManager.getPokemonByNumber(evolvesTo);
+        // ✅ Check for evolution target
+        Integer evolvesTo = target.getEvolvesTo();
+        if (evolvesTo == null) {
+            System.out.println("⚠️ " + target.getName() + " has no evolution via stone.");
+            return;
+        }
 
+        // ✅ Retrieve evolved form
+        Pokemon evolvedForm = pokedexManager.getPokemonByNumber(evolvesTo);
         if (evolvedForm == null) {
             System.out.println("⚠️ Evolution data not found in Pokédex.");
             return;
         }
 
+        // ✅ Apply evolution and stat updates
         System.out.println("🎉 " + target.getName() + " is evolving into " + evolvedForm.getName() + "!");
-
-        // Replace stats with evolved form’s, only if higher
+        target.setName(evolvedForm.getName());
+        target.setPokedexNumber(evolvedForm.getPokedexNumber());
+        target.setType1(evolvedForm.getType1());
+        target.setType2(evolvedForm.getType2());
         target.setHp(Math.max(target.getHp(), evolvedForm.getHp()));
         target.setAttack(Math.max(target.getAttack(), evolvedForm.getAttack()));
         target.setDefense(Math.max(target.getDefense(), evolvedForm.getDefense()));
         target.setSpeed(Math.max(target.getSpeed(), evolvedForm.getSpeed()));
+        target.setEvolvesTo(evolvedForm.getEvolvesTo()); // In case it can evolve again
+        target.setEvolutionLevel(evolvedForm.getEvolutionLevel()); // Optional: support further Rare Candy evolutions
 
         System.out.println("✅ Evolution complete. Stats updated (higher values applied only)!");
     }
+
 
     public void displayProfile() {
         System.out.println("\n--- Trainer Profile: " + name + " ---");

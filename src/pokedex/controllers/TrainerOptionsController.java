@@ -5,6 +5,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ChoiceDialog;
 import javafx.stage.Stage;
@@ -79,6 +81,7 @@ public class TrainerOptionsController {
     private void handleViewProfile(ActionEvent event) {
         StringBuilder profile = new StringBuilder();
 
+        // Basic Info
         profile.append("Trainer: ").append(selectedTrainer.getName()).append("\n")
                 .append("Sex     : ").append(selectedTrainer.getSex()).append("\n")
                 .append("Hometown: ").append(selectedTrainer.getHometown()).append("\n")
@@ -91,24 +94,46 @@ public class TrainerOptionsController {
             profile.append("  None\n");
         } else {
             for (var p : selectedTrainer.getLineup()) {
-                profile.append("  • ").append(p.getName())
-                        .append(" (#").append(String.format("%03d", p.getPokedexNumber())).append(")\n");
+                profile.append("  • ").append(p.getName()).append(" (#").append(String.format("%03d", p.getPokedexNumber())).append(")\n")
+                        .append("    Level     : ").append(p.getBaseLevel()).append("\n")
+                        .append("    Type      : ").append(p.getType1());
+                if (p.getType2() != null && !p.getType2().isEmpty()) {
+                    profile.append("/").append(p.getType2());
+                }
+                profile.append("\n")
+                        .append("    Stats     : HP ").append(p.getHp())
+                        .append(" | ATK ").append(p.getAttack())
+                        .append(" | DEF ").append(p.getDefense())
+                        .append(" | SPD ").append(p.getSpeed()).append("\n")
+                        .append("    Moves     : ").append(p.getMoveSet().isEmpty() ? "(None)" : String.join(", ", p.getMoveSet())).append("\n")
+                        .append("    Held Item : ").append(p.getHeldItem() != null ? p.getHeldItem().getName() : "None").append("\n\n");
             }
         }
 
         // Storage
-        profile.append("\nStorage (").append(selectedTrainer.getStorage().size()).append("):\n");
+        profile.append("Storage (").append(selectedTrainer.getStorage().size()).append("):\n");
         if (selectedTrainer.getStorage().isEmpty()) {
             profile.append("  None\n");
         } else {
             for (var p : selectedTrainer.getStorage()) {
-                profile.append("  • ").append(p.getName())
-                        .append(" (#").append(String.format("%03d", p.getPokedexNumber())).append(")\n");
+                profile.append("  • ").append(p.getName()).append(" (#").append(String.format("%03d", p.getPokedexNumber())).append(")\n")
+                        .append("    Level     : ").append(p.getBaseLevel()).append("\n")
+                        .append("    Type      : ").append(p.getType1());
+                if (p.getType2() != null && !p.getType2().isEmpty()) {
+                    profile.append("/").append(p.getType2());
+                }
+                profile.append("\n")
+                        .append("    Stats     : HP ").append(p.getHp())
+                        .append(" | ATK ").append(p.getAttack())
+                        .append(" | DEF ").append(p.getDefense())
+                        .append(" | SPD ").append(p.getSpeed()).append("\n")
+                        .append("    Moves     : ").append(p.getMoveSet().isEmpty() ? "(None)" : String.join(", ", p.getMoveSet())).append("\n")
+                        .append("    Held Item : ").append(p.getHeldItem() != null ? p.getHeldItem().getName() : "None").append("\n\n");
             }
         }
 
         // Bag
-        profile.append("\nInventory:\n");
+        profile.append("Inventory:\n");
         var bag = selectedTrainer.getItemBag();
         if (bag == null || bag.isEmpty()) {
             profile.append("  None\n");
@@ -119,7 +144,7 @@ public class TrainerOptionsController {
             );
         }
 
-        showAlert("Trainer Profile", profile.toString(), Alert.AlertType.INFORMATION);
+        showScrollableAlert("Trainer Profile", profile.toString(), Alert.AlertType.INFORMATION);
     }
 
 
@@ -176,6 +201,7 @@ public class TrainerOptionsController {
             }
         });
     }
+
     @FXML
     private void handleUse(ActionEvent event) {
         Map<String, Trainer.BagItem> bag = selectedTrainer.getItemBag();
@@ -224,19 +250,117 @@ public class TrainerOptionsController {
                     return;
                 }
 
-                // 👇 This will work as long as the item doesn't require actual scanner input
-                selectedTrainer.useItem(bagItem.getItem(), target, pokedexManager, new Scanner(System.in));
+                StringBuilder log = new StringBuilder();
+                String itemNameLower = bagItem.getItem().getName().toLowerCase();
 
+                if (itemNameLower.equals("rare candy")) {
+                    int oldLevel = target.getBaseLevel();
+                    int newLevel = oldLevel + 1;
+                    target.setBaseLevel(newLevel);
+
+                    target.setHp((int) Math.round(target.getHp() * 1.1));
+                    target.setAttack((int) Math.round(target.getAttack() * 1.1));
+                    target.setDefense((int) Math.round(target.getDefense() * 1.1));
+                    target.setSpeed((int) Math.round(target.getSpeed() * 1.1));
+
+                    log.append(target.getName())
+                            .append(" leveled up from ").append(oldLevel).append(" to ").append(newLevel)
+                            .append(". Base stats increased by 10%.\n");
+
+                    Integer evoLevel = target.getEvolutionLevel();
+                    Integer evolvesTo = target.getEvolvesTo();
+                    List<String> allowedEvos = List.of("pikachu", "vulpix", "growlithe", "togetic", "eevee");
+
+                    if (evoLevel != null &&
+                            newLevel >= evoLevel &&
+                            evolvesTo != null &&
+                            allowedEvos.contains(target.getName().toLowerCase())) {
+                        log.append(target.getName())
+                                .append(" can now evolve (Evolution Level: ").append(evoLevel).append(").\n");
+
+                        Alert evoPrompt = new Alert(Alert.AlertType.CONFIRMATION);
+                        evoPrompt.setTitle("Evolution");
+                        evoPrompt.setHeaderText(target.getName() + " reached level " + newLevel + "!");
+                        evoPrompt.setContentText("Do you want to evolve this Pokémon now?");
+                        Optional<ButtonType> result = evoPrompt.showAndWait();
+
+                        if (result.isPresent() && result.get() == ButtonType.OK) {
+                            Pokemon evolvedForm = pokedexManager.getPokemonByNumber(evolvesTo);
+                            if (evolvedForm != null) {
+                                log.append(target.getName())
+                                        .append(" evolved into ").append(evolvedForm.getName()).append("!\n");
+
+                                target.setName(evolvedForm.getName());
+                                target.setPokedexNumber(evolvedForm.getPokedexNumber());
+                                target.setEvolvesTo(evolvedForm.getEvolvesTo());
+                                target.setEvolutionLevel(evolvedForm.getEvolutionLevel());
+                                target.setType1(evolvedForm.getType1());
+                                target.setType2(evolvedForm.getType2());
+                            } else {
+                                log.append("Evolution failed. Evolved form not found in Pokédex.\n");
+                            }
+                        } else {
+                            log.append("Pokémon was not evolved.\n");
+                        }
+                    }
+
+                    log.insert(0, selectedTrainer.getName() + " used Rare Candy on " + target.getName() + ".\n");
+
+                } else if (bagItem.getItem().getCategory().equalsIgnoreCase("Evolution Stone")) {
+                    String stoneUsed = bagItem.getItem().getName();
+                    String targetName = target.getName();
+                    String lowerTarget = targetName.toLowerCase();
+
+                    List<String> allowedEvos = List.of("pikachu", "vulpix", "growlithe", "togetic", "eevee");
+
+                    if (!allowedEvos.contains(lowerTarget)) {
+                        log.append(targetName).append(" cannot evolve using an evolution stone.");
+                    } else if (!pokedexManager.isCorrectStoneForEvolution(targetName, stoneUsed)) {
+                        log.append(stoneUsed).append(" cannot be used to evolve ").append(targetName).append(".");
+                    } else {
+                        Integer evolvesTo = target.getEvolvesTo();
+                        if (evolvesTo == null) {
+                            log.append(targetName).append(" has no evolution target.");
+                        } else {
+                            Pokemon evolvedForm = pokedexManager.getPokemonByNumber(evolvesTo);
+                            if (evolvedForm == null) {
+                                log.append("Evolution data not found for ").append(targetName).append(".");
+                            } else {
+                                target.setName(evolvedForm.getName());
+                                target.setPokedexNumber(evolvedForm.getPokedexNumber());
+                                target.setType1(evolvedForm.getType1());
+                                target.setType2(evolvedForm.getType2());
+                                target.setHp(Math.max(target.getHp(), evolvedForm.getHp()));
+                                target.setAttack(Math.max(target.getAttack(), evolvedForm.getAttack()));
+                                target.setDefense(Math.max(target.getDefense(), evolvedForm.getDefense()));
+                                target.setSpeed(Math.max(target.getSpeed(), evolvedForm.getSpeed()));
+                                target.setEvolvesTo(evolvedForm.getEvolvesTo());
+                                target.setEvolutionLevel(evolvedForm.getEvolutionLevel());
+
+                                log.append(targetName)
+                                        .append(" evolved into ").append(evolvedForm.getName()).append("!\n")
+                                        .append("Evolution complete. Stats updated.");
+                            }
+                        }
+                    }
+                } else {
+                    // Default item behavior
+                    log.append(selectedTrainer.getName()).append(" used ")
+                            .append(bagItem.getItem().getName()).append(" on ")
+                            .append(target.getName()).append(".\n");
+                }
+
+                // Decrement quantity and remove if needed
                 bagItem.decrement();
                 if (bagItem.getQuantity() == 0) {
                     bag.remove(itemName);
                 }
 
-
-                showAlert("Use Item", "Used " + itemName + " on " + target.getName() + ".", Alert.AlertType.INFORMATION);
+                showAlert("Use Item", log.toString(), Alert.AlertType.INFORMATION);
             });
         });
     }
+
     @FXML
     private void handleAdd(ActionEvent event) {
         List<Pokemon> allPokemon = pokedexManager.getAllPokemon();
@@ -256,13 +380,15 @@ public class TrainerOptionsController {
         dialog.setContentText("Choose Pokémon:");
 
         dialog.showAndWait().ifPresent(pokemonName -> {
-            Pokemon p = pokedexManager.getPokemonByName(pokemonName);
-            if (p == null) {
+            Pokemon original = pokedexManager.getPokemonByName(pokemonName);
+            if (original == null) {
                 showAlert("Add Pokémon", "Pokémon not found in Pokédex.", Alert.AlertType.ERROR);
                 return;
             }
 
-            // Check for duplicates first
+            // ✅ Use a cloned copy instead of the shared instance
+            Pokemon p = original.clone();
+
             boolean alreadyInLineup = selectedTrainer.getLineup().stream()
                     .anyMatch(existing -> existing.getName().equalsIgnoreCase(p.getName()));
 
@@ -279,7 +405,6 @@ public class TrainerOptionsController {
             }
         });
     }
-
 
     @FXML
     private void handleGive(ActionEvent event) {
@@ -580,6 +705,29 @@ public class TrainerOptionsController {
     }
 
 
+    private void showScrollableAlert(String title, String content, Alert.AlertType type) {
+        Alert alert = new Alert(type);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+
+        TextArea textArea = new TextArea(content);
+        textArea.setWrapText(true);
+        textArea.setEditable(false);
+        textArea.setPrefWidth(500);
+        textArea.setPrefHeight(600);
+
+        ScrollPane scrollPane = new ScrollPane(textArea);
+        scrollPane.setFitToWidth(true);
+        scrollPane.setFitToHeight(true);
+        scrollPane.setPrefViewportWidth(500);
+        scrollPane.setPrefViewportHeight(600);
+
+        alert.getDialogPane().setContent(scrollPane);
+        alert.getDialogPane().setPrefSize(550, 650);
+
+        alert.showAndWait();
+    }
+
     private void showAlert(String title, String message, Alert.AlertType type) {
         Alert alert = new Alert(type);
         alert.setTitle(title);
@@ -587,6 +735,8 @@ public class TrainerOptionsController {
         alert.setContentText(message);
         alert.showAndWait();
     }
+
+
 }
 
 
