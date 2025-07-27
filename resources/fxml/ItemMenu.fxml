@@ -9,11 +9,12 @@
    <children>
       <ImageView fitHeight="400.0" fitWidth="607.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../assets/itemMenu.png" />
+            <Image url="@../assets/itemMENU.png" />
          </image>
       </ImageView>
       <Button fx:id="viewBtn" layoutX="80.0" layoutY="221.0" mnemonicParsing="false" onAction="#handleView" opacity="0.0" prefHeight="25.0" prefWidth="184.0" text="Button" />
       <Button fx:id="searchBtn" layoutX="325.0" layoutY="221.0" mnemonicParsing="false" onAction="#handleSearch" opacity="0.0" prefHeight="25.0" prefWidth="184.0" text="Button" />
       <Button fx:id="backBtn" layoutX="278.0" layoutY="353.0" mnemonicParsing="false" onAction="#handleBack" opacity="0.0" prefHeight="25.0" prefWidth="46.0" text="Button" />
+      <Button fx:id="addItemBtn" layoutX="209.0" layoutY="288.0" mnemonicParsing="false" onAction="#handleAddItem" opacity="0.0" prefHeight="25.0" prefWidth="184.0" text="Button" />
    </children>
 </AnchorPane>

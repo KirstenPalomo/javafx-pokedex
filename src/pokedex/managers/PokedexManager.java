@@ -1,5 +1,6 @@
 package pokedex.managers;
 
+import pokedex.JsonManager;
 import pokedex.models.Pokemon;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +12,11 @@ public class PokedexManager {
     private static PokedexManager instance;
 
     // 🔹 Private constructor to prevent external instantiation
-    private PokedexManager() {}
+    private PokedexManager() {
+        pokedex = JsonManager.loadPokemons(); // load from file
+        if (pokedex == null) pokedex = new ArrayList<>(); // fallback if file doesn't exist
+    }
+
 
     // 🔹 Public method to access the single instance
     public static PokedexManager getInstance() {

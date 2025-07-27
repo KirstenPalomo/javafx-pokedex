@@ -11,6 +11,7 @@ import pokedex.managers.ItemManager;
 import pokedex.managers.MoveManager;
 import pokedex.managers.PokedexManager;
 import pokedex.managers.TrainerManager;
+import pokedex.models.Item;
 import pokedex.models.Move;
 import pokedex.models.Pokemon;
 import pokedex.models.Trainer;
@@ -27,7 +28,7 @@ public class Main extends Application {
         // Instantiate managers
         PokedexManager pokedexManager = PokedexManager.getInstance();
         MoveManager moveManager = MoveManager.getInstance();
-        ItemManager itemManager = new ItemManager();
+        ItemManager itemManager = ItemManager.getInstance();
         TrainerManager trainerManager = new TrainerManager();
 
         // Load from JSON
@@ -39,6 +40,12 @@ public class Main extends Application {
 
         List<Move> savedMoves = JsonManager.loadMoves();
         if (savedMoves != null) moveManager.setAllMoves(savedMoves);
+
+        List<Item> savedItems = JsonManager.loadItems();
+        if (savedItems != null && !savedItems.isEmpty()) {
+            itemManager.setAllItems(savedItems);
+        }
+
 
         // 💡 Use FXMLLoader with controller factory
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/StartScreen.fxml"));
