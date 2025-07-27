@@ -6,27 +6,12 @@
     "sex": "F",
     "hometown": "SK",
     "description": "Leader of IVE",
-    "money": 932000,
+    "money": 957000,
     "lineup": [
-      {
-        "pokedexNumber": 59,
-        "name": "Arcanine",
-        "type1": "Fire",
-        "baseLevel": 6,
-        "hp": 90,
-        "attack": 110,
-        "defense": 80,
-        "speed": 95,
-        "moveSet": [
-          "Bite",
-          "Roar"
-        ]
-      },
       {
         "pokedexNumber": 175,
         "name": "Togetic",
-        "type1": "Fairy",
-        "type2": "Flying",
+        "type1": "Shiny",
         "baseLevel": 9,
         "evolvesTo": 176,
         "evolutionLevel": 10,
@@ -104,18 +89,6 @@
     ],
     "storage": [],
     "itemBag": {
-      "HP Up": {
-        "item": {
-          "name": "HP Up",
-          "category": "Vitamin",
-          "description": "A nutritious drink for Pokémon.",
-          "effects": "+10 HP EVs",
-          "minBuyingPrice": 10000,
-          "maxBuyingPrice": 10000,
-          "sellingPrice": 5000
-        },
-        "quantity": 5
-      },
       "Rare Candy": {
         "item": {
           "name": "Rare Candy",

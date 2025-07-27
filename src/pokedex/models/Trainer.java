@@ -789,4 +789,6 @@ public class Trainer implements Serializable {
         return String.format("%s | %s | %s | ₱%,d",
                 trainerID, name, hometown, money);
     }
+
+
 }

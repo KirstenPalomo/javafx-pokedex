@@ -95,8 +95,7 @@
   {
     "pokedexNumber": 175,
     "name": "Togetic",
-    "type1": "Fairy",
-    "type2": "Flying",
+    "type1": "Shiny",
     "baseLevel": 9,
     "evolvesTo": 176,
     "evolutionLevel": 10,
@@ -112,8 +111,7 @@
   {
     "pokedexNumber": 176,
     "name": "Togekiss",
-    "type1": "Fairy",
-    "type2": "Flying",
+    "type1": "Shiny",
     "baseLevel": 10,
     "evolvesFrom": 175,
     "hp": 85,

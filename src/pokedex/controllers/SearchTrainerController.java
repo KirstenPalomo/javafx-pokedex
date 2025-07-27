@@ -13,6 +13,7 @@ import pokedex.managers.ItemManager;
 import pokedex.managers.MoveManager;
 import pokedex.managers.PokedexManager;
 import pokedex.managers.TrainerManager;
+import pokedex.models.Pokemon;
 import pokedex.models.Trainer;
 
 import java.io.IOException;
@@ -107,11 +108,39 @@ public class SearchTrainerController {
     }
 
     private String formatTrainer(Trainer t) {
-        return "ID: " + t.getTrainerID() +
-                "\nName: " + t.getName() +
-                "\nSex: " + t.getSex() +
-                "\nBirthdate: " + t.getBirthdate() +
-                "\nHometown: " + t.getHometown() +
-                "\nDescription: " + t.getDescription();
+        StringBuilder sb = new StringBuilder();
+
+        // Basic Info
+        sb.append("ID: ").append(t.getTrainerID())
+                .append("\nName: ").append(t.getName())
+                .append("\nSex: ").append(t.getSex())
+                .append("\nBirthdate: ").append(t.getBirthdate())
+                .append("\nHometown: ").append(t.getHometown())
+                .append("\nDescription: ").append(t.getDescription())
+                .append("\nMoney: ₱").append(String.format("%,d", t.getMoney()));
+
+        // Lineup
+        sb.append("\n\nLineup (").append(t.getLineup().size()).append("/6):");
+        if (t.getLineup().isEmpty()) {
+            sb.append("\n  (No Pokémon in lineup)");
+        } else {
+            for (Pokemon p : t.getLineup()) {
+                sb.append("\n- ").append(p.briefProfile());
+            }
+        }
+
+        // Item Inventory
+        sb.append("\n\nInventory:");
+        if (t.getItemBag().isEmpty()) {
+            sb.append("\n  (No items)");
+        } else {
+            for (Trainer.BagItem bagItem : t.getItemBag().values()) {
+                sb.append("\n- ").append(bagItem.getItem().getName())
+                        .append(" × ").append(bagItem.getQuantity());
+            }
+        }
+
+        return sb.toString();
     }
+
 }

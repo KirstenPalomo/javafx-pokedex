@@ -69,13 +69,4 @@ public class Item {
         return name + " (₱" + (minBuyingPrice != null ? minBuyingPrice : "?") + ")";
     }
 
-
-//    @Override
-//    public String toString() {
-//        return String.format(
-//                "\n%s [%s]\n  Description: %s\n  Effect: %s\n  Buy: %s | Sell: %s\n",
-//                name, category, description, effects,
-//                getFormattedBuyingPrice(), getFormattedSellingPrice()
-//        );
-//    }
 }
