@@ -1,13 +1,24 @@
 package pokedex.managers;
 
 import pokedex.models.Item;
+import pokedex.models.Move;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class ItemManager {
+    private static ItemManager instance;
     private List<Item> items = new ArrayList<>();
+    public List <Item> getAllItems()
+    {
+        return List.copyOf(items);
+    }
+    public void setAllItems(List<Item> loaded) {
+        items.clear();
+        items.addAll(loaded);
 
-    public ItemManager() {
+    }
+    private ItemManager() {
         //Initialize with some default items
         //Vitamins and candies
         items.add(new Item("HP Up", "Vitamin", "A nutritious drink for Pokémon.", "+10 HP EVs",10000, 10000, 5000));
@@ -45,6 +56,12 @@ public class ItemManager {
         items.add(new Item("Ice Stone", "Evolution Stone", "A stone that is cold to the touch.", "Evolves Pokémon like Alolan Vulpix, Galarian Darumaka, Eevee (into Glaceon).", 3000, 5000, 1500));
         // Ice Stone: Spec says ₱3000–₱5000, using max ₱5000 for standardization
     }
+    public static ItemManager getInstance() {
+        if (instance == null) {
+            instance = new ItemManager();
+        }
+        return instance;
+    }
 
     public void viewAllItems() {
         if (items.isEmpty()) {
@@ -75,9 +92,6 @@ public class ItemManager {
         }
     }
 
-    public List<Item> getAllItems() {
-        return items;
-    }
     public void searchItemByEffect(String effect) {
         List<Item> found = new ArrayList<>();
         String keyword = effect.toLowerCase();
@@ -169,4 +183,10 @@ public class ItemManager {
         }
         return false;
     }
+    public void addItem(Item item) {
+        if (item != null && !hasItemWithName(item.getName())) {
+            items.add(item);
+        }
+    }
+
 }

@@ -7,15 +7,16 @@ import com.google.gson.JsonSerializer;
 import com.google.gson.JsonPrimitive;
 import com.google.gson.JsonParseException;
 import com.google.gson.reflect.TypeToken;
+import pokedex.models.Item;
 import pokedex.models.Move;
 import pokedex.models.Pokemon;
 import pokedex.models.Trainer;
 
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.lang.reflect.Type;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class JsonManager {
@@ -98,6 +99,26 @@ public class JsonManager {
             return null;
         }
     }
+    public static void saveItems(List<Item> items) {
+        try (Writer writer = new FileWriter("items.json")) {
+            gson.toJson(items, writer); // use the shared gson instance
+            System.out.println("✅ Items saved to items.json");
+        } catch (IOException e) {
+            System.err.println("❌ Error saving items: " + e.getMessage());
+        }
+    }
+
+    public static List<Item> loadItems() {
+        try (Reader reader = new FileReader("items.json")) {
+            Gson gson = new Gson();
+            Item[] items = gson.fromJson(reader, Item[].class);
+            return items != null ? new ArrayList<>(Arrays.asList(items)) : new ArrayList<>();
+        } catch (IOException e) {
+            return new ArrayList<>(); // return empty if file doesn't exist
+        }
+    }
+
+
 
 
 }

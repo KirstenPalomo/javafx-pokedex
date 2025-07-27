@@ -49,13 +49,7 @@
           "freeze"
         ],
         "heldItem": {
-          "name": "HP Up",
-          "category": "Vitamin",
-          "description": "A nutritious drink for Pokémon.",
-          "effects": "+10 HP EVs",
-          "minBuyingPrice": 10000,
-          "maxBuyingPrice": 10000,
-          "sellingPrice": 5000
+          "sellingPrice": 0
         }
       },
       {
@@ -308,32 +302,7 @@
         }
       }
     ],
-    "itemBag": {
-      "Zinc": {
-        "item": {
-          "name": "Zinc",
-          "category": "Vitamin",
-          "description": "A nutritious drink for Pokémon.",
-          "effects": "+10 Special Defense EVs",
-          "minBuyingPrice": 10000,
-          "maxBuyingPrice": 10000,
-          "sellingPrice": 5000
-        },
-        "quantity": 1
-      },
-      "HP Up": {
-        "item": {
-          "name": "HP Up",
-          "category": "Vitamin",
-          "description": "A nutritious drink for Pokémon.",
-          "effects": "+10 HP EVs",
-          "minBuyingPrice": 10000,
-          "maxBuyingPrice": 10000,
-          "sellingPrice": 5000
-        },
-        "quantity": 1
-      }
-    }
+    "itemBag": {}
   },
   {
     "trainerID": "16",
@@ -342,7 +311,7 @@
     "sex": "M",
     "hometown": "Monaco",
     "description": "F1 Driver",
-    "money": 1000000,
+    "money": 990000,
     "lineup": [
       {
         "pokedexNumber": 25,
@@ -510,5 +479,71 @@
       }
     ],
     "itemBag": {}
+  },
+  {
+    "trainerID": "43",
+    "name": "Jinu",
+    "birthdate": "2025-03-12",
+    "sex": "M",
+    "hometown": "SK",
+    "description": "Has a nice singing voive",
+    "money": 966100,
+    "lineup": [
+      {
+        "pokedexNumber": 25,
+        "name": "Pikachu",
+        "type1": "Electric",
+        "baseLevel": 3,
+        "evolvesTo": 5,
+        "evolutionLevel": 5,
+        "hp": 195,
+        "attack": 195,
+        "defense": 195,
+        "speed": 195,
+        "moveSet": [
+          "Tackle",
+          "Defend"
+        ]
+      }
+    ],
+    "storage": [],
+    "itemBag": {
+      "HP Up": {
+        "item": {
+          "name": "HP Up",
+          "category": "Vitamin",
+          "description": "A nutritious drink for Pokémon.",
+          "effects": "+10 HP EVs",
+          "minBuyingPrice": 10000,
+          "maxBuyingPrice": 10000,
+          "sellingPrice": 5000
+        },
+        "quantity": 3
+      },
+      "Health Feather": {
+        "item": {
+          "name": "Health Feather",
+          "category": "Feather",
+          "description": "A feather that slightly increases HP.",
+          "effects": "+1 HP EV",
+          "minBuyingPrice": 300,
+          "maxBuyingPrice": 300,
+          "sellingPrice": 150
+        },
+        "quantity": 2
+      },
+      "Muscle Feather": {
+        "item": {
+          "name": "Muscle Feather",
+          "category": "Feather",
+          "description": "A feather that slightly increases Attack.",
+          "effects": "+1 Attack EV",
+          "minBuyingPrice": 300,
+          "maxBuyingPrice": 300,
+          "sellingPrice": 150
+        },
+        "quantity": 1
+      }
+    }
   }
 ]

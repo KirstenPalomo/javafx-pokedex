@@ -99,7 +99,7 @@ public class Trainer implements Serializable {
 
     // ── Core Item Logic ──────────────────────────────────────────────────────
 
-    /** Buys an item, enforcing money and bag limits. */
+    /** Buys an item, enforcing money and bag limits. Also gives 1 Rare Candy if within limits. */
     public String buyItem(Item item) {
         String nm = item.getName();
         Integer priceObj = item.getMinBuyingPrice();
@@ -114,7 +114,9 @@ public class Trainer implements Serializable {
 
         int totalCount = itemBag.values().stream().mapToInt(b -> b.quantity).sum();
 
-        if (!itemBag.containsKey(nm) && itemBag.size() >= 10) {
+        // Check if adding the bought item would exceed unique or total limits
+        boolean isNewItem = !itemBag.containsKey(nm);
+        if (isNewItem && itemBag.size() >= 10) {
             return "⚠️ Max 10 unique items.";
         }
 
@@ -122,11 +124,26 @@ public class Trainer implements Serializable {
             return "⚠️ Max 50 items total.";
         }
 
+        // Deduct money and add the bought item
         money -= price;
         itemBag.putIfAbsent(nm, new BagItem(item, 0));
         itemBag.get(nm).quantity++;
+
+        // 🎁 Attempt to give 1 Rare Candy
+        Item rareCandy = ItemManager.getInstance().getItemByName("Rare Candy");
+        if (rareCandy != null) {
+            boolean newCandy = !itemBag.containsKey("Rare Candy");
+            if ((newCandy && itemBag.size() >= 10) || (totalCount + 1 > 50)) {
+                return "SUCCESS: Bought " + nm + " for ₱" + price + "\n⚠️ Bonus Rare Candy could not be given (item limit reached).";
+            }
+            itemBag.putIfAbsent("Rare Candy", new BagItem(rareCandy, 0));
+            itemBag.get("Rare Candy").quantity++;
+            return "SUCCESS: Bought " + nm + " for ₱" + price + "\n🎁 Bonus: Received 1 Rare Candy!";
+        }
+
         return "SUCCESS: Bought " + nm + " for ₱" + price;
     }
+
 
     /** Sells one item, refunding 50% of its base price. */
     public void sellItem(String itemName) {

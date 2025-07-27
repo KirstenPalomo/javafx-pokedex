@@ -249,10 +249,11 @@ public class Menu {
                 case 12:
                     // 1) save before exit
                     System.out.println("Saving trainers to disk...");
+
                     JsonManager.saveTrainers(trainerManager.getAllTrainers());
                     JsonManager.savePokemons(pokedexManager.getAllPokemon());
                     JsonManager.saveMoves(moveManager.getAllMoves());
-
+                    JsonManager.saveItems(itemManager.getAllItems());
                     System.out.println("Data saved. Exiting Pokédex. Goodbye!");
                     break;
 
