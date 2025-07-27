@@ -1,0 +1,196 @@
+[
+  {
+    "name": "HP Up",
+    "category": "Vitamin",
+    "description": "A nutritious drink for Pokémon.",
+    "effects": "+10 HP EVs",
+    "minBuyingPrice": 10000,
+    "maxBuyingPrice": 10000,
+    "sellingPrice": 5000
+  },
+  {
+    "name": "Protein",
+    "category": "Vitamin",
+    "description": "A nutritious drink for Pokémon.",
+    "effects": "+10 Attack EVs",
+    "minBuyingPrice": 10000,
+    "maxBuyingPrice": 10000,
+    "sellingPrice": 5000
+  },
+  {
+    "name": "Iron",
+    "category": "Vitamin",
+    "description": "A nutritious drink for Pokémon.",
+    "effects": "+10 Defense EVs",
+    "minBuyingPrice": 10000,
+    "maxBuyingPrice": 10000,
+    "sellingPrice": 5000
+  },
+  {
+    "name": "Carbos",
+    "category": "Vitamin",
+    "description": "A nutritious drink for Pokémon.",
+    "effects": "+10 Speed EVs",
+    "minBuyingPrice": 10000,
+    "maxBuyingPrice": 10000,
+    "sellingPrice": 5000
+  },
+  {
+    "name": "Zinc",
+    "category": "Vitamin",
+    "description": "A nutritious drink for Pokémon.",
+    "effects": "+10 Special Defense EVs",
+    "minBuyingPrice": 10000,
+    "maxBuyingPrice": 10000,
+    "sellingPrice": 5000
+  },
+  {
+    "name": "Rare Candy",
+    "category": "Leveling Item",
+    "description": "A candy that is packed with energy.",
+    "effects": "Increases level by 1 (stat gain depends on Pokémon\u0027s base stats and EVs)",
+    "sellingPrice": 2400
+  },
+  {
+    "name": "Health Feather",
+    "category": "Feather",
+    "description": "A feather that slightly increases HP.",
+    "effects": "+1 HP EV",
+    "minBuyingPrice": 300,
+    "maxBuyingPrice": 300,
+    "sellingPrice": 150
+  },
+  {
+    "name": "Muscle Feather",
+    "category": "Feather",
+    "description": "A feather that slightly increases Attack.",
+    "effects": "+1 Attack EV",
+    "minBuyingPrice": 300,
+    "maxBuyingPrice": 300,
+    "sellingPrice": 150
+  },
+  {
+    "name": "Resist Feather",
+    "category": "Feather",
+    "description": "A feather that slightly increases Defense.",
+    "effects": "+1 Defense EV",
+    "minBuyingPrice": 300,
+    "maxBuyingPrice": 300,
+    "sellingPrice": 150
+  },
+  {
+    "name": "Swift Feather",
+    "category": "Feather",
+    "description": "A feather that slightly increases Speed.",
+    "effects": "+1 Speed EV",
+    "minBuyingPrice": 300,
+    "maxBuyingPrice": 300,
+    "sellingPrice": 150
+  },
+  {
+    "name": "Fire Stone",
+    "category": "Evolution Stone",
+    "description": "A stone that radiates heat.",
+    "effects": "Evolves Pokémon like Vulpix, Growlithe, Eevee (into Flareon), etc.",
+    "minBuyingPrice": 3000,
+    "maxBuyingPrice": 5000,
+    "sellingPrice": 1500
+  },
+  {
+    "name": "Water Stone",
+    "category": "Evolution Stone",
+    "description": "A stone with a blue watery appearance.",
+    "effects": "Evolves Pokémon like Poliwhirl, Shellder, Eevee (into Vaporeon), etc.",
+    "minBuyingPrice": 3000,
+    "maxBuyingPrice": 5000,
+    "sellingPrice": 1500
+  },
+  {
+    "name": "Thunder Stone",
+    "category": "Evolution Stone",
+    "description": "A stone that sparkles with electricity.",
+    "effects": "Evolves Pokémon like Pikachu, Eevee (into Jolteon), Eelektrik, etc.",
+    "minBuyingPrice": 3000,
+    "maxBuyingPrice": 5000,
+    "sellingPrice": 1500
+  },
+  {
+    "name": "Leaf Stone",
+    "category": "Evolution Stone",
+    "description": "A stone with a leaf pattern",
+    "effects": "Evolves Pokémon like Gloom, Weepinbell, Exeggcute, etc.",
+    "minBuyingPrice": 3000,
+    "maxBuyingPrice": 5000,
+    "sellingPrice": 1500
+  },
+  {
+    "name": "Moon Stone",
+    "category": "Evolution Stone",
+    "description": "A stone that glows faintly in the moonlight.",
+    "effects": "Evolves Pokémon like Nidorina, Clefairy, Jigglypuff, etc.",
+    "sellingPrice": 1500
+  },
+  {
+    "name": "Sun Stone",
+    "category": "Evolution Stone",
+    "description": "A stone that glows like the sun.",
+    "effects": "Evolves Pokémon like Gloom (into Bellossom), Sunkern, Cottonee, etc.",
+    "minBuyingPrice": 3000,
+    "maxBuyingPrice": 5000,
+    "sellingPrice": 1500
+  },
+  {
+    "name": "Shiny Stone",
+    "category": "Evolution Stone",
+    "description": "A stone that sparkles brightly.",
+    "effects": "Evolves Pokémon like Togetic, Roselia, Minccino, etc.",
+    "minBuyingPrice": 3000,
+    "maxBuyingPrice": 5000,
+    "sellingPrice": 1500
+  },
+  {
+    "name": "Dusk Stone",
+    "category": "Evolution Stone",
+    "description": "A stone that is ominous in appearance.",
+    "effects": "Evolves Pokémon like Munkrow, Misdreavus, Doublade, etc.",
+    "minBuyingPrice": 3000,
+    "maxBuyingPrice": 5000,
+    "sellingPrice": 1500
+  },
+  {
+    "name": "Dawn Stone",
+    "category": "Evolution Stone",
+    "description": "A stone that sparkles like the morning sky.",
+    "effects": "Evolves male Kirlia into Gallade, female Snorunt into Froslass.",
+    "minBuyingPrice": 3000,
+    "maxBuyingPrice": 5000,
+    "sellingPrice": 1500
+  },
+  {
+    "name": "Ice Stone",
+    "category": "Evolution Stone",
+    "description": "A stone that is cold to the touch.",
+    "effects": "Evolves Pokémon like Alolan Vulpix, Galarian Darumaka, Eevee (into Glaceon).",
+    "minBuyingPrice": 3000,
+    "maxBuyingPrice": 5000,
+    "sellingPrice": 1500
+  },
+  {
+    "name": "Mind Tonic",
+    "category": "Vitamin",
+    "description": "It makes the pokemon smarter.",
+    "effects": "+10 SPecial Attack EVs",
+    "minBuyingPrice": 10000,
+    "maxBuyingPrice": 10000,
+    "sellingPrice": 5000
+  },
+  {
+    "name": "Calcium",
+    "category": "Vitamin",
+    "description": "A supplement that boosts Special Attack",
+    "effects": "+10 Special Attack EVs",
+    "minBuyingPrice": 10000,
+    "maxBuyingPrice": 10000,
+    "sellingPrice": 5000
+  }
+]
