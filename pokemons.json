@@ -3,7 +3,7 @@
     "pokedexNumber": 25,
     "name": "Pikachu",
     "type1": "Electric",
-    "baseLevel": 1,
+    "baseLevel": 2,
     "evolvesTo": 5,
     "evolutionLevel": 5,
     "hp": 195,
