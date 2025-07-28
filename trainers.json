@@ -120,23 +120,8 @@
     "sex": "M",
     "hometown": "Monaco",
     "description": "Ferrari Driver",
-    "money": 994000,
+    "money": 843800,
     "lineup": [
-      {
-        "pokedexNumber": 26,
-        "name": "Raichu",
-        "type1": "Electric",
-        "baseLevel": 9,
-        "evolvesFrom": 24,
-        "hp": 60,
-        "attack": 90,
-        "defense": 55,
-        "speed": 110,
-        "moveSet": [
-          "Tackle",
-          "Defend"
-        ]
-      },
       {
         "pokedexNumber": 59,
         "name": "Arcanine",
@@ -150,6 +135,22 @@
           "Bite",
           "Roar"
         ]
+      },
+      {
+        "pokedexNumber": 26,
+        "name": "Raichu",
+        "type1": "Electric",
+        "baseLevel": 9,
+        "hp": 60,
+        "attack": 90,
+        "defense": 55,
+        "speed": 112,
+        "moveSet": [
+          "Tackle",
+          "Defend",
+          "Growl",
+          "Quick Attack"
+        ]
       }
     ],
     "storage": [],
@@ -161,6 +162,18 @@
           "description": "A candy that is packed with energy.",
           "effects": "Increases level by 1 (stat gain depends on Pokémon\u0027s base stats and EVs)",
           "sellingPrice": 2400
+        },
+        "quantity": 18
+      },
+      "HP Up": {
+        "item": {
+          "name": "HP Up",
+          "category": "Vitamin",
+          "description": "A nutritious drink for Pokémon.",
+          "effects": "+10 HP EVs",
+          "minBuyingPrice": 10000,
+          "maxBuyingPrice": 10000,
+          "sellingPrice": 5000
         },
         "quantity": 2
       }
