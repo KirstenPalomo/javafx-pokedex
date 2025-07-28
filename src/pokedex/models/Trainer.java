@@ -611,7 +611,7 @@ public class Trainer implements Serializable {
         if (item.getCategory().equalsIgnoreCase("Vitamin") || item.getCategory().equalsIgnoreCase("Feather")) {
             applyVitaminEffect(item, target);
         } else if (item.getName().equalsIgnoreCase("Rare Candy")) {
-            applyRareCandyEffect(target, pokedexManager, scanner != null ? scanner : new Scanner(System.in));
+            applyRareCandyEffect(target, pokedexManager);
         } else if (item.getCategory().equalsIgnoreCase("Evolution Stone")) {
             System.out.println("✅ REACHED item.getCategory() == Evolution Stone");
             applyEvolutionStoneEffect(item, target, pokedexManager);
@@ -622,42 +622,48 @@ public class Trainer implements Serializable {
             System.out.println("⚠️ Item has no effect.");
         }
     }
-    public boolean useHeldItem(Pokemon target, PokedexManager pokedexManager) {
-        if (target == null || target.getHeldItem() == null) return false;
+
+    public String useHeldItem(Pokemon target, PokedexManager pokedexManager) {
+        if (target == null || target.getHeldItem() == null) return "⚠️ No held item found.";
 
         Item heldItem = target.getHeldItem();
-        System.out.println(name + " used held item: " + heldItem.getName() + " on " + target.getName());
+        String result;
 
-        // Reuse existing logic from useItem, but pass null for Scanner
-        useItem(heldItem, target, pokedexManager, null);
+        if (heldItem.getName().equalsIgnoreCase("Rare Candy")) {
+            result = applyRareCandyEffect(target, pokedexManager);
+        } else if (heldItem.getCategory().equalsIgnoreCase("Vitamin") || heldItem.getCategory().equalsIgnoreCase("Feather")) {
+            applyVitaminEffect(heldItem, target);
+            result = heldItem.getName() + " took effect! " + target.getName() + "'s stats improved.";
+        } else {
+            result = heldItem.getName() + " had no effect.";
+        }
 
-        // Remove the held item after use
         target.setHeldItem(null);
-        return true;
+        return result;
     }
 
 
-    private void applyVitaminEffect(Item item, Pokemon target) {
+    public void applyVitaminEffect(Item item, Pokemon target) {
         String effect = item.getEffects().toLowerCase();
+        int amount = item.getCategory().equalsIgnoreCase("Feather") ? 1 : 10; // ← Decide based on category
 
         if (effect.contains("hp")) {
-            target.increaseHp(10);
+            target.increaseHp(amount);
         } else if (effect.contains("attack")) {
-            target.increaseAttack(10);
+            target.increaseAttack(amount);
         } else if (effect.contains("defense")) {
-            target.increaseDefense(10);
+            target.increaseDefense(amount);
         } else if (effect.contains("speed")) {
-            target.increaseSpeed(10);
+            target.increaseSpeed(amount);
         } else {
-            System.out.println("⚠️ Unknown vitamin effect.");
+            System.out.println("⚠️ Unknown vitamin or feather effect.");
         }
     }
 
-    private void applyRareCandyEffect(Pokemon target, PokedexManager pokedexManager, Scanner sc) {
+    public String applyRareCandyEffect(Pokemon target, PokedexManager pokedexManager) {
         if (!pokedexManager.getAllowedStoneEvolutionNames()
                 .contains(target.getName().toLowerCase())) {
-            System.out.println("⚠️ " + target.getName() + " is not allowed to evolve.");
-            return;
+            return target.getName() + " is not allowed to evolve.";
         }
 
         int oldLevel = target.getBaseLevel();
@@ -669,46 +675,22 @@ public class Trainer implements Serializable {
         target.setDefense((int) Math.round(target.getDefense() * 1.1));
         target.setSpeed((int) Math.round(target.getSpeed() * 1.1));
 
-        System.out.printf("✅ %s leveled up from %d to %d. Base stats increased by 10%%.%n",
-                target.getName(), oldLevel, newLevel);
+        StringBuilder log = new StringBuilder();
+        log.append(target.getName())
+                .append(" leveled up from ").append(oldLevel)
+                .append(" to ").append(newLevel).append(". Base stats increased by 10%.\n");
 
-        if (target.getEvolutionLevel() != null && newLevel >= target.getEvolutionLevel()) {
-            System.out.printf("%s can now evolve (Evolution Level: %d).%n", target.getName(), target.getEvolutionLevel());
+        Integer evoLevel = target.getEvolutionLevel();
+        Integer evolvesTo = target.getEvolvesTo();
 
-            String input;
-            do {
-                System.out.print("Do you want to evolve this Pokémon now? (Y/N): ");
-                input = sc.nextLine().trim().toLowerCase();
-                if (!input.equals("y") && !input.equals("n")) {
-                    System.out.println("⚠️ Invalid input. Please enter Y or N.");
-                }
-            } while (!input.equals("y") && !input.equals("n"));
-
-            if (input.equals("n")) {
-                System.out.println("❌ Evolution cancelled.");
-                return;
-            }
-
-            Integer evolvesTo = target.getEvolvesTo();
-            if (evolvesTo != null) {
-                Pokemon evolvedForm = pokedexManager.getPokemonByNumber(evolvesTo);
-                if (evolvedForm != null) {
-                    System.out.println("🎉 " + target.getName() + " is evolving into " + evolvedForm.getName() + "!");
-
-                    // ✅ Only update name, ID, and evolution properties
-                    target.setName(evolvedForm.getName());
-                    target.setPokedexNumber(evolvedForm.getPokedexNumber());
-                    target.setEvolvesTo(evolvedForm.getEvolvesTo());
-                    target.setEvolutionLevel(evolvedForm.getEvolutionLevel());
-
-                    System.out.println("✅ Evolution complete! Stats, moves, and held item retained.");
-                } else {
-                    System.out.println("⚠️ Evolution data not found.");
-                }
-            } else {
-                System.out.println("⚠️ This Pokémon has no evolution target.");
-            }
+        if (evoLevel != null && newLevel >= evoLevel && evolvesTo != null) {
+            log.append(target.getName())
+                    .append(" can now evolve (Evolution Level: ")
+                    .append(evoLevel).append(").\n");
+            log.append("[EVOLUTION_PROMPT]");  // ← special flag
         }
+
+        return log.toString();
     }
 
 

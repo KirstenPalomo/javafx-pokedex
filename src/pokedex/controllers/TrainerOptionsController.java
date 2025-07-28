@@ -320,23 +320,41 @@ public class TrainerOptionsController {
                         return;
                     }
 
-                    boolean used = selectedTrainer.useHeldItem(target, pokedexManager);
+                    String result = selectedTrainer.useHeldItem(target, pokedexManager);
 
-                    log.append(selectedTrainer.getName()).append(" used held item ")
-                            .append(held.getName()).append(" on ").append(target.getName()).append(".\n");
+                    if (result.contains("[EVOLUTION_PROMPT]")) {
+                        result = result.replace("[EVOLUTION_PROMPT]", "");
 
-                    if (used) {
-                        log.append("The item took effect successfully.");
-                        showAlert("Use Item", log.toString(), Alert.AlertType.INFORMATION);
-                    } else {
-                        log.append("But the item had no effect or was not applicable.");
-                        showAlert("Use Item", log.toString(), Alert.AlertType.WARNING);
+                        Alert evoPrompt = new Alert(Alert.AlertType.CONFIRMATION);
+                        evoPrompt.setTitle("Evolution");
+                        evoPrompt.setHeaderText(target.getName() + " can now evolve!");
+                        evoPrompt.setContentText("Do you want to evolve this Pokémon now?");
+                        Optional<ButtonType> confirm = evoPrompt.showAndWait();
+
+                        if (confirm.isPresent() && confirm.get() == ButtonType.OK) {
+                            Pokemon evolvedForm = pokedexManager.getPokemonByNumber(target.getEvolvesTo());
+                            if (evolvedForm != null) {
+                                target.setName(evolvedForm.getName());
+                                target.setPokedexNumber(evolvedForm.getPokedexNumber());
+                                target.setEvolvesTo(evolvedForm.getEvolvesTo());
+                                target.setEvolutionLevel(evolvedForm.getEvolutionLevel());
+                                target.setType1(evolvedForm.getType1());
+                                target.setType2(evolvedForm.getType2());
+                                result += "\n" + target.getName() + " evolved successfully!";
+                            } else {
+                                result += "\nEvolution data not found.";
+                            }
+                        } else {
+                            result += "\nEvolution cancelled.";
+                        }
                     }
+
+                    showAlert("Use Item", result, Alert.AlertType.INFORMATION);
                     return;
                 }
 
 
-                // Inventory flow
+                    // Inventory flow
                 Map<String, Trainer.BagItem> bag = selectedTrainer.getItemBag();
                 if (bag.isEmpty()) {
                     showAlert("Use Item", "You have no items in your inventory.", Alert.AlertType.INFORMATION);
@@ -430,6 +448,7 @@ public class TrainerOptionsController {
                                 if (evolvedForm == null) {
                                     log.append("Evolution data not found for ").append(target.getName()).append(".");
                                 } else {
+                                    String originalName = target.getName();
                                     target.setName(evolvedForm.getName());
                                     target.setPokedexNumber(evolvedForm.getPokedexNumber());
                                     target.setType1(evolvedForm.getType1());
@@ -441,18 +460,26 @@ public class TrainerOptionsController {
                                     target.setEvolvesTo(evolvedForm.getEvolvesTo());
                                     target.setEvolutionLevel(evolvedForm.getEvolutionLevel());
 
-                                    log.append(target.getName()).append(" evolved into ")
+                                    log.append(originalName).append(" evolved into ")
                                             .append(evolvedForm.getName()).append("!\n")
                                             .append("Evolution complete. Stats updated.");
                                 }
                             }
                         }
 
-                    } else {
-                        log.append(selectedTrainer.getName()).append(" used ")
-                                .append(itemName).append(" on ")
-                                .append(target.getName()).append(".\n");
-                    }
+                    } else if (bagItem.getItem().getCategory().equalsIgnoreCase("Vitamin") ||
+                                bagItem.getItem().getCategory().equalsIgnoreCase("Feather")) {
+                            selectedTrainer.applyVitaminEffect(bagItem.getItem(), target);
+                            log.append(selectedTrainer.getName()).append(" used ")
+                                    .append(itemName).append(" on ")
+                                    .append(target.getName()).append(". The item took effect.");
+                        } else {
+                            log.append(selectedTrainer.getName()).append(" used ")
+                                    .append(itemName).append(" on ")
+                                    .append(target.getName()).append(".\n")
+                                    .append("But it had no effect.");
+                        }
+
 
                     // Decrement inventory
                     bagItem.decrement();
@@ -569,15 +596,19 @@ public class TrainerOptionsController {
                 }
 
                 selectedPokemon.setHeldItem(item);
+
+                // ✅ Decrement quantity
+                Trainer.BagItem bagItem = bag.get(itemName);
+                if (bagItem != null) {
+                    bagItem.decrement();
+                    if (bagItem.getQuantity() <= 0) {
+                        bag.remove(itemName);
+                    }
+                }
+
                 showAlert("Give Item", selectedPokemon.getName() + " is now holding " + item.getName() + ".", Alert.AlertType.INFORMATION);
 
-                // ✅ SYNC AND SAVE
-                Pokemon global = pokedexManager.getPokemonByNumber(selectedPokemon.getPokedexNumber());
-                if (global != null) {
-                    global.setHeldItem(selectedPokemon.getHeldItem());
-                }
                 JsonManager.saveTrainers(trainerManager.getAllTrainers());
-                JsonManager.savePokemons(pokedexManager.getAllPokemon());
             });
         });
     }
