@@ -611,7 +611,7 @@ public class Trainer implements Serializable {
         if (item.getCategory().equalsIgnoreCase("Vitamin") || item.getCategory().equalsIgnoreCase("Feather")) {
             applyVitaminEffect(item, target);
         } else if (item.getName().equalsIgnoreCase("Rare Candy")) {
-            applyRareCandyEffect(target, pokedexManager, scanner);
+            applyRareCandyEffect(target, pokedexManager, scanner != null ? scanner : new Scanner(System.in));
         } else if (item.getCategory().equalsIgnoreCase("Evolution Stone")) {
             System.out.println("✅ REACHED item.getCategory() == Evolution Stone");
             applyEvolutionStoneEffect(item, target, pokedexManager);
@@ -622,6 +622,20 @@ public class Trainer implements Serializable {
             System.out.println("⚠️ Item has no effect.");
         }
     }
+    public boolean useHeldItem(Pokemon target, PokedexManager pokedexManager) {
+        if (target == null || target.getHeldItem() == null) return false;
+
+        Item heldItem = target.getHeldItem();
+        System.out.println(name + " used held item: " + heldItem.getName() + " on " + target.getName());
+
+        // Reuse existing logic from useItem, but pass null for Scanner
+        useItem(heldItem, target, pokedexManager, null);
+
+        // Remove the held item after use
+        target.setHeldItem(null);
+        return true;
+    }
+
 
     private void applyVitaminEffect(Item item, Pokemon target) {
         String effect = item.getEffects().toLowerCase();

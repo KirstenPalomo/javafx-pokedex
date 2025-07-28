@@ -106,7 +106,16 @@
     "moveSet": [
       "Charm",
       "Metronome"
-    ]
+    ],
+    "heldItem": {
+      "name": "HP Up",
+      "category": "Vitamin",
+      "description": "A nutritious drink for Pokémon.",
+      "effects": "+10 HP EVs",
+      "minBuyingPrice": 10000,
+      "maxBuyingPrice": 10000,
+      "sellingPrice": 5000
+    }
   },
   {
     "pokedexNumber": 176,
