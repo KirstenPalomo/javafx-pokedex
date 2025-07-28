@@ -6,7 +6,7 @@
     "sex": "F",
     "hometown": "SK",
     "description": "Leader of IVE",
-    "money": 957000,
+    "money": 947000,
     "lineup": [
       {
         "pokedexNumber": 175,
@@ -15,7 +15,7 @@
         "baseLevel": 9,
         "evolvesTo": 176,
         "evolutionLevel": 10,
-        "hp": 55,
+        "hp": 75,
         "attack": 40,
         "defense": 85,
         "speed": 40,
@@ -97,7 +97,19 @@
           "effects": "Increases level by 1 (stat gain depends on Pokémon\u0027s base stats and EVs)",
           "sellingPrice": 2400
         },
-        "quantity": 5
+        "quantity": 6
+      },
+      "HP Up": {
+        "item": {
+          "name": "HP Up",
+          "category": "Vitamin",
+          "description": "A nutritious drink for Pokémon.",
+          "effects": "+10 HP EVs",
+          "minBuyingPrice": 10000,
+          "maxBuyingPrice": 10000,
+          "sellingPrice": 5000
+        },
+        "quantity": 1
       }
     }
   },

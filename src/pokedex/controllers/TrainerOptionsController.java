@@ -279,162 +279,193 @@ public class TrainerOptionsController {
 
     @FXML
     private void handleUse(ActionEvent event) {
-        Map<String, Trainer.BagItem> bag = selectedTrainer.getItemBag();
-
-        if (bag.isEmpty()) {
-            showAlert("Use Item", "You have no items to use.", Alert.AlertType.INFORMATION);
+        List<Pokemon> lineup = selectedTrainer.getLineup();
+        if (lineup.isEmpty()) {
+            showAlert("Use Item", "You have no Pokémon in your lineup.", Alert.AlertType.INFORMATION);
             return;
         }
 
-        List<String> ownedItemNames = new ArrayList<>(bag.keySet());
+        // Step 1: Choose Pokémon
+        List<String> pokemonNames = lineup.stream().map(Pokemon::getName).toList();
+        ChoiceDialog<String> pokeDialog = new ChoiceDialog<>(pokemonNames.get(0), pokemonNames);
+        pokeDialog.setTitle("Use Item");
+        pokeDialog.setHeaderText("Select a Pokémon");
+        pokeDialog.setContentText("Which Pokémon?");
 
-        ChoiceDialog<String> itemDialog = new ChoiceDialog<>(ownedItemNames.get(0), ownedItemNames);
-        itemDialog.setTitle("Use Item");
-        itemDialog.setHeaderText("Select an item to use");
-        itemDialog.setContentText("Choose item:");
+        pokeDialog.showAndWait().ifPresent(pokemonName -> {
+            Pokemon target = lineup.stream()
+                    .filter(p -> p.getName().equals(pokemonName))
+                    .findFirst()
+                    .orElse(null);
 
-        itemDialog.showAndWait().ifPresent(itemName -> {
-            Trainer.BagItem bagItem = bag.get(itemName);
-
-            if (bagItem == null || bagItem.getQuantity() == 0) {
-                showAlert("Use Item", "You no longer have that item.", Alert.AlertType.ERROR);
+            if (target == null) {
+                showAlert("Use Item", "Selected Pokémon not found.", Alert.AlertType.ERROR);
                 return;
             }
 
-            List<Pokemon> lineup = selectedTrainer.getLineup();
-            if (lineup.isEmpty()) {
-                showAlert("Use Item", "You have no Pokémon in your lineup.", Alert.AlertType.INFORMATION);
-                return;
-            }
+            // Step 2: Choose source
+            List<String> sourceOptions = List.of("Held Item", "Inventory");
+            ChoiceDialog<String> sourceDialog = new ChoiceDialog<>(sourceOptions.get(0), sourceOptions);
+            sourceDialog.setTitle("Use Item");
+            sourceDialog.setHeaderText("Select Source");
+            sourceDialog.setContentText("Which item do you want to use?");
 
-            List<String> pokemonNames = lineup.stream().map(Pokemon::getName).toList();
+            sourceDialog.showAndWait().ifPresent(source -> {
+                StringBuilder log = new StringBuilder();
 
-            ChoiceDialog<String> pokeDialog = new ChoiceDialog<>(pokemonNames.get(0), pokemonNames);
-            pokeDialog.setTitle("Choose Pokémon");
-            pokeDialog.setHeaderText("Select a Pokémon to use the item on");
-            pokeDialog.setContentText("Choose Pokémon:");
+                if (source.equals("Held Item")) {
+                    Item held = target.getHeldItem();
+                    if (held == null) {
+                        showAlert("Use Item", target.getName() + " is not holding any item.", Alert.AlertType.WARNING);
+                        return;
+                    }
 
-            pokeDialog.showAndWait().ifPresent(pokemonName -> {
-                Pokemon target = lineup.stream()
-                        .filter(p -> p.getName().equals(pokemonName))
-                        .findFirst()
-                        .orElse(null);
+                    boolean used = selectedTrainer.useHeldItem(target, pokedexManager);
 
-                if (target == null) {
-                    showAlert("Use Item", "Selected Pokémon not found.", Alert.AlertType.ERROR);
+                    log.append(selectedTrainer.getName()).append(" used held item ")
+                            .append(held.getName()).append(" on ").append(target.getName()).append(".\n");
+
+                    if (used) {
+                        log.append("The item took effect successfully.");
+                        showAlert("Use Item", log.toString(), Alert.AlertType.INFORMATION);
+                    } else {
+                        log.append("But the item had no effect or was not applicable.");
+                        showAlert("Use Item", log.toString(), Alert.AlertType.WARNING);
+                    }
                     return;
                 }
 
-                StringBuilder log = new StringBuilder();
-                String itemNameLower = bagItem.getItem().getName().toLowerCase();
 
-                if (itemNameLower.equals("rare candy")) {
-                    int oldLevel = target.getBaseLevel();
-                    int newLevel = oldLevel + 1;
-                    target.setBaseLevel(newLevel);
+                // Inventory flow
+                Map<String, Trainer.BagItem> bag = selectedTrainer.getItemBag();
+                if (bag.isEmpty()) {
+                    showAlert("Use Item", "You have no items in your inventory.", Alert.AlertType.INFORMATION);
+                    return;
+                }
 
-                    target.setHp((int) Math.round(target.getHp() * 1.1));
-                    target.setAttack((int) Math.round(target.getAttack() * 1.1));
-                    target.setDefense((int) Math.round(target.getDefense() * 1.1));
-                    target.setSpeed((int) Math.round(target.getSpeed() * 1.1));
+                List<String> ownedItemNames = new ArrayList<>(bag.keySet());
+                ChoiceDialog<String> itemDialog = new ChoiceDialog<>(ownedItemNames.get(0), ownedItemNames);
+                itemDialog.setTitle("Use Item");
+                itemDialog.setHeaderText("Select an item to use");
+                itemDialog.setContentText("Choose item:");
 
-                    log.append(target.getName())
-                            .append(" leveled up from ").append(oldLevel).append(" to ").append(newLevel)
-                            .append(". Base stats increased by 10%.\n");
+                itemDialog.showAndWait().ifPresent(itemName -> {
+                    Trainer.BagItem bagItem = bag.get(itemName);
 
-                    Integer evoLevel = target.getEvolutionLevel();
-                    Integer evolvesTo = target.getEvolvesTo();
-                    List<String> allowedEvos = List.of("pikachu", "vulpix", "growlithe", "togetic", "eevee");
+                    if (bagItem == null || bagItem.getQuantity() == 0) {
+                        showAlert("Use Item", "You no longer have that item.", Alert.AlertType.ERROR);
+                        return;
+                    }
 
-                    if (evoLevel != null &&
-                            newLevel >= evoLevel &&
-                            evolvesTo != null &&
-                            allowedEvos.contains(target.getName().toLowerCase())) {
+                    String itemNameLower = itemName.toLowerCase();
+
+                    if (itemNameLower.equals("rare candy")) {
+                        int oldLevel = target.getBaseLevel();
+                        int newLevel = oldLevel + 1;
+                        target.setBaseLevel(newLevel);
+
+                        target.setHp((int) Math.round(target.getHp() * 1.1));
+                        target.setAttack((int) Math.round(target.getAttack() * 1.1));
+                        target.setDefense((int) Math.round(target.getDefense() * 1.1));
+                        target.setSpeed((int) Math.round(target.getSpeed() * 1.1));
+
                         log.append(target.getName())
-                                .append(" can now evolve (Evolution Level: ").append(evoLevel).append(").\n");
+                                .append(" leveled up from ").append(oldLevel).append(" to ").append(newLevel)
+                                .append(". Base stats increased by 10%.\n");
 
-                        Alert evoPrompt = new Alert(Alert.AlertType.CONFIRMATION);
-                        evoPrompt.setTitle("Evolution");
-                        evoPrompt.setHeaderText(target.getName() + " reached level " + newLevel + "!");
-                        evoPrompt.setContentText("Do you want to evolve this Pokémon now?");
-                        Optional<ButtonType> result = evoPrompt.showAndWait();
-
-                        if (result.isPresent() && result.get() == ButtonType.OK) {
-                            Pokemon evolvedForm = pokedexManager.getPokemonByNumber(evolvesTo);
-                            if (evolvedForm != null) {
-                                log.append(target.getName())
-                                        .append(" evolved into ").append(evolvedForm.getName()).append("!\n");
-
-                                target.setName(evolvedForm.getName());
-                                target.setPokedexNumber(evolvedForm.getPokedexNumber());
-                                target.setEvolvesTo(evolvedForm.getEvolvesTo());
-                                target.setEvolutionLevel(evolvedForm.getEvolutionLevel());
-                                target.setType1(evolvedForm.getType1());
-                                target.setType2(evolvedForm.getType2());
-                            } else {
-                                log.append("Evolution failed. Evolved form not found in Pokédex.\n");
-                            }
-                        } else {
-                            log.append("Pokémon was not evolved.\n");
-                        }
-                    }
-
-                    log.insert(0, selectedTrainer.getName() + " used Rare Candy on " + target.getName() + ".\n");
-
-                } else if (bagItem.getItem().getCategory().equalsIgnoreCase("Evolution Stone")) {
-                    String stoneUsed = bagItem.getItem().getName();
-                    String targetName = target.getName();
-                    String lowerTarget = targetName.toLowerCase();
-
-                    List<String> allowedEvos = List.of("pikachu", "vulpix", "growlithe", "togetic", "eevee");
-
-                    if (!allowedEvos.contains(lowerTarget)) {
-                        log.append(targetName).append(" cannot evolve using an evolution stone.");
-                    } else if (!pokedexManager.isCorrectStoneForEvolution(targetName, stoneUsed)) {
-                        log.append(stoneUsed).append(" cannot be used to evolve ").append(targetName).append(".");
-                    } else {
+                        Integer evoLevel = target.getEvolutionLevel();
                         Integer evolvesTo = target.getEvolvesTo();
-                        if (evolvesTo == null) {
-                            log.append(targetName).append(" has no evolution target.");
-                        } else {
-                            Pokemon evolvedForm = pokedexManager.getPokemonByNumber(evolvesTo);
-                            if (evolvedForm == null) {
-                                log.append("Evolution data not found for ").append(targetName).append(".");
-                            } else {
-                                target.setName(evolvedForm.getName());
-                                target.setPokedexNumber(evolvedForm.getPokedexNumber());
-                                target.setType1(evolvedForm.getType1());
-                                target.setType2(evolvedForm.getType2());
-                                target.setHp(Math.max(target.getHp(), evolvedForm.getHp()));
-                                target.setAttack(Math.max(target.getAttack(), evolvedForm.getAttack()));
-                                target.setDefense(Math.max(target.getDefense(), evolvedForm.getDefense()));
-                                target.setSpeed(Math.max(target.getSpeed(), evolvedForm.getSpeed()));
-                                target.setEvolvesTo(evolvedForm.getEvolvesTo());
-                                target.setEvolutionLevel(evolvedForm.getEvolutionLevel());
+                        List<String> allowedEvos = List.of("pikachu", "vulpix", "growlithe", "togetic", "eevee");
 
-                                log.append(targetName)
-                                        .append(" evolved into ").append(evolvedForm.getName()).append("!\n")
-                                        .append("Evolution complete. Stats updated.");
+                        if (evoLevel != null &&
+                                newLevel >= evoLevel &&
+                                evolvesTo != null &&
+                                allowedEvos.contains(target.getName().toLowerCase())) {
+                            log.append(target.getName())
+                                    .append(" can now evolve (Evolution Level: ").append(evoLevel).append(").\n");
+
+                            Alert evoPrompt = new Alert(Alert.AlertType.CONFIRMATION);
+                            evoPrompt.setTitle("Evolution");
+                            evoPrompt.setHeaderText(target.getName() + " reached level " + newLevel + "!");
+                            evoPrompt.setContentText("Do you want to evolve this Pokémon now?");
+                            Optional<ButtonType> result = evoPrompt.showAndWait();
+
+                            if (result.isPresent() && result.get() == ButtonType.OK) {
+                                Pokemon evolvedForm = pokedexManager.getPokemonByNumber(evolvesTo);
+                                if (evolvedForm != null) {
+                                    log.append(target.getName())
+                                            .append(" evolved into ").append(evolvedForm.getName()).append("!\n");
+
+                                    target.setName(evolvedForm.getName());
+                                    target.setPokedexNumber(evolvedForm.getPokedexNumber());
+                                    target.setEvolvesTo(evolvedForm.getEvolvesTo());
+                                    target.setEvolutionLevel(evolvedForm.getEvolutionLevel());
+                                    target.setType1(evolvedForm.getType1());
+                                    target.setType2(evolvedForm.getType2());
+                                } else {
+                                    log.append("Evolution failed. Evolved form not found in Pokédex.\n");
+                                }
+                            } else {
+                                log.append("Pokémon was not evolved.\n");
                             }
                         }
+
+                        log.insert(0, selectedTrainer.getName() + " used Rare Candy on " + target.getName() + ".\n");
+
+                    } else if (bagItem.getItem().getCategory().equalsIgnoreCase("Evolution Stone")) {
+                        String stoneUsed = bagItem.getItem().getName();
+                        String targetName = target.getName().toLowerCase();
+                        List<String> allowedEvos = List.of("pikachu", "vulpix", "growlithe", "togetic", "eevee");
+
+                        if (!allowedEvos.contains(targetName)) {
+                            log.append(target.getName()).append(" cannot evolve using an evolution stone.");
+                        } else if (!pokedexManager.isCorrectStoneForEvolution(target.getName(), stoneUsed)) {
+                            log.append(stoneUsed).append(" cannot be used to evolve ").append(target.getName()).append(".");
+                        } else {
+                            Integer evolvesTo = target.getEvolvesTo();
+                            if (evolvesTo == null) {
+                                log.append(target.getName()).append(" has no evolution target.");
+                            } else {
+                                Pokemon evolvedForm = pokedexManager.getPokemonByNumber(evolvesTo);
+                                if (evolvedForm == null) {
+                                    log.append("Evolution data not found for ").append(target.getName()).append(".");
+                                } else {
+                                    target.setName(evolvedForm.getName());
+                                    target.setPokedexNumber(evolvedForm.getPokedexNumber());
+                                    target.setType1(evolvedForm.getType1());
+                                    target.setType2(evolvedForm.getType2());
+                                    target.setHp(Math.max(target.getHp(), evolvedForm.getHp()));
+                                    target.setAttack(Math.max(target.getAttack(), evolvedForm.getAttack()));
+                                    target.setDefense(Math.max(target.getDefense(), evolvedForm.getDefense()));
+                                    target.setSpeed(Math.max(target.getSpeed(), evolvedForm.getSpeed()));
+                                    target.setEvolvesTo(evolvedForm.getEvolvesTo());
+                                    target.setEvolutionLevel(evolvedForm.getEvolutionLevel());
+
+                                    log.append(target.getName()).append(" evolved into ")
+                                            .append(evolvedForm.getName()).append("!\n")
+                                            .append("Evolution complete. Stats updated.");
+                                }
+                            }
+                        }
+
+                    } else {
+                        log.append(selectedTrainer.getName()).append(" used ")
+                                .append(itemName).append(" on ")
+                                .append(target.getName()).append(".\n");
                     }
-                } else {
-                    // Default item behavior
-                    log.append(selectedTrainer.getName()).append(" used ")
-                            .append(bagItem.getItem().getName()).append(" on ")
-                            .append(target.getName()).append(".\n");
-                }
 
-                // Decrement quantity and remove if needed
-                bagItem.decrement();
-                if (bagItem.getQuantity() == 0) {
-                    bag.remove(itemName);
-                }
+                    // Decrement inventory
+                    bagItem.decrement();
+                    if (bagItem.getQuantity() == 0) {
+                        bag.remove(itemName);
+                    }
 
-                showAlert("Use Item", log.toString(), Alert.AlertType.INFORMATION);
+                    showAlert("Use Item", log.toString(), Alert.AlertType.INFORMATION);
+                });
             });
         });
     }
+
 
     @FXML
     private void handleAdd(ActionEvent event) {

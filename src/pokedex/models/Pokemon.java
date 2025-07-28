@@ -1,6 +1,7 @@
 package pokedex.models;
 
 import pokedex.models.Item;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,7 +29,7 @@ public class Pokemon {
 
     public Pokemon(int pokedexNumber, String name, String type1, String type2, int baseLevel,
                    Integer evolvesFrom, Integer evolvesTo, Integer evolutionLevel, int hp, int attack,
-                   int defense, int speed, List<String> extraMoves, Item heldItem){
+                   int defense, int speed, List<String> extraMoves, Item heldItem) {
 
         this.pokedexNumber = pokedexNumber;
         this.name = name;
@@ -64,37 +65,113 @@ public class Pokemon {
         System.out.println(name.toUpperCase() + "!");
     }
 
-    public int getPokedexNumber() { return pokedexNumber; }
-    public String getName() { return name; }
-    public String getType1() { return type1; }
-    public String getType2() { return type2; }
-    public int getBaseLevel() { return baseLevel; }
-    public Integer getEvolvesFrom() { return evolvesFrom; }
-    public Integer getEvolvesTo() { return evolvesTo; }
-    public Integer getEvolutionLevel() { return evolutionLevel; }
-    public int getHp() { return hp; }
-    public int getAttack() { return attack; }
-    public int getDefense() { return defense; }
-    public int getSpeed() { return speed; }
-    public List<String> getMoveSet() { return moveSet; }
-    public Item getHeldItem() { return heldItem; }
+    public int getPokedexNumber() {
+        return pokedexNumber;
+    }
 
-    public void setBaseLevel(int baseLevel) { this.baseLevel = baseLevel; }
-    public void setEvolutionLevel(Integer evolutionLevel) { this.evolutionLevel = evolutionLevel; }
-    public void setEvolvesTo(Integer evolvesTo) { this.evolvesTo = evolvesTo; }
-    public void setName(String name) { this.name = name; }
-    public void setPokedexNumber(int number) { this.pokedexNumber = number; }
+    public String getName() {
+        return name;
+    }
 
-    public void setType1(String type1) { this.type1 = type1; }
+    public String getType1() {
+        return type1;
+    }
 
-    public void setType2(String type2) { this.type2 = type2; }
+    public String getType2() {
+        return type2;
+    }
 
-    public void setHp(int hp) { this.hp = hp; }
-    public void setAttack(int attack) { this.attack = attack; }
-    public void setDefense(int defense) { this.defense = defense; }
-    public void setSpeed(int speed) { this.speed = speed; }
-    public void setHeldItem(Item heldItem) { this.heldItem = heldItem; }
-    public void setMoveSet(List<String> moveSet) { this.moveSet = new ArrayList<>(moveSet); }
+    public int getBaseLevel() {
+        return baseLevel;
+    }
+
+    public Integer getEvolvesFrom() {
+        return evolvesFrom;
+    }
+
+    public Integer getEvolvesTo() {
+        return evolvesTo;
+    }
+
+    public Integer getEvolutionLevel() {
+        return evolutionLevel;
+    }
+
+    public int getHp() {
+        return hp;
+    }
+
+    public int getAttack() {
+        return attack;
+    }
+
+    public int getDefense() {
+        return defense;
+    }
+
+    public int getSpeed() {
+        return speed;
+    }
+
+    public List<String> getMoveSet() {
+        return moveSet;
+    }
+
+    public Item getHeldItem() {
+        return heldItem;
+    }
+
+    public void setBaseLevel(int baseLevel) {
+        this.baseLevel = baseLevel;
+    }
+
+    public void setEvolutionLevel(Integer evolutionLevel) {
+        this.evolutionLevel = evolutionLevel;
+    }
+
+    public void setEvolvesTo(Integer evolvesTo) {
+        this.evolvesTo = evolvesTo;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setPokedexNumber(int number) {
+        this.pokedexNumber = number;
+    }
+
+    public void setType1(String type1) {
+        this.type1 = type1;
+    }
+
+    public void setType2(String type2) {
+        this.type2 = type2;
+    }
+
+    public void setHp(int hp) {
+        this.hp = hp;
+    }
+
+    public void setAttack(int attack) {
+        this.attack = attack;
+    }
+
+    public void setDefense(int defense) {
+        this.defense = defense;
+    }
+
+    public void setSpeed(int speed) {
+        this.speed = speed;
+    }
+
+    public void setHeldItem(Item heldItem) {
+        this.heldItem = heldItem;
+    }
+
+    public void setMoveSet(List<String> moveSet) {
+        this.moveSet = new ArrayList<>(moveSet);
+    }
 
     public void increaseHp(int amount) {
         this.hp += amount;
