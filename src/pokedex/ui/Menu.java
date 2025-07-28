@@ -20,7 +20,7 @@ public class Menu {
     private static final List<String> VALID_TYPES = List.of(
             "Normal", "Fire", "Water", "Grass", "Electric", "Ice",
             "Fighting", "Poison", "Ground", "Flying", "Psychic",
-            "Bug", "Rock", "Ghost", "Dark", "Dragon", "Steel", "Fairy");
+            "Bug", "Rock", "Ghost", "Dark", "Dragon", "Steel", "Shiny");
 
     private final PokedexManager pokedexManager;
     private final MoveManager moveManager;

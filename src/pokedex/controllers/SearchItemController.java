@@ -57,7 +57,20 @@ public class SearchItemController {
             showSimpleAlert(Alert.AlertType.INFORMATION, "No items found matching: " + kw);
         } else {
             StringBuilder sb = new StringBuilder();
-            found.forEach(i -> sb.append(i).append("\n"));
+            for (Item item : found) {
+                sb.append("Name: ").append(item.getName()).append("\n");
+                sb.append("Category: ").append(item.getCategory()).append("\n");
+                sb.append("Description: ").append(item.getDescription()).append("\n");
+                sb.append("Effect: ").append(item.getEffects()).append("\n");
+
+                String buy = item.getMinBuyingPrice() == null ? "Not sold" : "₱" + String.format("%,d", item.getMinBuyingPrice());
+                String sell = String.format("%,d", item.getSellingPrice());
+
+                sb.append("Buy Price: ").append(buy).append("\n");
+                sb.append("Sell Price: ").append(sell).append("\n");
+
+                sb.append("-------------------------------\n");
+            }
             showScrollableDialog("Search Results", sb.toString());
         }
     }

@@ -41,7 +41,7 @@ public class SearchPokemonController {
         List<String> types = List.of(
                 "Fire", "Water", "Grass", "Electric", "Psychic", "Normal", "Fighting",
                 "Flying", "Poison", "Ground", "Rock", "Bug", "Ghost", "Steel", "Ice",
-                "Dragon", "Dark", "Fairy"
+                "Dragon", "Dark", "Shiny"
         );
         typeChoiceBox.getItems().addAll(types);
     }
@@ -79,23 +79,29 @@ public class SearchPokemonController {
         } else {
             StringBuilder resultMessage = new StringBuilder();
             for (Pokemon p : results) {
-                resultMessage.append(p).append("\n\n");
+                resultMessage.append("#").append(p.getPokedexNumber()).append(" – ").append(p.getName()).append("\n");
+                resultMessage.append("Type: ").append(p.getType1());
+                if (p.getType2() != null && !p.getType2().isEmpty()) {
+                    resultMessage.append(" / ").append(p.getType2());
+                }
+                resultMessage.append("\nLevel: ").append(p.getBaseLevel());
+                resultMessage.append("\nHP: ").append(p.getHp());
+                resultMessage.append("\nAttack: ").append(p.getAttack());
+                resultMessage.append("\nDefense: ").append(p.getDefense());
+                resultMessage.append("\nSpeed: ").append(p.getSpeed());
+
+                resultMessage.append("\nMoves:\n");
+                if (p.getMoveSet() == null || p.getMoveSet().isEmpty()) {
+                    resultMessage.append("None\n");
+                } else {
+                    for (String move : p.getMoveSet()) {
+                        resultMessage.append("- ").append(move).append("\n");
+                    }
+                }
+                resultMessage.append("\n\n");
             }
 
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Search Results");
-            alert.setHeaderText("Pokémon Found:");
-            alert.setContentText(resultMessage.toString());
-
-            ButtonType okButton = new ButtonType("OK");
-            ButtonType backButton = new ButtonType("Back to Menu");
-
-            alert.getButtonTypes().setAll(okButton, backButton);
-            Optional<ButtonType> result = alert.showAndWait();
-
-            if (result.isPresent() && result.get() == backButton) {
-                returnToMenu(event);
-            }
+            showScrollablePokemonDialog(resultMessage.toString(), event);
         }
     }
 
@@ -114,6 +120,34 @@ public class SearchPokemonController {
             returnToMenu(event);
         }
     }
+
+    private void showScrollablePokemonDialog(String content, ActionEvent event) {
+        Dialog<ButtonType> dialog = new Dialog<>();
+        dialog.setTitle("Search Results");
+        dialog.setHeaderText("Pokémon Found:");
+
+        DialogPane dialogPane = dialog.getDialogPane();
+        dialogPane.getButtonTypes().addAll(ButtonType.OK, new ButtonType("Back to Menu", ButtonBar.ButtonData.CANCEL_CLOSE));
+
+        TextArea textArea = new TextArea(content);
+        textArea.setWrapText(true);
+        textArea.setEditable(false);
+        textArea.setPrefSize(500, 400);
+
+        ScrollPane scrollPane = new ScrollPane(textArea);
+        scrollPane.setFitToWidth(true);
+        scrollPane.setFitToHeight(true);
+
+        dialogPane.setContent(scrollPane);
+
+        Optional<ButtonType> result = dialog.showAndWait();
+        result.ifPresent(button -> {
+            if (button.getText().equals("Back to Menu")) {
+                returnToMenu(event);
+            }
+        });
+    }
+
 
     private void returnToMenu(ActionEvent event) {
         try {

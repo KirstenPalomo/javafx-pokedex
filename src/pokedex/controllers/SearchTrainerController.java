@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.scene.layout.Region;
 import pokedex.managers.ItemManager;
@@ -78,7 +79,7 @@ public class SearchTrainerController {
         }
 
         if (!resultBuilder.isEmpty()) {
-            showAlert(AlertType.INFORMATION, "Trainer(s) Found", resultBuilder.toString());
+            showScrollableDialog("Trainer(s) Found", resultBuilder.toString());
         } else {
             showAlert(AlertType.WARNING, "No Match", "No trainer matched the given input.");
         }
@@ -106,6 +107,30 @@ public class SearchTrainerController {
         alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE); // So it expands for long messages
         alert.showAndWait();
     }
+    private void showScrollableDialog(String title, String content) {
+        Dialog<ButtonType> dialog = new Dialog<>();
+        dialog.setTitle(title);
+        dialog.initOwner(idField.getScene().getWindow());
+
+        DialogPane dialogPane = dialog.getDialogPane();
+        dialogPane.getButtonTypes().addAll(ButtonType.OK);
+
+        TextArea textArea = new TextArea(content);
+        textArea.setWrapText(true);
+        textArea.setEditable(false);
+        textArea.setPrefSize(500, 400);
+
+        ScrollPane scrollPane = new ScrollPane(textArea);
+        scrollPane.setFitToWidth(true);
+        scrollPane.setFitToHeight(true);
+
+        VBox container = new VBox(scrollPane);
+        container.setPrefSize(500, 400);
+        dialogPane.setContent(container);
+
+        dialog.showAndWait();
+    }
+
 
     private String formatTrainer(Trainer t) {
         StringBuilder sb = new StringBuilder();
