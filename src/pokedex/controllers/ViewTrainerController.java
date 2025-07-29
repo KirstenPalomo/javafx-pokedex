@@ -1,3 +1,11 @@
+/**
+ * This displays and manages all Trainers in the Enhanced Pokédex system.
+ * Users can select a trainer from a list to view their details or proceed to manage that trainer.
+ * Also includes navigation back to the Trainer Menu screen.
+ *
+ * Authors: Kirsten Palomo, Erylle Galinato
+ */
+
 package pokedex.controllers;
 
 import javafx.collections.FXCollections;
@@ -10,7 +18,6 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 import javafx.scene.Node;
 import javafx.event.ActionEvent;
-import javafx.scene.input.MouseEvent;
 
 import pokedex.managers.ItemManager;
 import pokedex.managers.MoveManager;
@@ -21,6 +28,11 @@ import pokedex.models.Trainer;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * Controller for viewing all Trainers in the system.
+ * Displays a list of trainer names and allows users to select and view details.
+ * Users can also manage a selected trainer or return to the Trainer Menu.
+ */
 public class ViewTrainerController {
 
     @FXML private ListView<String> trainerListView;
@@ -37,6 +49,14 @@ public class ViewTrainerController {
     private final ItemManager itemManager;
     private final TrainerManager trainerManager;
 
+    /**
+     * Constructs the controller with manager dependencies.
+     *
+     * @param pokedexManager  the Pokédex manager
+     * @param moveManager     the move manager
+     * @param itemManager     the item manager
+     * @param trainerManager  the trainer manager
+     */
     public ViewTrainerController(PokedexManager pokedexManager, MoveManager moveManager,
                                  ItemManager itemManager, TrainerManager trainerManager) {
         this.pokedexManager = pokedexManager;
@@ -45,6 +65,10 @@ public class ViewTrainerController {
         this.trainerManager = trainerManager;
     }
 
+    /**
+     * Initializes the trainer list view and binds selection to detail display.
+     * Loads trainer names into the list view and sets a listener to show details on selection.
+     */
     @FXML
     private void initialize() {
         List<Trainer> allTrainers = trainerManager.getAllTrainers();
@@ -71,6 +95,11 @@ public class ViewTrainerController {
         });
     }
 
+    /**
+     * Opens the Trainer Options screen for the selected trainer.
+     *
+     * @param event the ActionEvent triggered by the Manage button
+     */
     @FXML
     private void handleManageTrainer(ActionEvent event) {
         String selectedName = trainerListView.getSelectionModel().getSelectedItem();
@@ -101,6 +130,11 @@ public class ViewTrainerController {
         }
     }
 
+    /**
+     * Navigates back to the Trainer Menu screen.
+     *
+     * @param event the ActionEvent triggered by the Back button
+     */
     @FXML
     private void handleBack(ActionEvent event) {
         try {
@@ -117,7 +151,13 @@ public class ViewTrainerController {
         }
     }
 
-
+    /**
+     * Displays an alert dialog with a custom title, message, and alert type.
+     *
+     * @param title   the title of the alert
+     * @param message the message content
+     * @param type    the alert type (INFORMATION, WARNING, ERROR)
+     */
     private void showAlert(String title, String message, Alert.AlertType type) {
         Alert alert = new Alert(type);
         alert.setTitle(title);
@@ -125,8 +165,4 @@ public class ViewTrainerController {
         alert.setContentText(message);
         alert.showAndWait();
     }
-
-
-
-
 }

@@ -1,5 +1,13 @@
+/**
+ * This manages the Trainer Search screen in the Enhanced Pokédex system.
+ * Allows searching for trainers using ID, name, sex, birthdate, or hometown.
+ * Displays formatted results in a scrollable popup, and returns to the Trainer Menu after.
+ *
+ * Authors: Kirsten Palomo, Erylle Galinato
+ */
 package pokedex.controllers;
 
+// JavaFX UI components and events
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -10,16 +18,24 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.scene.layout.Region;
+
+// Manager classes for application logic
 import pokedex.managers.ItemManager;
 import pokedex.managers.MoveManager;
 import pokedex.managers.PokedexManager;
 import pokedex.managers.TrainerManager;
+
+// Models
 import pokedex.models.Pokemon;
 import pokedex.models.Trainer;
 
 import java.io.IOException;
 import java.time.LocalDate;
 
+/**
+ * Controller for searching trainers based on ID, name, sex, birthdate, or hometown.
+ * Displays results in a scrollable popup and navigates back to Trainer Menu after.
+ */
 public class SearchTrainerController {
 
     @FXML private TextField idField;
@@ -33,6 +49,14 @@ public class SearchTrainerController {
     private final ItemManager itemManager;
     private final TrainerManager trainerManager;
 
+    /**
+     * Constructs a SearchTrainerController with the necessary manager dependencies.
+     *
+     * @param pokedexManager  the Pokédex manager
+     * @param moveManager     the move manager
+     * @param itemManager     the item manager
+     * @param trainerManager  the trainer manager
+     */
     public SearchTrainerController(PokedexManager pokedexManager, MoveManager moveManager,
                                    ItemManager itemManager, TrainerManager trainerManager) {
         this.pokedexManager = pokedexManager;
@@ -41,6 +65,13 @@ public class SearchTrainerController {
         this.trainerManager = trainerManager;
     }
 
+    /**
+     * Handles the search logic when the user presses the search button.
+     * Validates input, matches against trainers, and displays the results.
+     * Always navigates back to the Trainer Menu after the result popup.
+     *
+     * @param event the ActionEvent triggered by clicking search
+     */
     @FXML
     private void handleSearch(ActionEvent event) {
         String idInput = idField.getText().trim();
@@ -99,14 +130,28 @@ public class SearchTrainerController {
         }
     }
 
+    /**
+     * Displays a simple alert dialog.
+     *
+     * @param type    the type of alert (e.g., WARNING, ERROR)
+     * @param title   the dialog title
+     * @param message the content to display
+     */
     private void showAlert(AlertType type, String title, String message) {
         Alert alert = new Alert(type);
         alert.setTitle(title);
         alert.setHeaderText(null);
         alert.setContentText(message);
-        alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE); // So it expands for long messages
+        alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
         alert.showAndWait();
     }
+
+    /**
+     * Displays a scrollable dialog with formatted trainer result(s).
+     *
+     * @param title   the title of the dialog window
+     * @param content the formatted result content
+     */
     private void showScrollableDialog(String title, String content) {
         Dialog<ButtonType> dialog = new Dialog<>();
         dialog.setTitle(title);
@@ -131,7 +176,13 @@ public class SearchTrainerController {
         dialog.showAndWait();
     }
 
-
+    /**
+     * Formats a trainer’s details for display in the result dialog.
+     * Includes ID, profile, Pokémon lineup, and inventory contents.
+     *
+     * @param t the Trainer to format
+     * @return a detailed, human-readable string of trainer information
+     */
     private String formatTrainer(Trainer t) {
         StringBuilder sb = new StringBuilder();
 
@@ -167,5 +218,4 @@ public class SearchTrainerController {
 
         return sb.toString();
     }
-
 }
