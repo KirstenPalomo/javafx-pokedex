@@ -851,15 +851,7 @@ public class TrainerOptionsController {
             showAlert("Result", result, Alert.AlertType.INFORMATION);
         }
 
-        // ✅ Step 4: Sync changes to Pokedex
-        Pokemon globalPoke = pokedexManager.getPokemonByNumber(selectedPokemon.getPokedexNumber());
-        if (globalPoke != null) {
-            globalPoke.setMoveSet(new ArrayList<>(selectedPokemon.getMoveSet()));
-        }
-
-        // ✅ Step 5: Save both JSON files
         JsonManager.saveTrainers(trainerManager.getAllTrainers());
-        JsonManager.savePokemons(pokedexManager.getAllPokemon());
     }
 
 
