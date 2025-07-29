@@ -1,23 +1,54 @@
+/**
+ * This manager handles all items in the Enhanced Pokédex system.
+ * It stores and retrieves item data, supports searching by name, category, effect, and price range,
+ * and ensures that no duplicate items are added.
+ *
+ * Authors: Kirsten Palomo, Erylle Galinato
+ */
 package pokedex.managers;
 
+// Imports the Item model class
 import pokedex.models.Item;
-import pokedex.models.Move;
 
+// Java utility classes for managing dynamic lists and collections
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Singleton manager class responsible for storing and managing items in the Pokédex system.
+ * Provides access to all items, including search and filtering functions.
+ * Ensures that item names are unique.
+ */
 public class ItemManager {
     private static ItemManager instance;
+
+    // Internal item list
     private List<Item> items = new ArrayList<>();
+
+    /**
+     * Returns an unmodifiable list of all items.
+     *
+     * @return list of all stored items
+     */
     public List <Item> getAllItems()
     {
         return List.copyOf(items);
     }
+
+    /**
+     * Replaces all current items with a new list (used during file load).
+     *
+     * @param loaded list of loaded items
+     */
     public void setAllItems(List<Item> loaded) {
         items.clear();
         items.addAll(loaded);
 
     }
+
+    /**
+     * Private constructor that initializes the manager with default items.
+     */
     private ItemManager() {
         //Initialize with some default items
         //Vitamins and candies
@@ -56,6 +87,12 @@ public class ItemManager {
         items.add(new Item("Ice Stone", "Evolution Stone", "A stone that is cold to the touch.", "Evolves Pokémon like Alolan Vulpix, Galarian Darumaka, Eevee (into Glaceon).", 3000, 5000, 1500));
         // Ice Stone: Spec says ₱3000–₱5000, using max ₱5000 for standardization
     }
+
+    /**
+     * Returns the singleton instance of ItemManager.
+     *
+     * @return the shared ItemManager instance
+     */
     public static ItemManager getInstance() {
         if (instance == null) {
             instance = new ItemManager();
@@ -63,6 +100,9 @@ public class ItemManager {
         return instance;
     }
 
+    /**
+     * Displays all items to the console.
+     */
     public void viewAllItems() {
         if (items.isEmpty()) {
             System.out.println("No items available.");
@@ -73,6 +113,11 @@ public class ItemManager {
         }
     }
 
+    /**
+     * Searches for items with names that partially match the provided keyword.
+     *
+     * @param name partial or full item name (case-insensitive)
+     */
     public void searchItemByName(String name) {
         List<Item> found = new ArrayList<>();
         String keyword = name.toLowerCase();
@@ -92,6 +137,11 @@ public class ItemManager {
         }
     }
 
+    /**
+     * Searches items that contain a given keyword in their effect description.
+     *
+     * @param effect text to search within item effects (case-insensitive)
+     */
     public void searchItemByEffect(String effect) {
         List<Item> found = new ArrayList<>();
         String keyword = effect.toLowerCase();
@@ -111,6 +161,11 @@ public class ItemManager {
         }
     }
 
+    /**
+     * Searches items that belong to a specific category (e.g., Vitamin, Feather).
+     *
+     * @param category category name to match
+     */
     public void searchItemByCategory(String category) {
         List<Item> found = new ArrayList<>();
         String keyword = category.toLowerCase();
@@ -130,6 +185,12 @@ public class ItemManager {
         }
     }
 
+    /**
+     * Searches for items with a buying price that falls within a specified range.
+     *
+     * @param minPrice minimum price (inclusive)
+     * @param maxPrice maximum price (inclusive)
+     */
     public void searchByItemPriceRange(int minPrice, int maxPrice) {
         List<Item> found = new ArrayList<>();
 
@@ -141,7 +202,7 @@ public class ItemManager {
             Integer itemMin = item.getMinBuyingPrice();
             Integer itemMax = item.getMaxBuyingPrice();
 
-            // If itemMin or itemMax is null, skip it (optional check)
+            // If itemMin or itemMax is null, skip it
             if (itemMin == null || itemMax == null) continue;
 
             // Check for any overlap between item range and search range
@@ -162,6 +223,12 @@ public class ItemManager {
     }
 
 
+    /**
+     * Retrieves an item by its exact name (case-insensitive).
+     *
+     * @param name the name of the item
+     * @return the matching Item or null if not found
+     */
     public Item getItemByName(String name) {
         if (name == null) return null;
         String key = name.trim().toLowerCase();
@@ -173,6 +240,12 @@ public class ItemManager {
         return null;
     }
 
+    /**
+     * Checks if an item with the specified name exists.
+     *
+     * @param name item name to check
+     * @return true if found, false otherwise
+     */
     public boolean hasItemWithName(String name) {
         if (name == null) return false;
         String key = name.trim().toLowerCase();
@@ -183,6 +256,12 @@ public class ItemManager {
         }
         return false;
     }
+
+    /**
+     * Adds an item if it does not already exist in the list.
+     *
+     * @param item the new item to add
+     */
     public void addItem(Item item) {
         if (item != null && !hasItemWithName(item.getName())) {
             items.add(item);

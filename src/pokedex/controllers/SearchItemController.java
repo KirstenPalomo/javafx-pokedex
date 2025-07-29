@@ -1,5 +1,13 @@
+/**
+ * This manages the Search Item screen in the Enhanced Pokédex system.
+ * Allows users to enter keywords, view matching items with full details,
+ * and optionally return to the Main Menu.
+ *
+ * Authors: Kirsten Palomo, Erylle Galinato
+ */
 package pokedex.controllers;
 
+// JavaFX UI components and layout
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,16 +19,23 @@ import javafx.scene.layout.VBox;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
+// Managers
 import pokedex.managers.ItemManager;
 import pokedex.managers.MoveManager;
 import pokedex.managers.PokedexManager;
 import pokedex.managers.TrainerManager;
+// Model
 import pokedex.models.Item;
 
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Controller for searching items in the Pokédex.
+ * Allows users to input keywords and view matching items with full details.
+ * Displays results in a scrollable dialog or shows appropriate alerts.
+ */
 public class SearchItemController {
 
     @FXML private TextField keywordField;
@@ -31,6 +46,14 @@ public class SearchItemController {
     private final ItemManager itemManager;
     private final TrainerManager trainerManager;
 
+    /**
+     * Constructs a SearchItemController with the necessary manager dependencies.
+     *
+     * @param pokedexManager  manages Pokémon data
+     * @param moveManager     manages TM/HM data
+     * @param itemManager     manages item data and search
+     * @param trainerManager  manages trainer data
+     */
     public SearchItemController(PokedexManager pokedexManager,
                                 MoveManager moveManager,
                                 ItemManager itemManager,
@@ -41,6 +64,12 @@ public class SearchItemController {
         this.trainerManager = trainerManager;
     }
 
+    /**
+     * Handles the search button action.
+     * Retrieves the keyword, filters matching items, and displays results or warnings accordingly.
+     *
+     * @param event the action event from the UI
+     */
     @FXML
     private void handleSubmit(ActionEvent event) {
         String kw = keywordField.getText().trim();
@@ -75,6 +104,12 @@ public class SearchItemController {
         }
     }
 
+    /**
+     * Shows a basic alert with a message and OK button.
+     *
+     * @param type the type of alert (e.g., INFORMATION, WARNING, ERROR)
+     * @param msg  the message to display in the alert
+     */
     private void showSimpleAlert(Alert.AlertType type, String msg) {
         Alert a = new Alert(type, msg, ButtonType.OK);
         a.initOwner(submitBtn.getScene().getWindow());
@@ -82,6 +117,13 @@ public class SearchItemController {
         a.showAndWait();
     }
 
+    /**
+     * Displays a scrollable dialog containing item search results.
+     * Offers option to return to the main menu.
+     *
+     * @param title   the title of the dialog window
+     * @param content the full text content to display
+     */
     private void showScrollableDialog(String title, String content) {
         Dialog<ButtonType> dialog = new Dialog<>();
         dialog.setTitle(title);
@@ -110,6 +152,10 @@ public class SearchItemController {
         }
     }
 
+    /**
+     * Loads the main menu interface after clicking "Back to Main Menu."
+     * Displays an error alert if loading fails.
+     */
     private void goToMainMenu() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/MainMenu.fxml"));

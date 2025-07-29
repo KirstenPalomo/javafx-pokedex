@@ -1,5 +1,14 @@
+/**
+ * This manages the Item Menu screen in the Enhanced Pokédex system.
+ * Supports viewing all items, searching, adding new items via a dialog,
+ * and returning to the main menu. This controller interacts with the ItemManager and
+ * persists updates via the JsonManager.
+ *
+ * Authors: Kirsten Palomo, Erylle Galinato
+ */
 package pokedex.controllers;
 
+// JavaFX UI controls and layout
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -9,15 +18,22 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+// Managers
 import pokedex.JsonManager;
 import pokedex.managers.ItemManager;
 import pokedex.managers.MoveManager;
 import pokedex.managers.PokedexManager;
 import pokedex.managers.TrainerManager;
+// Models
 import pokedex.models.Item;
 
 import java.io.IOException;
 
+/**
+ * Controller for the Item Menu screen.
+ * Allows users to view, search, and add items, or return to the main menu.
+ * Part of the Enhanced Pokédex project (JavaFX GUI).
+ */
 public class ItemMenuController {
 
     private final PokedexManager pokedexManager;
@@ -25,6 +41,14 @@ public class ItemMenuController {
     private final ItemManager itemManager;
     private final TrainerManager trainerManager;
 
+    /**
+     * Constructs the controller with access to all required managers.
+     *
+     * @param pokedexManager   handles access to Pokémon data
+     * @param moveManager      handles TM/HM data and logic
+     * @param itemManager      manages items, including inventory and search
+     * @param trainerManager   manages trainer data and interaction
+     */
     public ItemMenuController(PokedexManager pokedexManager, MoveManager moveManager,
                               ItemManager itemManager, TrainerManager trainerManager) {
         this.pokedexManager = pokedexManager;
@@ -42,6 +66,11 @@ public class ItemMenuController {
     @FXML
     private Button backBtn;
 
+    /**
+     * Loads and shows the View Item screen.
+     *
+     * @param event the button click event triggering this method
+     */
     @FXML
     private void handleView(ActionEvent event) {
         try {
@@ -58,6 +87,11 @@ public class ItemMenuController {
         }
     }
 
+    /**
+     * Loads and shows the Search Item screen.
+     *
+     * @param event the button click event triggering this method
+     */
     @FXML
 private void handleSearch(ActionEvent event) {
     try {
@@ -73,6 +107,12 @@ private void handleSearch(ActionEvent event) {
         e.printStackTrace();
     }
 }
+
+    /**
+     * Utility method to show a simple popup message.
+     *
+     * @param message the content to show in the alert
+     */
     private void showAlert(String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Notice");
@@ -81,6 +121,13 @@ private void handleSearch(ActionEvent event) {
         alert.showAndWait();
     }
 
+
+    /**
+     * Opens a dialog for adding a new item.
+     * Validates input and ensures no duplicate item exists before saving.
+     *
+     * @param event the button click event triggering this method
+     */
     @FXML
     private void handleAddItem(ActionEvent event) {
         Dialog<Item> dialog = new Dialog<>();
@@ -157,8 +204,11 @@ private void handleSearch(ActionEvent event) {
 
     }
 
-
-
+    /**
+     * Returns the user to the main menu screen.
+     *
+     * @param event the button click event triggering this method
+     */
     @FXML
     private void handleBack(ActionEvent event) {
         try {

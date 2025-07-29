@@ -1,3 +1,13 @@
+/**
+ * This controller manages the start screen of the Pokédex application.
+ * It initializes font assets and transitions to the main menu upon clicking Start.
+ *
+ * Uses FXMLLoader with a custom controller factory to inject shared singleton managers.
+ * This allows state continuity throughout the application.
+ *
+ * Authors: Kirsten Palomo, Erylle Galinato
+ */
+
 package pokedex.controllers;
 
 import javafx.event.ActionEvent;
@@ -16,9 +26,12 @@ import pokedex.managers.TrainerManager;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.Objects;
 import java.util.ResourceBundle;
 
+/**
+ * Controller class for the Pokédex start screen.
+ * Handles UI font initialization and start button navigation logic.
+ */
 public class StartScreenController implements Initializable {
 
     private final PokedexManager pokedexManager;
@@ -26,6 +39,14 @@ public class StartScreenController implements Initializable {
     private final ItemManager itemManager;
     private final TrainerManager trainerManager;
 
+    /**
+     * Constructs the controller with required manager dependencies.
+     *
+     * @param pokedexManager the Pokédex manager
+     * @param moveManager the move manager
+     * @param itemManager the item manager
+     * @param trainerManager the trainer manager
+     */
     public StartScreenController(PokedexManager pokedexManager, MoveManager moveManager,
                                  ItemManager itemManager, TrainerManager trainerManager) {
         this.pokedexManager = pokedexManager;
@@ -34,11 +55,24 @@ public class StartScreenController implements Initializable {
         this.trainerManager = trainerManager;
     }
 
+    /**
+     * Initializes the start screen by loading the custom pixel font.
+     *
+     * @param location unused
+     * @param resources unused
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         Font.loadFont(getClass().getResourceAsStream("/assets/PressStart2P-Regular.ttf"), 12);
     }
 
+    /**
+     * Event handler for the Start button.
+     * Loads the main menu screen and injects the manager dependencies.
+     *
+     * @param event JavaFX ActionEvent triggered by button click
+     * @throws IOException if FXML loading fails
+     */
     @FXML
     private void handleStart(ActionEvent event) throws IOException {
         // 👉 FXMLLoader with controller factory to pass dependencies

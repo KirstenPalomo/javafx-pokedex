@@ -1,15 +1,32 @@
+/**
+ * This class represents a Pokémon Trainer in the Pokédex system.
+ * Trainers have personal profiles, a lineup and storage for Pokémon,
+ * an inventory system for items, and methods to interact with both.
+ *
+ * Core functionality includes buying/selling items, using items on Pokémon,
+ * teaching and forgetting moves, managing Pokémon lineup/storage,
+ * and triggering Pokémon evolutions through level-up or stones.
+ *
+ * Authors: Kirsten Palomo, Erylle Galinato
+ */
+
 package pokedex.models;
 
+// Core model dependencies for item and pokedex logic
 import pokedex.managers.ItemManager;
 import pokedex.managers.PokedexManager;
 import pokedex.managers.MoveManager;
 
+// Java built-in serialization for saving trainer data
 import java.io.Serializable;
+// Used to store and manage trainer birthdates
 import java.time.LocalDate;
+// Utility classes: lists, maps, and collections
 import java.util.*;
 
 /**
- * Represents a Pokémon Trainer with lineup, storage, item bag, and funds.
+ * Represents a Pokémon Trainer with profile info, lineup, storage,
+ * item bag, and interactive methods for gameplay mechanics.
  */
 public class Trainer implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -32,29 +49,51 @@ public class Trainer implements Serializable {
     // ── Item bag ────────────────────────────────────────────────────────────
     private final Map<String, BagItem> itemBag;
 
+    /**
+     * Represents an item in the trainer's bag along with its quantity.
+     */
     public static class BagItem implements Serializable {
         final Item item;
         int quantity;
 
+        /**
+         * Constructs a BagItem with an item and its quantity.
+         *
+         * @param item the item reference
+         * @param quantity how many of this item the trainer has
+         */
         public BagItem(Item item, int quantity) {
             this.item = item;
             this.quantity = quantity;
         }
-
+        /** @return the item */
         public Item getItem() {
             return item;
         }
-
+        /** @return the quantity of this item */
         public int getQuantity() {
             return quantity;
         }
+
+        /**
+         * Decreases the item quantity by 1.
+         */
         public void decrement()
         {
             quantity--;
         }
     }
 
-    /** Default constructor—₱1,000,000 starting money. */
+    /**
+     * Creates a trainer with default starting money (₱1,000,000).
+     *
+     * @param trainerID the trainer's unique ID
+     * @param name trainer's name
+     * @param birthdate date of birth
+     * @param sex sex of trainer
+     * @param hometown home city/town
+     * @param description description or bio
+     */
     public Trainer(String trainerID,
                    String name,
                    LocalDate birthdate,
@@ -64,7 +103,17 @@ public class Trainer implements Serializable {
         this(trainerID, name, birthdate, sex, hometown, description, 1_000_000);
     }
 
-    /** Full constructor with custom starting funds. */
+    /**
+     * Full constructor that allows setting custom starting funds.
+     *
+     * @param trainerID trainer's unique ID
+     * @param name trainer's name
+     * @param birthdate date of birth
+     * @param sex trainer's sex
+     * @param hometown trainer's hometown
+     * @param description description or bio
+     * @param startingMoney initial money
+     */
     public Trainer(String trainerID,
                    String name,
                    LocalDate birthdate,
@@ -85,24 +134,54 @@ public class Trainer implements Serializable {
     }
 
     // ── Getters ───────────────────────────────────────────────────────────────
+    /** @return the trainer’s ID */
     public String getTrainerID()    { return trainerID; }
+
+    /** @return the trainer’s name */
     public String getName()         { return name; }
+
+    /** @return the trainer’s birthdate */
     public LocalDate getBirthdate() { return birthdate; }
+
+    /** @return the trainer’s sex */
     public String getSex()          { return sex; }
+
+    /** @return the trainer’s hometown */
     public String getHometown()     { return hometown; }
+
+    /** @return the trainer’s description or bio */
     public String getDescription()  { return description; }
+
+    /** @return current amount of money the trainer has */
     public int getMoney()           { return money; }
+
+    /** @return the trainer’s current Pokémon lineup (read-only) */
     public List<Pokemon> getLineup()  { return Collections.unmodifiableList(lineup); }
+
+    /** @return the trainer’s storage Pokémon list (read-only) */
     public List<Pokemon> getStorage() { return Collections.unmodifiableList(storage); }
+
+    /** @return the trainer’s item bag map (modifiable) */
     public Map<String, BagItem> getItemBag() { return itemBag; }
 
 
     // ── Core Item Logic ──────────────────────────────────────────────────────
 
-    /** Buys an item, enforcing money and bag limits. Also gives 1 Rare Candy if within limits. */
+    /**
+     * Attempts to buy an item from the shop.
+     * Enforces:
+     * - Money availability
+     * - 10 unique item limit
+     * - 50 total item limit
+     * Also gives a bonus Rare Candy if space allows.
+     *
+     * @param item the item to buy
+     * @return status message indicating success, error, or bonus info
+     */
     public String buyItem(Item item) {
         String nm = item.getName();
         Integer priceObj = item.getMinBuyingPrice();
+        // Item is not sold
         if (priceObj == null) {
             return "⚠️ Item is not sold and cannot be bought.";
         }
@@ -112,14 +191,17 @@ public class Trainer implements Serializable {
             return "ERROR: Not enough money.";
         }
 
+        // Total quantity of all items in bag
         int totalCount = itemBag.values().stream().mapToInt(b -> b.quantity).sum();
 
         // Check if adding the bought item would exceed unique or total limits
         boolean isNewItem = !itemBag.containsKey(nm);
+        // Max of 10 unique item types allowed
         if (isNewItem && itemBag.size() >= 10) {
             return "⚠️ Max 10 unique items.";
         }
 
+        // Max of 50 items in total allowed
         if (totalCount >= 50) {
             return "⚠️ Max 50 items total.";
         }
@@ -129,10 +211,11 @@ public class Trainer implements Serializable {
         itemBag.putIfAbsent(nm, new BagItem(item, 0));
         itemBag.get(nm).quantity++;
 
-        // 🎁 Attempt to give 1 Rare Candy
+        // Attempt to give 1 Rare Candy
         Item rareCandy = ItemManager.getInstance().getItemByName("Rare Candy");
         if (rareCandy != null) {
             boolean newCandy = !itemBag.containsKey("Rare Candy");
+            // If no space for bonus candy (either unique or total limit reached)
             if ((newCandy && itemBag.size() >= 10) || (totalCount + 1 > 50)) {
                 return "SUCCESS: Bought " + nm + " for ₱" + price + "\n⚠️ Bonus Rare Candy could not be given (item limit reached).";
             }
@@ -145,7 +228,13 @@ public class Trainer implements Serializable {
     }
 
 
-    /** Sells an item, refunding 50% of its base price. */
+    /**
+     * Sells one quantity of an item.
+     * Refund is 50% of the buying price if available,
+     * otherwise it uses the fixed selling price.
+     *
+     * @param itemName name of the item to sell
+     */
     public void sellItem(String itemName) {
         BagItem bag = itemBag.get(itemName);
         if (bag == null) {
@@ -155,9 +244,10 @@ public class Trainer implements Serializable {
 
         int refund = 0;
 
-        // Preferred: calculate 50% of buying price if available
+
         Integer buyingPrice = bag.item.getMinBuyingPrice();
         if (buyingPrice != null && buyingPrice > 0) {
+            // Standard refund: 50% of buying price
             refund = buyingPrice / 2;
         } else {
             // Fallback: use fixed selling price if defined
@@ -179,13 +269,17 @@ public class Trainer implements Serializable {
         System.out.printf("✅ Sold %s for ₱%,d%n", itemName, refund);
     }
 
-    /** Displays the contents of the item bag. */
+    /**
+     * Displays all items currently in the trainer's bag,
+     * including quantity, total count, and unique item count.
+     */
     public void viewBag() {
         System.out.println("=== Item Bag ===");
         if (itemBag.isEmpty()) {
             System.out.println("(empty)");
             return;
         }
+        // Show each item with quantity
         itemBag.values().forEach(b ->
                 System.out.printf("- %s x%d%n", b.item.getName(), b.quantity)
         );
@@ -196,13 +290,20 @@ public class Trainer implements Serializable {
 
     // ── Core Pokémon Logic ──────────────────────────────────────────────────
 
-    /** Adds a Pokémon to lineup if <6, else to storage. */
+    /**
+     * Adds a Pokémon to the trainer's lineup if there is space (max 6),
+     * otherwise adds it to the storage.
+     * Prevents duplicates in the lineup.
+     *
+     * @param p the Pokémon to add
+     * @return true if added to lineup, false if added to storage
+     */
     public boolean addPokemon(Pokemon p) {
-        // Check for duplicate in lineup
+        // Prevent duplicate Pokémon in lineup by name
         for (Pokemon existing : lineup) {
             if (existing.getName().equalsIgnoreCase(p.getName())) {
                 System.out.println("⚠️ " + p.getName() + " is already in the lineup.");
-                return true; // Still return true to avoid sending it to storage
+                return true; // Still return true so it's not sent to storage again
             }
         }
 
@@ -215,7 +316,12 @@ public class Trainer implements Serializable {
         }
     }
 
-    /** Switches a lineup Pokémon with a storage Pokémon by index. */
+    /**
+     * Switches a Pokémon between the lineup and storage based on index.
+     *
+     * @param li index of Pokémon in lineup
+     * @param si index of Pokémon in storage
+     */
     public void switchPokemon(int li, int si) {
         if (li < 0 || li >= lineup.size() || si < 0 || si >= storage.size()) {
             System.out.println("⚠️ Invalid switch indexes.");
@@ -227,13 +333,26 @@ public class Trainer implements Serializable {
         System.out.println("✅ Pokémon switched.");
     }
 
-    /** Releases a Pokémon by name. */
+    /**
+     * Releases a Pokémon by name from either lineup or storage.
+     *
+     * @param pokeName name of the Pokémon to release
+     */
     public void releasePokemon(String pokeName) {
         boolean removed = lineup.removeIf(p -> p.getName().equalsIgnoreCase(pokeName));
         if (!removed) removed = storage.removeIf(p -> p.getName().equalsIgnoreCase(pokeName));
         System.out.println(removed ? "✅ Released " + pokeName : "⚠️ Pokémon not found.");
     }
 
+    /**
+     * Attempts to teach a move to the target Pokémon.
+     * Checks for compatibility and move limit (max 4), and supports HM restriction.
+     *
+     * @param target the Pokémon to learn the move
+     * @param move the move to teach
+     * @param moveManager the MoveManager instance used for lookup
+     * @return result message (e.g., success, already knows, not compatible, or needs to forget)
+     */
     public String teachMove(Pokemon target, Move move, MoveManager moveManager) {
         List<String> moves = target.getMoveSet();
         String mName = move.getName();
@@ -258,7 +377,7 @@ public class Trainer implements Serializable {
 
         // Prevent learning if already has 4 moves
         if (moves.size() >= 4) {
-            return "PROMPT_FORGET";
+            return "PROMPT_FORGET"; // Signal to prompt user for replacement
         }
 
         // All good — add the move
@@ -267,9 +386,15 @@ public class Trainer implements Serializable {
     }
 
     /**
- * Forgets `forgetMove` (if TM) and learns `newMove` in its place.
- * @return true if swap succeeded.
- */
+     * Replaces a TM move with a new move.
+     * Does not allow HMs to be forgotten.
+     *
+     * @param target the Pokémon to modify
+     * @param forgetMove the move to be forgotten
+     * @param newMove the new move to learn
+     * @param moveManager reference to MoveManager for move classification check
+     * @return true if replacement was successful
+     */
     public boolean forgetAndLearnMove(Pokemon target, String forgetMove, Move newMove, MoveManager moveManager) {
         List<String> moves = target.getMoveSet();
         int idx = moves.indexOf(forgetMove);
@@ -302,11 +427,17 @@ public class Trainer implements Serializable {
 
     // ── Interactive Wrappers ────────────────────────────────────────────────
 
-    /** Prompts for and buys an item via ItemManager. */
+    /**
+     * Interactive menu for buying items using Scanner input.
+     * Shows all items from ItemManager and allows the trainer to purchase them.
+     *
+     * @param sc Scanner for user input
+     * @param im ItemManager instance to fetch item details
+     */
     public void buyItem(Scanner sc, ItemManager im) {
         while (true) {
             System.out.println("\n=== Buy Item ===");
-            im.viewAllItems(); // Optional: Show list of items
+            im.viewAllItems(); // Show list of items
             System.out.print("Item to buy (or '0' to cancel): ");
             String input = sc.nextLine().trim();
 
@@ -323,7 +454,12 @@ public class Trainer implements Serializable {
         }
     }
 
-    /** Prompts for and sells an item interactively. */
+    /**
+     * Interactive menu for selling items using Scanner input.
+     * Displays all sellable items in the bag and processes the selected item.
+     *
+     * @param sc Scanner for user input
+     */
     public void sellItem(Scanner sc) {
         if (itemBag.isEmpty()) {
             System.out.println("⚠️ No items to sell.");
@@ -383,7 +519,12 @@ public class Trainer implements Serializable {
     }
 
 
-    /** Prompts for and uses an item on a chosen Pokémon. */
+    /**
+     * Prompts the user to choose an item and apply it to a selected Pokémon.
+     *
+     * @param sc Scanner for user input
+     * @param pokedexManager reference to PokedexManager for evolution logic
+     */
     public void useItem(Scanner sc, PokedexManager pokedexManager) {
         if (itemBag.isEmpty()) {
             System.out.println("⚠️ No items.");
@@ -422,6 +563,13 @@ public class Trainer implements Serializable {
         if (b.quantity == 0) itemBag.remove(b.item.getName());
     }
 
+    /**
+     * Prompts the user to give an item to a Pokémon.
+     * If the Pokémon is already holding something, it is replaced.
+     *
+     * @param sc Scanner for user input
+     * @param im ItemManager to fetch item by name
+     */
     public void giveItemToPokemon(Scanner sc, ItemManager im) {
         Pokemon p = choosePokemon(sc);
         if (p == null) return;
@@ -455,6 +603,12 @@ public class Trainer implements Serializable {
         System.out.println("✅ " + p.getName() + " is now holding " + item.getName());
     }
 
+    /**
+     * Prompts the user to remove a held item from a Pokémon.
+     * The item is discarded after removal.
+     *
+     * @param sc Scanner for user input
+     */
     public void removeHeldItem(Scanner sc) {
         Pokemon p = choosePokemon(sc);
         if (p == null) return;
@@ -478,7 +632,12 @@ public class Trainer implements Serializable {
     }
 
 
-    /** Prompts for and adds a Poké from the Pokédex. */
+    /**
+     * Prompts for a Pokémon name and adds it to lineup or storage.
+     *
+     * @param sc Scanner for user input
+     * @param pm PokedexManager for retrieving Pokémon by name
+     */
     public void addToLineup(Scanner sc, PokedexManager pm) {
         System.out.print("Pokémon to add: ");
         Pokemon p = pm.getPokemonByName(sc.nextLine().trim());
@@ -491,7 +650,11 @@ public class Trainer implements Serializable {
                 : "✅ Added to storage.");
     }
 
-    /** Prompts for and switches lineup↔storage. */
+    /**
+     * Prompts user to switch a Pokémon from lineup to storage and vice versa.
+     *
+     * @param sc Scanner for user input
+     */
     public void switchPokemon(Scanner sc) {
         if (lineup.isEmpty() || storage.isEmpty()) {
             System.out.println("⚠️ Need at least one in both lists.");
@@ -520,7 +683,11 @@ public class Trainer implements Serializable {
     }
 
 
-    /** Prompts for and releases a Pokémon by name. */
+    /**
+     * Wrapper for prompting the user to select a Pokémon to release.
+     *
+     * @param sc Scanner for user input
+     */
     public void releasePokemon(Scanner sc) {
         System.out.print("Name to release: ");
         releasePokemon(sc.nextLine().trim());
@@ -530,7 +697,13 @@ public class Trainer implements Serializable {
         }
     }
 
-    /** Prompts for and teaches a new move via MoveManager. */
+    /**
+     * Prompts for a Pokémon and move, checks compatibility and move limit,
+     * and handles forgetting moves if needed.
+     *
+     * @param sc Scanner for user input
+     * @param mm MoveManager to retrieve move objects
+     */
     public void teachMove(Scanner sc, MoveManager mm) {
         Pokemon p = choosePokemon(sc);
         if (p == null) return;
@@ -589,7 +762,12 @@ public class Trainer implements Serializable {
     }
 
 
-    /** Helper to pick a Pokémon from lineup+storage. */
+    /**
+     * Prompts the user to choose a Pokémon from lineup or storage.
+     *
+     * @param sc Scanner for input
+     * @return selected Pokémon or null if cancelled/invalid
+     */
     private Pokemon choosePokemon(Scanner sc) {
         List<Pokemon> all = new ArrayList<>();
         System.out.println("Select a Pokémon:");
@@ -611,9 +789,19 @@ public class Trainer implements Serializable {
         }
     }
 
+    /**
+     * Applies the effect of an item (e.g., Rare Candy, Vitamin, Evolution Stone) on a Pokémon.
+     * Determines the item category and delegates to the correct helper method.
+     *
+     * @param item the item to use
+     * @param target the Pokémon to use the item on
+     * @param pokedexManager reference for evolution rules and Pokédex data
+     * @param scanner used for any additional input (unused)
+     */
     public void useItem(Item item, Pokemon target, PokedexManager pokedexManager, Scanner scanner) {
         System.out.println(name + " used " + item.getName() + " on " + target.getName());
         String itemName = item.getName().toLowerCase();
+        // Valid evolution stones that might not be labeled as "Evolution Stone" category
         List<String> evolutionStones = List.of(
                 "ice stone", "fire stone", "water stone", "thunder stone",
                 "leaf stone", "moon stone", "sun stone", "shiny stone",
@@ -635,6 +823,14 @@ public class Trainer implements Serializable {
         }
     }
 
+    /**
+     * Uses the Pokémon's held item (if any) and applies its effect.
+     * Held item is removed after use.
+     *
+     * @param target the Pokémon using its held item
+     * @param pokedexManager reference for evolution rules
+     * @return status message (e.g., effect applied or no effect)
+     */
     public String useHeldItem(Pokemon target, PokedexManager pokedexManager) {
         if (target == null || target.getHeldItem() == null) return "⚠️ No held item found.";
 
@@ -650,11 +846,17 @@ public class Trainer implements Serializable {
             result = heldItem.getName() + " had no effect.";
         }
 
-        target.setHeldItem(null);
+        target.setHeldItem(null); // Remove held item after use
         return result;
     }
 
-
+    /**
+     * Applies the effect of a vitamin or feather to a Pokémon.
+     * Boosts the corresponding stat by +10 (vitamin) or +1 (feather).
+     *
+     * @param item the item used
+     * @param target the Pokémon receiving the stat boost
+     */
     public void applyVitaminEffect(Item item, Pokemon target) {
         String effect = item.getEffects().toLowerCase();
         int amount = item.getCategory().equalsIgnoreCase("Feather") ? 1 : 10; // ← Decide based on category
@@ -672,6 +874,14 @@ public class Trainer implements Serializable {
         }
     }
 
+    /**
+     * Applies the effect of a Rare Candy to level up a Pokémon by 1.
+     * Increases all stats by 10% and checks if the Pokémon can evolve.
+     *
+     * @param target the Pokémon to level up
+     * @param pokedexManager reference for evolution data
+     * @return evolution-ready message with updated stats
+     */
     public String applyRareCandyEffect(Pokemon target, PokedexManager pokedexManager) {
         if (!pokedexManager.getAllowedStoneEvolutionNames()
                 .contains(target.getName().toLowerCase())) {
@@ -682,6 +892,7 @@ public class Trainer implements Serializable {
         int newLevel = oldLevel + 1;
         target.setBaseLevel(newLevel);
 
+        // Apply 10% stat boost
         target.setHp((int) Math.round(target.getHp() * 1.1));
         target.setAttack((int) Math.round(target.getAttack() * 1.1));
         target.setDefense((int) Math.round(target.getDefense() * 1.1));
@@ -699,60 +910,76 @@ public class Trainer implements Serializable {
             log.append(target.getName())
                     .append(" can now evolve (Evolution Level: ")
                     .append(evoLevel).append(").\n");
-            log.append("[EVOLUTION_PROMPT]");  // ← special flag
+            log.append("[EVOLUTION_PROMPT]");  // Signal for evolution popup
         }
 
         return log.toString();
     }
 
-
+    /**
+     * Evolves a Pokémon using the specified evolution stone,
+     * if the stone is valid and the evolution is allowed.
+     * Updates all applicable Pokémon properties.
+     *
+     * @param item the evolution stone being used
+     * @param target the Pokémon to evolve
+     * @param pokedexManager reference for allowed evolutions and evolution result
+     */
     private void applyEvolutionStoneEffect(Item item, Pokemon target, PokedexManager pokedexManager) {
         String stoneUsed = item.getName(); // e.g., "Fire Stone", "Water Stone"
         String targetNameLower = target.getName().toLowerCase();
 
-        // ✅ Check if Pokémon is allowed to evolve via stone
+        // Check if Pokémon is allowed to evolve via stone
         if (!pokedexManager.getAllowedStoneEvolutionNames().contains(targetNameLower)) {
             System.out.println("⚠️ " + target.getName() + " cannot evolve using an evolution stone.");
             return;
         }
 
-        // ✅ Check if the stone used is the correct one
+        // Check if the stone used is the correct one
         if (!pokedexManager.isCorrectStoneForEvolution(target.getName(), stoneUsed)) {
             System.out.println("⚠️ " + stoneUsed + " cannot be used to evolve " + target.getName() + ".");
             return;
         }
 
-        // ✅ Check for evolution target
+        // Check for evolution target
         Integer evolvesTo = target.getEvolvesTo();
         if (evolvesTo == null) {
             System.out.println("⚠️ " + target.getName() + " has no evolution via stone.");
             return;
         }
 
-        // ✅ Retrieve evolved form
+        // Retrieve evolved form
         Pokemon evolvedForm = pokedexManager.getPokemonByNumber(evolvesTo);
         if (evolvedForm == null) {
             System.out.println("⚠️ Evolution data not found in Pokédex.");
             return;
         }
 
-        // ✅ Apply evolution and stat updates
+        // Apply evolution and stat updates
         System.out.println("🎉 " + target.getName() + " is evolving into " + evolvedForm.getName() + "!");
         target.setName(evolvedForm.getName());
         target.setPokedexNumber(evolvedForm.getPokedexNumber());
         target.setType1(evolvedForm.getType1());
         target.setType2(evolvedForm.getType2());
+        // Keep the higher value between current and evolved form stats
         target.setHp(Math.max(target.getHp(), evolvedForm.getHp()));
         target.setAttack(Math.max(target.getAttack(), evolvedForm.getAttack()));
         target.setDefense(Math.max(target.getDefense(), evolvedForm.getDefense()));
         target.setSpeed(Math.max(target.getSpeed(), evolvedForm.getSpeed()));
-        target.setEvolvesTo(evolvedForm.getEvolvesTo()); // In case it can evolve again
-        target.setEvolutionLevel(evolvedForm.getEvolutionLevel()); // Optional: support further Rare Candy evolutions
+        // Support possible future evolutions
+        target.setEvolvesTo(evolvedForm.getEvolvesTo());
+        target.setEvolutionLevel(evolvedForm.getEvolutionLevel());
 
         System.out.println("✅ Evolution complete. Stats updated (higher values applied only)!");
     }
 
 
+    /**
+     * Displays all profile information for the trainer, including:
+     * - Personal details
+     * - Pokémon in lineup and storage
+     * - Items held
+     */
     public void displayProfile() {
         System.out.println("\n--- Trainer Profile: " + name + " ---");
         System.out.println("Sex        : " + sex);
@@ -792,6 +1019,9 @@ public class Trainer implements Serializable {
         }
     }
 
+    /**
+     * @return A compact string representation of the trainer for list views.
+     */
     @Override
     public String toString() {
         return String.format("%s | %s | %s | ₱%,d",

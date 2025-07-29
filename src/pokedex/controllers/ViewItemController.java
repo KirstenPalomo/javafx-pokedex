@@ -1,5 +1,13 @@
+/**
+ * This displays all Pokémon items in a table format in the Enhanced Pokédex system.
+ * Items are shown with tooltips for easier readability. Columns include name, category, description,
+ * effects, buy price, and sell price. Allows users to return to the Item Menu.
+ *
+ * Authors: Kirsten Palomo, Erylle Galinato
+ */
 package pokedex.controllers;
 
+// JavaFX UI and controls
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -25,6 +33,12 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * Controller for displaying all Pokémon items in a table.
+ * Each item is shown with its name, category, description, effect, and prices.
+ * Tooltips are applied to help users view full text on hover.
+ * Provides a back button to return to the Item Menu screen.
+ */
 public class ViewItemController implements Initializable {
 
     @FXML private TableView<Item> itemTableView;
@@ -40,7 +54,14 @@ public class ViewItemController implements Initializable {
     private final ItemManager itemManager;
     private final TrainerManager trainerManager;
 
-    // ✅ Constructor to receive managers
+    /**
+     * Constructs the controller with required manager dependencies.
+     *
+     * @param pokedexManager the Pokédex manager
+     * @param moveManager the move manager
+     * @param itemManager the item manager
+     * @param trainerManager the trainer manager
+     */
     public ViewItemController(PokedexManager pokedexManager, MoveManager moveManager,
                               ItemManager itemManager, TrainerManager trainerManager) {
         this.pokedexManager = pokedexManager;
@@ -49,6 +70,12 @@ public class ViewItemController implements Initializable {
         this.trainerManager = trainerManager;
     }
 
+    /**
+     * Initializes the table view with item data and applies tooltips to applicable columns.
+     *
+     * @param location  the location used to resolve relative paths
+     * @param resources the resources used to localize the root object
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         // Set cell value factories
@@ -59,7 +86,7 @@ public class ViewItemController implements Initializable {
         colBuy.setCellValueFactory(new PropertyValueFactory<>("buyingPrice"));
         colSell.setCellValueFactory(new PropertyValueFactory<>("sellingPrice"));
 
-        // Apply tooltip on hover for all relevant columns (except Sell)
+        // Apply tooltip on hover for all relevant columns
         applyTooltip(colName);
         applyTooltip(colCategory);
         applyTooltip(colDescription);
@@ -71,7 +98,12 @@ public class ViewItemController implements Initializable {
         itemTableView.setItems(data);
     }
 
-    // Helper method to apply tooltip to a column
+    /**
+     * Applies tooltip functionality to a table column.
+     * Tooltips appear on hover and show full text content of each cell.
+     *
+     * @param column the column to apply tooltips to
+     */
     private void applyTooltip(TableColumn<Item, String> column) {
         column.setCellFactory(tc -> new TableCell<>() {
             @Override
@@ -83,6 +115,11 @@ public class ViewItemController implements Initializable {
         });
     }
 
+    /**
+     * Handles the Back button click and navigates the user back to the Item Menu screen.
+     *
+     * @param event the action event triggered by the Back button
+     */
     @FXML
     private void handleBack(ActionEvent event) {
         try {

@@ -1,20 +1,32 @@
+/**
+ * This manager handles all trainers in the Enhanced Pokédex system.
+ * It stores and retrieves trainer data, supports searching by ID, name, and hometown,
+ * and provides methods to view trainer information and access specific trainer profiles.
+ *
+ * Authors: Kirsten Palomo, Erylle Galinato
+ */
 package pokedex.managers;
 
+// Imports the Trainer model class, which represents a user/trainer profile in the system
 import pokedex.models.Trainer;
+
+// Java utility classes for dynamic lists and immutable copies
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * TrainerManager handles storage and retrieval of Trainer objects.
- * It provides methods to add, view, and search trainers.
+ * TrainerManager handles the storage, retrieval, and searching of Trainer objects.
+ * Provides methods for adding new trainers, listing all, and searching by various fields.
+ * Used by menu systems and controller classes to manage trainer data.
  */
 public class TrainerManager {
     // Internal list holding all trainers
     private final List<Trainer> trainers = new ArrayList<>();
 
     /**
-     * Adds a new trainer to the system.
-     * @param trainer the Trainer to add
+     * Adds a new trainer to the list.
+     *
+     * @param trainer the Trainer object to be added
      */
     public void addTrainer(Trainer trainer) {
         trainers.add(trainer);
@@ -23,18 +35,25 @@ public class TrainerManager {
 
     /**
      * Returns an unmodifiable list of all trainers.
+     *
      * @return list of all Trainer objects
      */
     public List<Trainer> getAllTrainers() {
         return List.copyOf(trainers);
     }
+
+    /**
+     * Replaces the current list of trainers with a loaded list from file
+     *
+     * @param loaded list of trainers to load
+     */
     public void setTrainers(List<Trainer> loaded) {
     trainers.clear();
     trainers.addAll(loaded);
 }
     /**
-     * Displays all trainers along with their lineup and storage details.
-     * This is a convenience method; for submenu-driven interaction, use getAllTrainers().
+     * Displays all trainers with their name, ID, and Pokémon lineup and storage.
+     * Useful for debugging or viewing full trainer records.
      */
     public void viewAllTrainers() {
         if (trainers.isEmpty()) {
@@ -52,8 +71,10 @@ public class TrainerManager {
     }
 
     /**
-     * Searches for trainers whose ID, name, or hometown contains the given keyword (case-insensitive).
-     * @param keyword the search term
+     * Searches for trainers where ID, name, or hometown contains the keyword.
+     * Case-insensitive matching.
+     *
+     * @param keyword the keyword to search for
      */
     public void searchTrainer(String keyword) {
         String lower = keyword.toLowerCase();
@@ -75,6 +96,12 @@ public class TrainerManager {
         }
     }
 
+    /**
+     * Checks if a trainer with the specified ID exists.
+     *
+     * @param id the trainer ID to check
+     * @return true if a match is found, false otherwise
+     */
     public boolean hasTrainerWithID(String id) {
         for (Trainer t : trainers) {
             if (t.getTrainerID().equals(id)) {
@@ -84,6 +111,12 @@ public class TrainerManager {
         return false;
     }
 
+    /**
+     * Retrieves a trainer with the given ID.
+     *
+     * @param id the trainer ID to search
+     * @return the Trainer object, or null if not found
+     */
     public Trainer getTrainerWithID(String id) {
         for (Trainer t : trainers) {
             if (t.getTrainerID().equals(id)) {
@@ -93,6 +126,13 @@ public class TrainerManager {
         return null;
     }
 
+
+    /**
+     * Checks whether a trainer exists with the given name (case-insensitive).
+     *
+     * @param name the trainer name to check
+     * @return true if found, false otherwise
+     */
     public boolean hasTrainerWithName(String name) {
         for (Trainer t : trainers) {
             if (t.getName().equalsIgnoreCase(name)) {
@@ -102,7 +142,12 @@ public class TrainerManager {
         return false;
     }
 
-
+    /**
+     * Retrieves a trainer with the given name (case-insensitive, trimmed).
+     *
+     * @param name trainer name to find
+     * @return the matching Trainer object or null if not found
+     */
     public Trainer getTrainerWithName(String name) {
         for (Trainer t : trainers) {
             if (t.getName().equalsIgnoreCase(name.trim())) {

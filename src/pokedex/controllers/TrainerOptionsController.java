@@ -1,3 +1,11 @@
+/**
+ * This allows interaction with Pokémon (view, add, switch, release),
+ * item usage (buy, sell, use, give, remove), and move teaching. This controller links
+ * the UI with the backend managers (PokedexManager, TrainerManager, etc.) and handles
+ * user decisions through JavaFX dialog boxes.
+ *
+ * Authors: Kirsten Palomo, Erylle Galinato
+ */
 package pokedex.controllers;
 
 import javafx.fxml.FXML;
@@ -22,6 +30,11 @@ import java.io.IOException;
 import java.util.*;
 import java.util.stream.IntStream;
 
+/**
+ * Controller for the Trainer Options menu.
+ * Handles navigation to all trainer-specific functionalities such as viewing profile,
+ * managing Pokémon, using items, buying/selling, etc.
+ */
 public class TrainerOptionsController {
 
     private final PokedexManager pokedexManager;
@@ -30,6 +43,15 @@ public class TrainerOptionsController {
     private final TrainerManager trainerManager;
     private final Trainer selectedTrainer;
 
+    /**
+     * Constructs the controller with all required manager dependencies and the selected trainer.
+     *
+     * @param pokedexManager  the central Pokédex manager
+     * @param moveManager     the move manager for handling TM/HM functionality
+     * @param itemManager     the item manager for inventory logic
+     * @param trainerManager  the trainer manager for CRUD operations
+     * @param selectedTrainer the currently selected trainer
+     */
     public TrainerOptionsController(PokedexManager pokedexManager,
                                     MoveManager moveManager,
                                     ItemManager itemManager,
@@ -42,6 +64,13 @@ public class TrainerOptionsController {
         this.selectedTrainer = selectedTrainer;// <- Add this
     }
 
+    /**
+     * Handles the logic for buying items from the shop.
+     * Displays a choice dialog to select an item and quantity,
+     * then attempts to purchase that item and applies any relevant bonuses.
+     *
+     * @param event the button click event triggering this method
+     */
     @FXML
     private void handleBuyItem(ActionEvent event) {
         // Filter buyable items
@@ -116,7 +145,12 @@ public class TrainerOptionsController {
         });
     }
 
-
+    /**
+     * Displays the full trainer profile in a scrollable alert box,
+     * including personal details, Pokémon lineup, storage, and inventory.
+     *
+     * @param event the button click event triggering this method
+     */
     @FXML
     private void handleViewProfile(ActionEvent event) {
         StringBuilder profile = new StringBuilder();
@@ -188,6 +222,11 @@ public class TrainerOptionsController {
     }
 
 
+    /**
+     * Returns the user to the Trainer Menu screen.
+     *
+     * @param event the button click event triggering this method
+     */
     @FXML
     private void handleBack(ActionEvent event){
         try {
@@ -204,6 +243,12 @@ public class TrainerOptionsController {
         }
     }
 
+    /**
+     * Handles the logic for selling items from the trainer's inventory.
+     * Prompts for item selection and quantity, calculates total earnings.
+     *
+     * @param event the button click event triggering this method
+     */
     @FXML
     private void handleSell(ActionEvent event) {
         Map<String, Trainer.BagItem> bag = selectedTrainer.getItemBag();
@@ -277,7 +322,12 @@ public class TrainerOptionsController {
         });
     }
 
-
+    /**
+     * Allows the trainer to use an item on a Pokémon.
+     * Supports usage from held items or bag and handles item effects and evolution.
+     *
+     * @param event the button click event triggering this method
+     */
     @FXML
     private void handleUse(ActionEvent event) {
         List<Pokemon> lineup = selectedTrainer.getLineup();
@@ -294,6 +344,7 @@ public class TrainerOptionsController {
         pokeDialog.setContentText("Which Pokémon?");
 
         pokeDialog.showAndWait().ifPresent(pokemonName -> {
+            // Find the selected Pokémon object from the lineup
             Pokemon target = lineup.stream()
                     .filter(p -> p.getName().equals(pokemonName))
                     .findFirst()
@@ -323,6 +374,7 @@ public class TrainerOptionsController {
 
                     String result = selectedTrainer.useHeldItem(target, pokedexManager);
 
+                    // Check if item triggers a Rare Candy evolution
                     if (result.contains("[EVOLUTION_PROMPT]")) {
                         result = result.replace("[EVOLUTION_PROMPT]", "");
 
@@ -335,6 +387,7 @@ public class TrainerOptionsController {
                         if (confirm.isPresent() && confirm.get() == ButtonType.OK) {
                             Pokemon evolvedForm = pokedexManager.getPokemonByNumber(target.getEvolvesTo());
                             if (evolvedForm != null) {
+                                // Update Pokémon properties after evolution
                                 target.setName(evolvedForm.getName());
                                 target.setPokedexNumber(evolvedForm.getPokedexNumber());
                                 target.setEvolvesTo(evolvedForm.getEvolvesTo());
@@ -381,8 +434,8 @@ public class TrainerOptionsController {
                     if (itemNameLower.equals("rare candy")) {
                         int oldLevel = target.getBaseLevel();
                         int newLevel = oldLevel + 1;
+                        // Level up and boost stats by 10%
                         target.setBaseLevel(newLevel);
-
                         target.setHp((int) Math.round(target.getHp() * 1.1));
                         target.setAttack((int) Math.round(target.getAttack() * 1.1));
                         target.setDefense((int) Math.round(target.getDefense() * 1.1));
@@ -414,7 +467,7 @@ public class TrainerOptionsController {
                                 if (evolvedForm != null) {
                                     log.append(target.getName())
                                             .append(" evolved into ").append(evolvedForm.getName()).append("!\n");
-
+                                    // Update evolved properties
                                     target.setName(evolvedForm.getName());
                                     target.setPokedexNumber(evolvedForm.getPokedexNumber());
                                     target.setEvolvesTo(evolvedForm.getEvolvesTo());
@@ -494,7 +547,12 @@ public class TrainerOptionsController {
         });
     }
 
-
+    /**
+     * Allows the trainer to add a Pokémon from the Pokédex to their lineup or storage.
+     * Ensures that duplicates are not added to the lineup.
+     *
+     * @param event the button click event triggering this method
+     */
     @FXML
     private void handleAdd(ActionEvent event) {
         List<Pokemon> allPokemon = pokedexManager.getAllPokemon();
@@ -540,6 +598,12 @@ public class TrainerOptionsController {
         });
     }
 
+    /**
+     * Assigns an item from the trainer's inventory to a selected Pokémon as a held item.
+     * Replaces any existing held item after confirmation.
+     *
+     * @param event the button click event triggering this method
+     */
     @FXML
     private void handleGive(ActionEvent event) {
         List<Pokemon> lineup = selectedTrainer.getLineup();
@@ -614,6 +678,12 @@ public class TrainerOptionsController {
         });
     }
 
+    /**
+     * Removes a held item from a selected Pokémon.
+     * Prompts for confirmation before discarding the item.
+     *
+     * @param event the button click event triggering this method
+     */
     @FXML
     private void handleRemove(ActionEvent event) {
         List<Pokemon> lineup = selectedTrainer.getLineup();
@@ -659,16 +729,16 @@ public class TrainerOptionsController {
             selectedPokemon.setHeldItem(null);
             showAlert("Remove Held Item", removedItem + " was removed and discarded.", Alert.AlertType.INFORMATION);
 
-            // ✅ SYNC AND SAVE
-            Pokemon global = pokedexManager.getPokemonByNumber(selectedPokemon.getPokedexNumber());
-            if (global != null) {
-                global.setHeldItem(null);
-            }
             JsonManager.saveTrainers(trainerManager.getAllTrainers());
-            JsonManager.savePokemons(pokedexManager.getAllPokemon());
         });
     }
 
+    /**
+     * Switches a Pokémon from the trainer's active lineup with one in storage.
+     * Requires that both lists are non-empty.
+     *
+     * @param event the button click event triggering this method
+     */
     @FXML
     private void handleSwitch(ActionEvent event) {
         List<Pokemon> lineup = selectedTrainer.getLineup();
@@ -720,6 +790,13 @@ public class TrainerOptionsController {
             });
         });
     }
+
+    /**
+     * Allows the trainer to release a Pokémon from either the lineup or storage.
+     * Prompts for confirmation before permanently deleting the Pokémon.
+     *
+     * @param event the button click event triggering this method
+     */
     @FXML
     private void handleRelease(ActionEvent event) {
         List<String> options = List.of("Lineup", "Storage");
@@ -775,7 +852,12 @@ public class TrainerOptionsController {
         }
     }
 
-
+    /**
+     * Allows the trainer to teach a move to a selected Pokémon.
+     * If the Pokémon already knows 4 moves, the user will choose one to forget.
+     *
+     * @param event the button click event triggering this method
+     */
     @FXML
     private void handleTeach(ActionEvent event) {
         List<Pokemon> lineup = selectedTrainer.getLineup();
@@ -854,7 +936,14 @@ public class TrainerOptionsController {
         JsonManager.saveTrainers(trainerManager.getAllTrainers());
     }
 
-
+    /**
+     * Utility method to show a scrollable alert with large content,
+     * such as the trainer profile.
+     *
+     * @param title   the title of the alert dialog
+     * @param content the text content to display
+     * @param type    the type of alert (e.g., INFORMATION, WARNING)
+     */
     private void showScrollableAlert(String title, String content, Alert.AlertType type) {
         Alert alert = new Alert(type);
         alert.setTitle(title);
@@ -878,6 +967,13 @@ public class TrainerOptionsController {
         alert.showAndWait();
     }
 
+    /**
+     * Utility method to show a simple popup alert with a message.
+     *
+     * @param title   the title of the alert dialog
+     * @param message the content text
+     * @param type    the type of alert (e.g., INFORMATION, ERROR)
+     */
     private void showAlert(String title, String message, Alert.AlertType type) {
         Alert alert = new Alert(type);
         alert.setTitle(title);
@@ -885,8 +981,4 @@ public class TrainerOptionsController {
         alert.setContentText(message);
         alert.showAndWait();
     }
-
-
 }
-
-
