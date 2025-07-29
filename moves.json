@@ -91,5 +91,96 @@
     "description": "The user confounds the target with speed, then slashes. This attack never misses.",
     "classification": "TM",
     "type1": "Flying"
+  },
+  {
+    "name": "Waterfall",
+    "description": "The user charges at the target and may make it flinch. It can also be used to climb waterfalls.",
+    "classification": "HM",
+    "type1": "Water"
+  },
+  {
+    "name": "Dive",
+    "description": "The user dives on the first turn, then hits on the next. It can also be used to dive underwater.",
+    "classification": "HM",
+    "type1": "Water"
+  },
+  {
+    "name": "Scald",
+    "description": "The user attacks with boiling hot water. This may also leave the target with a burn.",
+    "classification": "TM",
+    "type1": "Water"
+  },
+  {
+    "name": "Hydro Pump",
+    "description": "The target is blasted by a huge volume of water launched under great pressure.",
+    "classification": "TM",
+    "type1": "Water"
+  },
+  {
+    "name": "Hyper Beam",
+    "description": "The target is attacked with a powerful beam. The user can\u0027t move on the next turn.",
+    "classification": "TM",
+    "type1": "Normal"
+  },
+  {
+    "name": "Facade",
+    "description": "An attack move that doubles its power if the user is poisoned, burned, or paralyzed.",
+    "classification": "TM",
+    "type1": "Normal"
+  },
+  {
+    "name": "Dragon Dive",
+    "description": "The user dives from above with draconic force. Can smash boulders in the overworld.",
+    "classification": "HM",
+    "type1": "Dragon"
+  },
+  {
+    "name": "Draco Climb",
+    "description": "A mystical dragon-powered leap that scales cliffs and tall obstacles.",
+    "classification": "HM",
+    "type1": "Dragon"
+  },
+  {
+    "name": "Dragon Claw",
+    "description": "The user slashes the target with sharp claws infused with draconic energy.",
+    "classification": "TM",
+    "type1": "Dragon"
+  },
+  {
+    "name": "Draco Meteor",
+    "description": "Comets rain down from the sky to strike the target. Harshly lowers the user’s Sp. Atk.",
+    "classification": "TM",
+    "type1": "Dragon"
+  },
+  {
+    "name": "Luster Path",
+    "description": "The user illuminates a radiant trail that reveals hidden items and paths in dark areas.",
+    "classification": "HM",
+    "type1": "Shiny"
+  },
+  {
+    "name": "Shimmer Lift",
+    "description": "A wave of light lifts the user and allies, allowing traversal over obstacles and terrain.",
+    "classification": "HM",
+    "type1": "Shiny"
+  },
+  {
+    "name": "Radiant Beam",
+    "description": "A piercing beam of light energy that has a high chance to lower the target’s accuracy.",
+    "classification": "TM",
+    "type1": "Shiny"
+  },
+  {
+    "name": "Prism Flash",
+    "description": "The user emits a dazzling flash that may confuse the target and lower their Speed.",
+    "classification": "TM",
+    "type1": "Shiny"
+  },
+  {
+    "name": "sleep",
+    "description": "I wanna sleep",
+    "classification": "TM",
+    "type1": "Normal",
+    "type2": "Fighting"
   }
 ]

@@ -6,19 +6,17 @@
     "sex": "M",
     "hometown": "South Korea",
     "description": "He is a member of Monsta X. He is a singer, actor, model, DJ, MC, songwriter, and producer.",
-    "money": 945800,
+    "money": 932800,
     "lineup": [
       {
-        "pokedexNumber": 25,
-        "name": "Pikachu",
+        "pokedexNumber": 26,
+        "name": "Raichu",
         "type1": "Electric",
-        "baseLevel": 9,
-        "evolvesTo": 26,
-        "evolutionLevel": 10,
-        "hp": 35,
-        "attack": 55,
-        "defense": 40,
-        "speed": 90,
+        "baseLevel": 10,
+        "hp": 39,
+        "attack": 61,
+        "defense": 44,
+        "speed": 99,
         "moveSet": [
           "Tackle",
           "Defend"
@@ -42,13 +40,13 @@
         "pokedexNumber": 1,
         "name": "Bulbasaur",
         "type1": "Grass",
-        "baseLevel": 5,
+        "baseLevel": 6,
         "evolvesTo": 2,
         "evolutionLevel": 16,
-        "hp": 45,
-        "attack": 49,
-        "defense": 49,
-        "speed": 45,
+        "hp": 50,
+        "attack": 54,
+        "defense": 54,
+        "speed": 50,
         "moveSet": [
           "Earthquake",
           "Solar Beam",
@@ -57,49 +55,35 @@
         ]
       },
       {
-        "pokedexNumber": 59,
-        "name": "Arcanine",
-        "type1": "Fire",
-        "baseLevel": 6,
-        "hp": 90,
-        "attack": 110,
-        "defense": 80,
-        "speed": 95,
-        "moveSet": [
-          "Tackle",
-          "Defend"
-        ]
-      },
-      {
-        "pokedexNumber": 175,
-        "name": "Togetic",
+        "pokedexNumber": 176,
+        "name": "Togekiss",
         "type1": "Shiny",
         "baseLevel": 9,
-        "evolvesTo": 176,
-        "evolutionLevel": 10,
-        "hp": 55,
-        "attack": 40,
-        "defense": 85,
-        "speed": 40,
+        "hp": 85,
+        "attack": 50,
+        "defense": 95,
+        "speed": 80,
         "moveSet": [
           "Tackle",
           "Defend"
         ]
       },
       {
-        "pokedexNumber": 16,
-        "name": "Pidgey",
-        "type1": "Flying",
+        "pokedexNumber": 7,
+        "name": "Squirtle",
+        "type1": "Water",
         "baseLevel": 5,
-        "evolvesTo": 17,
+        "evolvesTo": 8,
         "evolutionLevel": 10,
-        "hp": 40,
-        "attack": 45,
-        "defense": 40,
-        "speed": 56,
+        "hp": 64,
+        "attack": 48,
+        "defense": 65,
+        "speed": 43,
         "moveSet": [
-          "Tackle",
-          "Defend"
+          "Hydro Pump",
+          "Defend",
+          "Surf",
+          "Scald"
         ]
       }
     ],
@@ -153,32 +137,30 @@
         ]
       },
       {
-        "pokedexNumber": 35,
-        "name": "Clefairy",
-        "type1": "Shiny",
+        "pokedexNumber": 59,
+        "name": "Arcanine",
+        "type1": "Fire",
         "baseLevel": 6,
-        "evolvesTo": 36,
-        "evolutionLevel": 10,
-        "hp": 70,
-        "attack": 45,
-        "defense": 48,
-        "speed": 35,
+        "hp": 90,
+        "attack": 110,
+        "defense": 80,
+        "speed": 95,
         "moveSet": [
           "Tackle",
           "Defend"
         ]
       },
       {
-        "pokedexNumber": 19,
-        "name": "Rattata",
-        "type1": "Normal",
-        "baseLevel": 4,
-        "evolvesTo": 20,
+        "pokedexNumber": 27,
+        "name": "Sandshrew",
+        "type1": "Ground",
+        "baseLevel": 6,
+        "evolvesTo": 28,
         "evolutionLevel": 10,
-        "hp": 30,
-        "attack": 56,
-        "defense": 35,
-        "speed": 72,
+        "hp": 50,
+        "attack": 75,
+        "defense": 85,
+        "speed": 40,
         "moveSet": [
           "Tackle",
           "Defend"
@@ -196,7 +178,7 @@
           "maxBuyingPrice": 10000,
           "sellingPrice": 5000
         },
-        "quantity": 2
+        "quantity": 1
       },
       "Rare Candy": {
         "item": {
@@ -301,7 +283,7 @@
     "sex": "F",
     "hometown": "Manila",
     "description": "She is a first-year BS Information Systems student in DLSU. She enjoys watching K-dramas.",
-    "money": 1000000,
+    "money": 957400,
     "lineup": [
       {
         "pokedexNumber": 113,
@@ -336,32 +318,28 @@
         ]
       },
       {
-        "pokedexNumber": 175,
-        "name": "Togetic",
+        "pokedexNumber": 176,
+        "name": "Togekiss",
         "type1": "Shiny",
         "baseLevel": 9,
-        "evolvesTo": 176,
-        "evolutionLevel": 10,
-        "hp": 55,
-        "attack": 40,
-        "defense": 85,
-        "speed": 40,
+        "hp": 85,
+        "attack": 50,
+        "defense": 95,
+        "speed": 80,
         "moveSet": [
           "Tackle",
           "Defend"
         ]
       },
       {
-        "pokedexNumber": 25,
-        "name": "Pikachu",
+        "pokedexNumber": 26,
+        "name": "Raichu",
         "type1": "Electric",
-        "baseLevel": 9,
-        "evolvesTo": 26,
-        "evolutionLevel": 10,
-        "hp": 35,
-        "attack": 55,
-        "defense": 40,
-        "speed": 90,
+        "baseLevel": 10,
+        "hp": 39,
+        "attack": 61,
+        "defense": 44,
+        "speed": 99,
         "moveSet": [
           "Tackle",
           "Defend"
@@ -379,13 +357,219 @@
         "defense": 65,
         "speed": 43,
         "moveSet": [
+          "Scald",
+          "Hydro Pump",
+          "Waterfall",
+          "Dive"
+        ]
+      },
+      {
+        "pokedexNumber": 120,
+        "name": "Staryu",
+        "type1": "Water",
+        "baseLevel": 7,
+        "evolvesTo": 121,
+        "evolutionLevel": 10,
+        "hp": 30,
+        "attack": 45,
+        "defense": 55,
+        "speed": 85,
+        "moveSet": [
           "Tackle",
           "Defend"
         ]
       }
     ],
-    "storage": [],
-    "itemBag": {}
+    "storage": [
+      {
+        "pokedexNumber": 50,
+        "name": "Diglett",
+        "type1": "Ground",
+        "baseLevel": 5,
+        "evolvesTo": 51,
+        "evolutionLevel": 10,
+        "hp": 10,
+        "attack": 55,
+        "defense": 25,
+        "speed": 95,
+        "moveSet": [
+          "Tackle",
+          "Defend"
+        ]
+      },
+      {
+        "pokedexNumber": 54,
+        "name": "Psyduck",
+        "type1": "Water",
+        "baseLevel": 7,
+        "evolvesTo": 55,
+        "evolutionLevel": 10,
+        "hp": 50,
+        "attack": 52,
+        "defense": 48,
+        "speed": 55,
+        "moveSet": [
+          "Tackle",
+          "Defend"
+        ]
+      },
+      {
+        "pokedexNumber": 19,
+        "name": "Rattata",
+        "type1": "Normal",
+        "baseLevel": 4,
+        "evolvesTo": 20,
+        "evolutionLevel": 10,
+        "hp": 30,
+        "attack": 56,
+        "defense": 35,
+        "speed": 72,
+        "moveSet": [
+          "Tackle",
+          "Defend"
+        ]
+      },
+      {
+        "pokedexNumber": 13,
+        "name": "Weedle",
+        "type1": "Bug",
+        "baseLevel": 3,
+        "evolvesTo": 14,
+        "evolutionLevel": 7,
+        "hp": 40,
+        "attack": 35,
+        "defense": 30,
+        "speed": 50,
+        "moveSet": [
+          "Tackle",
+          "Defend"
+        ]
+      },
+      {
+        "pokedexNumber": 60,
+        "name": "Poliwag",
+        "type1": "Water",
+        "baseLevel": 5,
+        "evolvesTo": 61,
+        "evolutionLevel": 10,
+        "hp": 40,
+        "attack": 50,
+        "defense": 40,
+        "speed": 90,
+        "moveSet": [
+          "Tackle",
+          "Defend"
+        ]
+      }
+    ],
+    "itemBag": {
+      "HP Up": {
+        "item": {
+          "name": "HP Up",
+          "category": "Vitamin",
+          "description": "A nutritious drink for Pokémon.",
+          "effects": "+10 HP EVs",
+          "minBuyingPrice": 10000,
+          "maxBuyingPrice": 10000,
+          "sellingPrice": 5000
+        },
+        "quantity": 1
+      },
+      "Rare Candy": {
+        "item": {
+          "name": "Rare Candy",
+          "category": "Leveling Item",
+          "description": "A candy that is packed with energy.",
+          "effects": "Increases level by 1 (stat gain depends on Pokémon\u0027s base stats and EVs)",
+          "sellingPrice": 2400
+        },
+        "quantity": 8
+      },
+      "Protein": {
+        "item": {
+          "name": "Protein",
+          "category": "Vitamin",
+          "description": "A nutritious drink for Pokémon.",
+          "effects": "+10 Attack EVs",
+          "minBuyingPrice": 10000,
+          "maxBuyingPrice": 10000,
+          "sellingPrice": 5000
+        },
+        "quantity": 1
+      },
+      "Resist Feather": {
+        "item": {
+          "name": "Resist Feather",
+          "category": "Feather",
+          "description": "A feather that slightly increases Defense.",
+          "effects": "+1 Defense EV",
+          "minBuyingPrice": 300,
+          "maxBuyingPrice": 300,
+          "sellingPrice": 150
+        },
+        "quantity": 1
+      },
+      "Dawn Stone": {
+        "item": {
+          "name": "Dawn Stone",
+          "category": "Evolution Stone",
+          "description": "A stone that sparkles like the morning sky.",
+          "effects": "Evolves male Kirlia into Gallade, female Snorunt into Froslass.",
+          "minBuyingPrice": 3000,
+          "maxBuyingPrice": 5000,
+          "sellingPrice": 1500
+        },
+        "quantity": 1
+      },
+      "Leaf Stone": {
+        "item": {
+          "name": "Leaf Stone",
+          "category": "Evolution Stone",
+          "description": "A stone with a leaf pattern",
+          "effects": "Evolves Pokémon like Gloom, Weepinbell, Exeggcute, etc.",
+          "minBuyingPrice": 3000,
+          "maxBuyingPrice": 5000,
+          "sellingPrice": 1500
+        },
+        "quantity": 1
+      },
+      "Health Feather": {
+        "item": {
+          "name": "Health Feather",
+          "category": "Feather",
+          "description": "A feather that slightly increases HP.",
+          "effects": "+1 HP EV",
+          "minBuyingPrice": 300,
+          "maxBuyingPrice": 300,
+          "sellingPrice": 150
+        },
+        "quantity": 1
+      },
+      "Zinc": {
+        "item": {
+          "name": "Zinc",
+          "category": "Vitamin",
+          "description": "A nutritious drink for Pokémon.",
+          "effects": "+10 Special Defense EVs",
+          "minBuyingPrice": 10000,
+          "maxBuyingPrice": 10000,
+          "sellingPrice": 5000
+        },
+        "quantity": 1
+      },
+      "Sun Stone": {
+        "item": {
+          "name": "Sun Stone",
+          "category": "Evolution Stone",
+          "description": "A stone that glows like the sun.",
+          "effects": "Evolves Pokémon like Gloom (into Bellossom), Sunkern, Cottonee, etc.",
+          "minBuyingPrice": 3000,
+          "maxBuyingPrice": 5000,
+          "sellingPrice": 1500
+        },
+        "quantity": 1
+      }
+    }
   },
   {
     "trainerID": "3",
@@ -394,10 +578,196 @@
     "sex": "F",
     "hometown": "Manila",
     "description": "She is a first-year BS Information Systems student in DLSU. She is an F1 fan.",
-    "money": 1000000,
-    "lineup": [],
+    "money": 944700,
+    "lineup": [
+      {
+        "pokedexNumber": 134,
+        "name": "Vaporeon",
+        "type1": "Water",
+        "baseLevel": 5,
+        "hp": 130,
+        "attack": 65,
+        "defense": 60,
+        "speed": 65,
+        "moveSet": [
+          "Tackle",
+          "Defend"
+        ]
+      },
+      {
+        "pokedexNumber": 38,
+        "name": "Ninetales",
+        "type1": "Fire",
+        "baseLevel": 10,
+        "hp": 46,
+        "attack": 50,
+        "defense": 48,
+        "speed": 79,
+        "moveSet": [
+          "Tackle",
+          "Defend"
+        ]
+      },
+      {
+        "pokedexNumber": 98,
+        "name": "Krabby",
+        "type1": "Water",
+        "baseLevel": 6,
+        "evolvesTo": 99,
+        "evolutionLevel": 10,
+        "hp": 30,
+        "attack": 105,
+        "defense": 90,
+        "speed": 50,
+        "moveSet": [
+          "Tackle",
+          "Defend"
+        ]
+      },
+      {
+        "pokedexNumber": 21,
+        "name": "Spearow",
+        "type1": "Flying",
+        "baseLevel": 5,
+        "evolvesTo": 22,
+        "evolutionLevel": 10,
+        "hp": 40,
+        "attack": 60,
+        "defense": 30,
+        "speed": 70,
+        "moveSet": [
+          "Tackle",
+          "Defend"
+        ]
+      },
+      {
+        "pokedexNumber": 52,
+        "name": "Meowth",
+        "type1": "Normal",
+        "baseLevel": 7,
+        "evolvesTo": 53,
+        "evolutionLevel": 10,
+        "hp": 40,
+        "attack": 45,
+        "defense": 35,
+        "speed": 90,
+        "moveSet": [
+          "Cut",
+          "Strength",
+          "Hyper Beam",
+          "Facade"
+        ]
+      }
+    ],
     "storage": [],
-    "itemBag": {}
+    "itemBag": {
+      "HP Up": {
+        "item": {
+          "name": "HP Up",
+          "category": "Vitamin",
+          "description": "A nutritious drink for Pokémon.",
+          "effects": "+10 HP EVs",
+          "minBuyingPrice": 10000,
+          "maxBuyingPrice": 10000,
+          "sellingPrice": 5000
+        },
+        "quantity": 2
+      },
+      "Rare Candy": {
+        "item": {
+          "name": "Rare Candy",
+          "category": "Leveling Item",
+          "description": "A candy that is packed with energy.",
+          "effects": "Increases level by 1 (stat gain depends on Pokémon\u0027s base stats and EVs)",
+          "sellingPrice": 2400
+        },
+        "quantity": 8
+      },
+      "Protein": {
+        "item": {
+          "name": "Protein",
+          "category": "Vitamin",
+          "description": "A nutritious drink for Pokémon.",
+          "effects": "+10 Attack EVs",
+          "minBuyingPrice": 10000,
+          "maxBuyingPrice": 10000,
+          "sellingPrice": 5000
+        },
+        "quantity": 1
+      },
+      "Health Feather": {
+        "item": {
+          "name": "Health Feather",
+          "category": "Feather",
+          "description": "A feather that slightly increases HP.",
+          "effects": "+1 HP EV",
+          "minBuyingPrice": 300,
+          "maxBuyingPrice": 300,
+          "sellingPrice": 150
+        },
+        "quantity": 1
+      },
+      "Carbos": {
+        "item": {
+          "name": "Carbos",
+          "category": "Vitamin",
+          "description": "A nutritious drink for Pokémon.",
+          "effects": "+10 Speed EVs",
+          "minBuyingPrice": 10000,
+          "maxBuyingPrice": 10000,
+          "sellingPrice": 5000
+        },
+        "quantity": 1
+      },
+      "Shiny Stone": {
+        "item": {
+          "name": "Shiny Stone",
+          "category": "Evolution Stone",
+          "description": "A stone that sparkles brightly.",
+          "effects": "Evolves Pokémon like Togetic, Roselia, Minccino, etc.",
+          "minBuyingPrice": 3000,
+          "maxBuyingPrice": 5000,
+          "sellingPrice": 1500
+        },
+        "quantity": 1
+      },
+      "Dawn Stone": {
+        "item": {
+          "name": "Dawn Stone",
+          "category": "Evolution Stone",
+          "description": "A stone that sparkles like the morning sky.",
+          "effects": "Evolves male Kirlia into Gallade, female Snorunt into Froslass.",
+          "minBuyingPrice": 3000,
+          "maxBuyingPrice": 5000,
+          "sellingPrice": 1500
+        },
+        "quantity": 1
+      },
+      "Thunder Stone": {
+        "item": {
+          "name": "Thunder Stone",
+          "category": "Evolution Stone",
+          "description": "A stone that sparkles with electricity.",
+          "effects": "Evolves Pokémon like Pikachu, Eevee (into Jolteon), Eelektrik, etc.",
+          "minBuyingPrice": 3000,
+          "maxBuyingPrice": 5000,
+          "sellingPrice": 1500
+        },
+        "quantity": 1
+      },
+      "Fire Stone": {
+        "item": {
+          "name": "Fire Stone",
+          "category": "Evolution Stone",
+          "description": "A stone that radiates heat.",
+          "effects": "Evolves Pokémon like Vulpix, Growlithe, Eevee (into Flareon), etc.",
+          "minBuyingPrice": 3000,
+          "maxBuyingPrice": 5000,
+          "sellingPrice": 1500
+        },
+        "quantity": 1
+      }
+    }
   },
   {
     "trainerID": "4",
@@ -406,10 +776,212 @@
     "sex": "F",
     "hometown": "South Korea",
     "description": "Plump, Glowing, Hydration, Boost!",
-    "money": 1000000,
-    "lineup": [],
+    "money": 946100,
+    "lineup": [
+      {
+        "pokedexNumber": 26,
+        "name": "Raichu",
+        "type1": "Electric",
+        "baseLevel": 10,
+        "hp": 39,
+        "attack": 61,
+        "defense": 44,
+        "speed": 99,
+        "moveSet": [
+          "Tackle",
+          "Defend"
+        ]
+      },
+      {
+        "pokedexNumber": 59,
+        "name": "Arcanine",
+        "type1": "Fire",
+        "baseLevel": 6,
+        "hp": 90,
+        "attack": 110,
+        "defense": 80,
+        "speed": 95,
+        "moveSet": [
+          "Tackle",
+          "Defend"
+        ]
+      },
+      {
+        "pokedexNumber": 35,
+        "name": "Clefairy",
+        "type1": "Shiny",
+        "baseLevel": 6,
+        "evolvesTo": 36,
+        "evolutionLevel": 10,
+        "hp": 70,
+        "attack": 45,
+        "defense": 48,
+        "speed": 35,
+        "moveSet": [
+          "Tackle",
+          "Defend"
+        ]
+      },
+      {
+        "pokedexNumber": 13,
+        "name": "Weedle",
+        "type1": "Bug",
+        "baseLevel": 3,
+        "evolvesTo": 14,
+        "evolutionLevel": 7,
+        "hp": 40,
+        "attack": 35,
+        "defense": 30,
+        "speed": 50,
+        "moveSet": [
+          "Tackle",
+          "Defend"
+        ]
+      },
+      {
+        "pokedexNumber": 81,
+        "name": "Magnemite",
+        "type1": "Electric",
+        "baseLevel": 6,
+        "evolvesTo": 82,
+        "evolutionLevel": 10,
+        "hp": 25,
+        "attack": 35,
+        "defense": 70,
+        "speed": 45,
+        "moveSet": [
+          "Tackle",
+          "Defend"
+        ]
+      },
+      {
+        "pokedexNumber": 147,
+        "name": "Dratini",
+        "type1": "Dragon",
+        "baseLevel": 10,
+        "evolvesTo": 148,
+        "evolutionLevel": 30,
+        "hp": 41,
+        "attack": 64,
+        "defense": 45,
+        "speed": 50,
+        "moveSet": [
+          "Dragon Claw",
+          "Draco Meteor",
+          "Dragon Dive",
+          "Draco Climb"
+        ]
+      }
+    ],
     "storage": [],
-    "itemBag": {}
+    "itemBag": {
+      "HP Up": {
+        "item": {
+          "name": "HP Up",
+          "category": "Vitamin",
+          "description": "A nutritious drink for Pokémon.",
+          "effects": "+10 HP EVs",
+          "minBuyingPrice": 10000,
+          "maxBuyingPrice": 10000,
+          "sellingPrice": 5000
+        },
+        "quantity": 1
+      },
+      "Rare Candy": {
+        "item": {
+          "name": "Rare Candy",
+          "category": "Leveling Item",
+          "description": "A candy that is packed with energy.",
+          "effects": "Increases level by 1 (stat gain depends on Pokémon\u0027s base stats and EVs)",
+          "sellingPrice": 2400
+        },
+        "quantity": 8
+      },
+      "Protein": {
+        "item": {
+          "name": "Protein",
+          "category": "Vitamin",
+          "description": "A nutritious drink for Pokémon.",
+          "effects": "+10 Attack EVs",
+          "minBuyingPrice": 10000,
+          "maxBuyingPrice": 10000,
+          "sellingPrice": 5000
+        },
+        "quantity": 1
+      },
+      "Iron": {
+        "item": {
+          "name": "Iron",
+          "category": "Vitamin",
+          "description": "A nutritious drink for Pokémon.",
+          "effects": "+10 Defense EVs",
+          "minBuyingPrice": 10000,
+          "maxBuyingPrice": 10000,
+          "sellingPrice": 5000
+        },
+        "quantity": 1
+      },
+      "Carbos": {
+        "item": {
+          "name": "Carbos",
+          "category": "Vitamin",
+          "description": "A nutritious drink for Pokémon.",
+          "effects": "+10 Speed EVs",
+          "minBuyingPrice": 10000,
+          "maxBuyingPrice": 10000,
+          "sellingPrice": 5000
+        },
+        "quantity": 1
+      },
+      "Zinc": {
+        "item": {
+          "name": "Zinc",
+          "category": "Vitamin",
+          "description": "A nutritious drink for Pokémon.",
+          "effects": "+10 Special Defense EVs",
+          "minBuyingPrice": 10000,
+          "maxBuyingPrice": 10000,
+          "sellingPrice": 5000
+        },
+        "quantity": 1
+      },
+      "Health Feather": {
+        "item": {
+          "name": "Health Feather",
+          "category": "Feather",
+          "description": "A feather that slightly increases HP.",
+          "effects": "+1 HP EV",
+          "minBuyingPrice": 300,
+          "maxBuyingPrice": 300,
+          "sellingPrice": 150
+        },
+        "quantity": 1
+      },
+      "Resist Feather": {
+        "item": {
+          "name": "Resist Feather",
+          "category": "Feather",
+          "description": "A feather that slightly increases Defense.",
+          "effects": "+1 Defense EV",
+          "minBuyingPrice": 300,
+          "maxBuyingPrice": 300,
+          "sellingPrice": 150
+        },
+        "quantity": 1
+      },
+      "Swift Feather": {
+        "item": {
+          "name": "Swift Feather",
+          "category": "Feather",
+          "description": "A feather that slightly increases Speed.",
+          "effects": "+1 Speed EV",
+          "minBuyingPrice": 300,
+          "maxBuyingPrice": 300,
+          "sellingPrice": 150
+        },
+        "quantity": 1
+      }
+    }
   },
   {
     "trainerID": "5",
@@ -418,6 +990,301 @@
     "sex": "F",
     "hometown": "South Korea",
     "description": "She is a leader of IVE.",
+    "money": 945000,
+    "lineup": [
+      {
+        "pokedexNumber": 134,
+        "name": "Vaporeon",
+        "type1": "Water",
+        "baseLevel": 5,
+        "hp": 130,
+        "attack": 65,
+        "defense": 60,
+        "speed": 65,
+        "moveSet": [
+          "Tackle",
+          "Defend"
+        ]
+      },
+      {
+        "pokedexNumber": 176,
+        "name": "Togekiss",
+        "type1": "Shiny",
+        "baseLevel": 10,
+        "hp": 61,
+        "attack": 44,
+        "defense": 94,
+        "speed": 44,
+        "moveSet": [
+          "Tackle",
+          "Defend"
+        ]
+      },
+      {
+        "pokedexNumber": 92,
+        "name": "Gastly",
+        "type1": "Ghost",
+        "baseLevel": 6,
+        "evolvesTo": 93,
+        "evolutionLevel": 10,
+        "hp": 30,
+        "attack": 35,
+        "defense": 30,
+        "speed": 80,
+        "moveSet": [
+          "Tackle",
+          "Defend"
+        ]
+      },
+      {
+        "pokedexNumber": 35,
+        "name": "Clefairy",
+        "type1": "Shiny",
+        "baseLevel": 6,
+        "evolvesTo": 36,
+        "evolutionLevel": 10,
+        "hp": 70,
+        "attack": 45,
+        "defense": 48,
+        "speed": 35,
+        "moveSet": [
+          "Radiant Beam",
+          "Prism Flash",
+          "Luster Path",
+          "Shimmer Lift"
+        ]
+      },
+      {
+        "pokedexNumber": 54,
+        "name": "Psyduck",
+        "type1": "Water",
+        "baseLevel": 7,
+        "evolvesTo": 55,
+        "evolutionLevel": 10,
+        "hp": 50,
+        "attack": 52,
+        "defense": 48,
+        "speed": 55,
+        "moveSet": [
+          "Tackle",
+          "Defend"
+        ]
+      },
+      {
+        "pokedexNumber": 120,
+        "name": "Staryu",
+        "type1": "Water",
+        "baseLevel": 7,
+        "evolvesTo": 121,
+        "evolutionLevel": 10,
+        "hp": 30,
+        "attack": 45,
+        "defense": 55,
+        "speed": 85,
+        "moveSet": [
+          "Tackle",
+          "Defend"
+        ]
+      }
+    ],
+    "storage": [
+      {
+        "pokedexNumber": 16,
+        "name": "Pidgey",
+        "type1": "Flying",
+        "baseLevel": 5,
+        "evolvesTo": 17,
+        "evolutionLevel": 10,
+        "hp": 40,
+        "attack": 45,
+        "defense": 40,
+        "speed": 56,
+        "moveSet": [
+          "Tackle",
+          "Defend"
+        ]
+      },
+      {
+        "pokedexNumber": 50,
+        "name": "Diglett",
+        "type1": "Ground",
+        "baseLevel": 5,
+        "evolvesTo": 51,
+        "evolutionLevel": 10,
+        "hp": 10,
+        "attack": 55,
+        "defense": 25,
+        "speed": 95,
+        "moveSet": [
+          "Tackle",
+          "Defend"
+        ]
+      },
+      {
+        "pokedexNumber": 10,
+        "name": "Caterpie",
+        "type1": "Bug",
+        "baseLevel": 3,
+        "evolvesTo": 11,
+        "evolutionLevel": 7,
+        "hp": 45,
+        "attack": 30,
+        "defense": 35,
+        "speed": 45,
+        "moveSet": [
+          "Tackle",
+          "Defend"
+        ]
+      },
+      {
+        "pokedexNumber": 27,
+        "name": "Sandshrew",
+        "type1": "Ground",
+        "baseLevel": 6,
+        "evolvesTo": 28,
+        "evolutionLevel": 10,
+        "hp": 50,
+        "attack": 75,
+        "defense": 85,
+        "speed": 40,
+        "moveSet": [
+          "Tackle",
+          "Defend"
+        ]
+      },
+      {
+        "pokedexNumber": 21,
+        "name": "Spearow",
+        "type1": "Flying",
+        "baseLevel": 5,
+        "evolvesTo": 22,
+        "evolutionLevel": 10,
+        "hp": 40,
+        "attack": 60,
+        "defense": 30,
+        "speed": 70,
+        "moveSet": [
+          "Tackle",
+          "Defend"
+        ]
+      }
+    ],
+    "itemBag": {
+      "HP Up": {
+        "item": {
+          "name": "HP Up",
+          "category": "Vitamin",
+          "description": "A nutritious drink for Pokémon.",
+          "effects": "+10 HP EVs",
+          "minBuyingPrice": 10000,
+          "maxBuyingPrice": 10000,
+          "sellingPrice": 5000
+        },
+        "quantity": 1
+      },
+      "Rare Candy": {
+        "item": {
+          "name": "Rare Candy",
+          "category": "Leveling Item",
+          "description": "A candy that is packed with energy.",
+          "effects": "Increases level by 1 (stat gain depends on Pokémon\u0027s base stats and EVs)",
+          "sellingPrice": 2400
+        },
+        "quantity": 8
+      },
+      "Carbos": {
+        "item": {
+          "name": "Carbos",
+          "category": "Vitamin",
+          "description": "A nutritious drink for Pokémon.",
+          "effects": "+10 Speed EVs",
+          "minBuyingPrice": 10000,
+          "maxBuyingPrice": 10000,
+          "sellingPrice": 5000
+        },
+        "quantity": 1
+      },
+      "Fire Stone": {
+        "item": {
+          "name": "Fire Stone",
+          "category": "Evolution Stone",
+          "description": "A stone that radiates heat.",
+          "effects": "Evolves Pokémon like Vulpix, Growlithe, Eevee (into Flareon), etc.",
+          "minBuyingPrice": 3000,
+          "maxBuyingPrice": 5000,
+          "sellingPrice": 1500
+        },
+        "quantity": 1
+      },
+      "Iron": {
+        "item": {
+          "name": "Iron",
+          "category": "Vitamin",
+          "description": "A nutritious drink for Pokémon.",
+          "effects": "+10 Defense EVs",
+          "minBuyingPrice": 10000,
+          "maxBuyingPrice": 10000,
+          "sellingPrice": 5000
+        },
+        "quantity": 1
+      },
+      "Protein": {
+        "item": {
+          "name": "Protein",
+          "category": "Vitamin",
+          "description": "A nutritious drink for Pokémon.",
+          "effects": "+10 Attack EVs",
+          "minBuyingPrice": 10000,
+          "maxBuyingPrice": 10000,
+          "sellingPrice": 5000
+        },
+        "quantity": 1
+      },
+      "Water Stone": {
+        "item": {
+          "name": "Water Stone",
+          "category": "Evolution Stone",
+          "description": "A stone with a blue watery appearance.",
+          "effects": "Evolves Pokémon like Poliwhirl, Shellder, Eevee (into Vaporeon), etc.",
+          "minBuyingPrice": 3000,
+          "maxBuyingPrice": 5000,
+          "sellingPrice": 1500
+        },
+        "quantity": 1
+      },
+      "Leaf Stone": {
+        "item": {
+          "name": "Leaf Stone",
+          "category": "Evolution Stone",
+          "description": "A stone with a leaf pattern",
+          "effects": "Evolves Pokémon like Gloom, Weepinbell, Exeggcute, etc.",
+          "minBuyingPrice": 3000,
+          "maxBuyingPrice": 5000,
+          "sellingPrice": 1500
+        },
+        "quantity": 1
+      },
+      "Dawn Stone": {
+        "item": {
+          "name": "Dawn Stone",
+          "category": "Evolution Stone",
+          "description": "A stone that sparkles like the morning sky.",
+          "effects": "Evolves male Kirlia into Gallade, female Snorunt into Froslass.",
+          "minBuyingPrice": 3000,
+          "maxBuyingPrice": 5000,
+          "sellingPrice": 1500
+        },
+        "quantity": 1
+      }
+    }
+  },
+  {
+    "trainerID": "456",
+    "name": "Sophia",
+    "birthdate": "2006-04-06",
+    "sex": "F",
+    "hometown": "Manila",
+    "description": "She loves Jake, Snoopy, Miffy",
     "money": 1000000,
     "lineup": [],
     "storage": [],
