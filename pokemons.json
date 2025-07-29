@@ -11,8 +11,8 @@
     "defense": 40,
     "speed": 90,
     "moveSet": [
-      "Growl",
-      "Quick Attack"
+      "Tackle",
+      "Defend"
     ]
   },
   {
@@ -26,7 +26,7 @@
     "defense": 55,
     "speed": 110,
     "moveSet": [
-      "Thunder Punch",
+      "Tackle",
       "Defend"
     ]
   },
@@ -42,8 +42,8 @@
     "defense": 40,
     "speed": 65,
     "moveSet": [
-      "Ember",
-      "Tail Whip"
+      "Tackle",
+      "Defend"
     ]
   },
   {
@@ -57,8 +57,8 @@
     "defense": 75,
     "speed": 100,
     "moveSet": [
-      "Flamethrower",
-      "Confuse Ray"
+      "Tackle",
+      "Defend"
     ]
   },
   {
@@ -73,8 +73,8 @@
     "defense": 45,
     "speed": 60,
     "moveSet": [
-      "Bite",
-      "Roar"
+      "Tackle",
+      "Defend"
     ]
   },
   {
@@ -88,8 +88,8 @@
     "defense": 80,
     "speed": 95,
     "moveSet": [
-      "Flare Blitz",
-      "Extreme Speed"
+      "Tackle",
+      "Defend"
     ]
   },
   {
@@ -104,18 +104,9 @@
     "defense": 85,
     "speed": 40,
     "moveSet": [
-      "Charm",
-      "Metronome"
-    ],
-    "heldItem": {
-      "name": "HP Up",
-      "category": "Vitamin",
-      "description": "A nutritious drink for Pokémon.",
-      "effects": "+10 HP EVs",
-      "minBuyingPrice": 10000,
-      "maxBuyingPrice": 10000,
-      "sellingPrice": 5000
-    }
+      "Tackle",
+      "Defend"
+    ]
   },
   {
     "pokedexNumber": 176,
@@ -128,8 +119,8 @@
     "defense": 95,
     "speed": 80,
     "moveSet": [
-      "Air Slash",
-      "Aura Sphere"
+      "Tackle",
+      "Defend"
     ]
   },
   {
@@ -144,8 +135,8 @@
     "defense": 50,
     "speed": 55,
     "moveSet": [
-      "Growl",
-      "Tackle"
+      "Tackle",
+      "Defend"
     ]
   },
   {
@@ -159,8 +150,8 @@
     "defense": 60,
     "speed": 65,
     "moveSet": [
-      "Water Gun",
-      "Aqua Ring"
+      "Tackle",
+      "Defend"
     ]
   },
   {
@@ -173,9 +164,394 @@
     "defense": 65,
     "speed": 30,
     "moveSet": [
-      "Body Slam",
-      "Rest",
-      "Hyper Beam"
+      "Tackle",
+      "Defend"
+    ]
+  },
+  {
+    "pokedexNumber": 1,
+    "name": "Bulbasaur",
+    "type1": "Grass",
+    "baseLevel": 5,
+    "evolvesTo": 2,
+    "evolutionLevel": 16,
+    "hp": 45,
+    "attack": 49,
+    "defense": 49,
+    "speed": 45,
+    "moveSet": [
+      "Earthquake",
+      "Solar Beam",
+      "Cut",
+      "Strength"
+    ]
+  },
+  {
+    "pokedexNumber": 4,
+    "name": "Charmander",
+    "type1": "Fire",
+    "baseLevel": 5,
+    "evolvesTo": 5,
+    "evolutionLevel": 10,
+    "hp": 39,
+    "attack": 52,
+    "defense": 43,
+    "speed": 65,
+    "moveSet": [
+      "Tackle",
+      "Defend"
+    ]
+  },
+  {
+    "pokedexNumber": 7,
+    "name": "Squirtle",
+    "type1": "Water",
+    "baseLevel": 5,
+    "evolvesTo": 8,
+    "evolutionLevel": 10,
+    "hp": 44,
+    "attack": 48,
+    "defense": 65,
+    "speed": 43,
+    "moveSet": [
+      "Tackle",
+      "Defend"
+    ]
+  },
+  {
+    "pokedexNumber": 10,
+    "name": "Caterpie",
+    "type1": "Bug",
+    "baseLevel": 3,
+    "evolvesTo": 11,
+    "evolutionLevel": 7,
+    "hp": 45,
+    "attack": 30,
+    "defense": 35,
+    "speed": 45,
+    "moveSet": [
+      "Tackle",
+      "Defend"
+    ]
+  },
+  {
+    "pokedexNumber": 13,
+    "name": "Weedle",
+    "type1": "Bug",
+    "baseLevel": 3,
+    "evolvesTo": 14,
+    "evolutionLevel": 7,
+    "hp": 40,
+    "attack": 35,
+    "defense": 30,
+    "speed": 50,
+    "moveSet": [
+      "Tackle",
+      "Defend"
+    ]
+  },
+  {
+    "pokedexNumber": 16,
+    "name": "Pidgey",
+    "type1": "Flying",
+    "baseLevel": 5,
+    "evolvesTo": 17,
+    "evolutionLevel": 10,
+    "hp": 40,
+    "attack": 45,
+    "defense": 40,
+    "speed": 56,
+    "moveSet": [
+      "Tackle",
+      "Defend"
+    ]
+  },
+  {
+    "pokedexNumber": 19,
+    "name": "Rattata",
+    "type1": "Normal",
+    "baseLevel": 4,
+    "evolvesTo": 20,
+    "evolutionLevel": 10,
+    "hp": 30,
+    "attack": 56,
+    "defense": 35,
+    "speed": 72,
+    "moveSet": [
+      "Tackle",
+      "Defend"
+    ]
+  },
+  {
+    "pokedexNumber": 21,
+    "name": "Spearow",
+    "type1": "Flying",
+    "baseLevel": 5,
+    "evolvesTo": 22,
+    "evolutionLevel": 10,
+    "hp": 40,
+    "attack": 60,
+    "defense": 30,
+    "speed": 70,
+    "moveSet": [
+      "Tackle",
+      "Defend"
+    ]
+  },
+  {
+    "pokedexNumber": 23,
+    "name": "Ekans",
+    "type1": "Poison",
+    "baseLevel": 6,
+    "evolvesTo": 24,
+    "evolutionLevel": 10,
+    "hp": 35,
+    "attack": 60,
+    "defense": 44,
+    "speed": 55,
+    "moveSet": [
+      "Tackle",
+      "Defend"
+    ]
+  },
+  {
+    "pokedexNumber": 27,
+    "name": "Sandshrew",
+    "type1": "Ground",
+    "baseLevel": 6,
+    "evolvesTo": 28,
+    "evolutionLevel": 10,
+    "hp": 50,
+    "attack": 75,
+    "defense": 85,
+    "speed": 40,
+    "moveSet": [
+      "Tackle",
+      "Defend"
+    ]
+  },
+  {
+    "pokedexNumber": 35,
+    "name": "Clefairy",
+    "type1": "Shiny",
+    "baseLevel": 6,
+    "evolvesTo": 36,
+    "evolutionLevel": 10,
+    "hp": 70,
+    "attack": 45,
+    "defense": 48,
+    "speed": 35,
+    "moveSet": [
+      "Tackle",
+      "Defend"
+    ]
+  },
+  {
+    "pokedexNumber": 41,
+    "name": "Zubat",
+    "type1": "Poison",
+    "baseLevel": 6,
+    "evolvesTo": 42,
+    "evolutionLevel": 10,
+    "hp": 40,
+    "attack": 45,
+    "defense": 35,
+    "speed": 55,
+    "moveSet": [
+      "Tackle",
+      "Defend"
+    ]
+  },
+  {
+    "pokedexNumber": 50,
+    "name": "Diglett",
+    "type1": "Ground",
+    "baseLevel": 5,
+    "evolvesTo": 51,
+    "evolutionLevel": 10,
+    "hp": 10,
+    "attack": 55,
+    "defense": 25,
+    "speed": 95,
+    "moveSet": [
+      "Tackle",
+      "Defend"
+    ]
+  },
+  {
+    "pokedexNumber": 52,
+    "name": "Meowth",
+    "type1": "Normal",
+    "baseLevel": 7,
+    "evolvesTo": 53,
+    "evolutionLevel": 10,
+    "hp": 40,
+    "attack": 45,
+    "defense": 35,
+    "speed": 90,
+    "moveSet": [
+      "Tackle",
+      "Defend"
+    ]
+  },
+  {
+    "pokedexNumber": 54,
+    "name": "Psyduck",
+    "type1": "Water",
+    "baseLevel": 7,
+    "evolvesTo": 55,
+    "evolutionLevel": 10,
+    "hp": 50,
+    "attack": 52,
+    "defense": 48,
+    "speed": 55,
+    "moveSet": [
+      "Tackle",
+      "Defend"
+    ]
+  },
+  {
+    "pokedexNumber": 60,
+    "name": "Poliwag",
+    "type1": "Water",
+    "baseLevel": 5,
+    "evolvesTo": 61,
+    "evolutionLevel": 10,
+    "hp": 40,
+    "attack": 50,
+    "defense": 40,
+    "speed": 90,
+    "moveSet": [
+      "Tackle",
+      "Defend"
+    ]
+  },
+  {
+    "pokedexNumber": 66,
+    "name": "Machop",
+    "type1": "Fighting",
+    "baseLevel": 6,
+    "evolvesTo": 67,
+    "evolutionLevel": 10,
+    "hp": 70,
+    "attack": 80,
+    "defense": 50,
+    "speed": 35,
+    "moveSet": [
+      "Tackle",
+      "Defend"
+    ]
+  },
+  {
+    "pokedexNumber": 74,
+    "name": "Geodude",
+    "type1": "Rock",
+    "baseLevel": 6,
+    "evolvesTo": 75,
+    "evolutionLevel": 10,
+    "hp": 40,
+    "attack": 80,
+    "defense": 100,
+    "speed": 20,
+    "moveSet": [
+      "Tackle",
+      "Defend"
+    ]
+  },
+  {
+    "pokedexNumber": 81,
+    "name": "Magnemite",
+    "type1": "Electric",
+    "baseLevel": 6,
+    "evolvesTo": 82,
+    "evolutionLevel": 10,
+    "hp": 25,
+    "attack": 35,
+    "defense": 70,
+    "speed": 45,
+    "moveSet": [
+      "Tackle",
+      "Defend"
+    ]
+  },
+  {
+    "pokedexNumber": 92,
+    "name": "Gastly",
+    "type1": "Ghost",
+    "baseLevel": 6,
+    "evolvesTo": 93,
+    "evolutionLevel": 10,
+    "hp": 30,
+    "attack": 35,
+    "defense": 30,
+    "speed": 80,
+    "moveSet": [
+      "Tackle",
+      "Defend"
+    ]
+  },
+  {
+    "pokedexNumber": 98,
+    "name": "Krabby",
+    "type1": "Water",
+    "baseLevel": 6,
+    "evolvesTo": 99,
+    "evolutionLevel": 10,
+    "hp": 30,
+    "attack": 105,
+    "defense": 90,
+    "speed": 50,
+    "moveSet": [
+      "Tackle",
+      "Defend"
+    ]
+  },
+  {
+    "pokedexNumber": 120,
+    "name": "Staryu",
+    "type1": "Water",
+    "baseLevel": 7,
+    "evolvesTo": 121,
+    "evolutionLevel": 10,
+    "hp": 30,
+    "attack": 45,
+    "defense": 55,
+    "speed": 85,
+    "moveSet": [
+      "Tackle",
+      "Defend"
+    ]
+  },
+  {
+    "pokedexNumber": 147,
+    "name": "Dratini",
+    "type1": "Dragon",
+    "baseLevel": 10,
+    "evolvesTo": 148,
+    "evolutionLevel": 30,
+    "hp": 41,
+    "attack": 64,
+    "defense": 45,
+    "speed": 50,
+    "moveSet": [
+      "Tackle",
+      "Defend"
+    ]
+  },
+  {
+    "pokedexNumber": 113,
+    "name": "Chansey",
+    "type1": "Normal",
+    "baseLevel": 20,
+    "evolvesTo": 242,
+    "evolutionLevel": 30,
+    "hp": 250,
+    "attack": 5,
+    "defense": 5,
+    "speed": 50,
+    "moveSet": [
+      "Tackle",
+      "Defend"
     ]
   }
 ]

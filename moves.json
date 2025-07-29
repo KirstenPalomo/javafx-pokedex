@@ -1,48 +1,95 @@
 [
   {
-    "name": "kick",
-    "description": "someone save me",
-    "classification": "TM",
-    "type1": "Normal"
+    "name": "Cut",
+    "description": "The target is cut with a scythe or a claw. It can also be used to cut down thin trees.",
+    "classification": "HM",
+    "type1": "Normal",
+    "type2": "Grass"
   },
   {
-    "name": "save",
-    "description": "plsplspls save me",
+    "name": "Fly",
+    "description": "The user flies up on the first turn, then attacks on the next turn.",
     "classification": "HM",
+    "type1": "Flying"
+  },
+  {
+    "name": "Surf",
+    "description": "The user attacks everything around it by swamping its surroundings with a giant wave.",
+    "classification": "HM",
+    "type1": "Water"
+  },
+  {
+    "name": "Strength",
+    "description": "The target is slugged with a punch thrown at maximum power.",
+    "classification": "HM",
+    "type1": "Normal",
+    "type2": "Grass"
+  },
+  {
+    "name": "Flash",
+    "description": "The user flashes a bright light that cuts the target’s accuracy. It also illuminates caves.",
+    "classification": "HM",
+    "type1": "Electric"
+  },
+  {
+    "name": "Thunderbolt",
+    "description": "A strong electric blast crashes down on the target. This may also leave the target with paralysis.",
+    "classification": "TM",
+    "type1": "Electric"
+  },
+  {
+    "name": "Flamethrower",
+    "description": "The target is scorched with an intense blast of fire. This may also leave the target with a burn.",
+    "classification": "TM",
+    "type1": "Fire"
+  },
+  {
+    "name": "Ice Beam",
+    "description": "The target is struck with an icy-cold beam of energy. This may also leave the target frozen.",
+    "classification": "TM",
+    "type1": "Ice"
+  },
+  {
+    "name": "Psychic",
+    "description": "The target is hit by a strong telekinetic force. This may also lower the target’s Sp. Def stat.",
+    "classification": "TM",
     "type1": "Psychic"
   },
   {
-    "name": "flee",
-    "description": "run away",
-    "classification": "HM",
-    "type1": "Normal",
-    "type2": "Fighting"
-  },
-  {
-    "name": "sleep",
-    "description": "I wanna sleep",
+    "name": "Earthquake",
+    "description": "The user sets off an earthquake that strikes every Pokémon around it.",
     "classification": "TM",
-    "type1": "Normal"
+    "type1": "Ground",
+    "type2": "Grass"
   },
   {
-    "name": "freeze",
-    "description": "cold",
-    "classification": "HM",
-    "type1": "Ice",
-    "type2": "Water"
-  },
-  {
-    "name": "punch",
-    "description": "hand",
+    "name": "Shadow Ball",
+    "description": "The user hurls a shadowy blob at the target. This may also lower the target’s Sp. Def stat.",
     "classification": "TM",
-    "type1": "Normal",
-    "type2": "Fighting"
+    "type1": "Ghost"
   },
   {
-    "name": "scream",
-    "description": "voice",
+    "name": "Solar Beam",
+    "description": "A two-turn attack. The user gathers light, then blasts a bundled beam on the next turn.",
     "classification": "TM",
-    "type1": "Normal",
-    "type2": "Fighting"
+    "type1": "Grass"
+  },
+  {
+    "name": "Iron Tail",
+    "description": "The target is slammed with a steel-hard tail. This may also lower the target’s Defense stat.",
+    "classification": "TM",
+    "type1": "Steel"
+  },
+  {
+    "name": "Brick Break",
+    "description": "The user attacks with a swift chop. It can also break barriers like Light Screen and Reflect.",
+    "classification": "TM",
+    "type1": "Fighting"
+  },
+  {
+    "name": "Aerial Ace",
+    "description": "The user confounds the target with speed, then slashes. This attack never misses.",
+    "classification": "TM",
+    "type1": "Flying"
   }
 ]
