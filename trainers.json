@@ -1,13 +1,75 @@
 [
   {
     "trainerID": "1",
-    "name": "Yujin",
-    "birthdate": "2003-09-01",
-    "sex": "F",
-    "hometown": "SK",
-    "description": "Leader of IVE",
-    "money": 947000,
+    "name": "Hyungwon",
+    "birthdate": "1994-01-15",
+    "sex": "M",
+    "hometown": "South Korea",
+    "description": "He is a member of Monsta X. He is a singer, actor, model, DJ, MC, songwriter, and producer.",
+    "money": 945800,
     "lineup": [
+      {
+        "pokedexNumber": 25,
+        "name": "Pikachu",
+        "type1": "Electric",
+        "baseLevel": 9,
+        "evolvesTo": 26,
+        "evolutionLevel": 10,
+        "hp": 35,
+        "attack": 55,
+        "defense": 40,
+        "speed": 90,
+        "moveSet": [
+          "Tackle",
+          "Defend"
+        ]
+      },
+      {
+        "pokedexNumber": 38,
+        "name": "Ninetales",
+        "type1": "Fire",
+        "baseLevel": 10,
+        "hp": 46,
+        "attack": 50,
+        "defense": 48,
+        "speed": 79,
+        "moveSet": [
+          "Tackle",
+          "Defend"
+        ]
+      },
+      {
+        "pokedexNumber": 1,
+        "name": "Bulbasaur",
+        "type1": "Grass",
+        "baseLevel": 5,
+        "evolvesTo": 2,
+        "evolutionLevel": 16,
+        "hp": 45,
+        "attack": 49,
+        "defense": 49,
+        "speed": 45,
+        "moveSet": [
+          "Earthquake",
+          "Solar Beam",
+          "Cut",
+          "Strength"
+        ]
+      },
+      {
+        "pokedexNumber": 59,
+        "name": "Arcanine",
+        "type1": "Fire",
+        "baseLevel": 6,
+        "hp": 90,
+        "attack": 110,
+        "defense": 80,
+        "speed": 95,
+        "moveSet": [
+          "Tackle",
+          "Defend"
+        ]
+      },
       {
         "pokedexNumber": 175,
         "name": "Togetic",
@@ -15,145 +77,114 @@
         "baseLevel": 9,
         "evolvesTo": 176,
         "evolutionLevel": 10,
-        "hp": 75,
+        "hp": 55,
         "attack": 40,
         "defense": 85,
         "speed": 40,
         "moveSet": [
-          "Charm",
-          "Metronome"
+          "Tackle",
+          "Defend"
         ]
       },
       {
-        "pokedexNumber": 143,
-        "name": "Snorlax",
-        "type1": "Normal",
-        "baseLevel": 30,
-        "hp": 160,
-        "attack": 110,
-        "defense": 65,
-        "speed": 30,
-        "moveSet": [
-          "Body Slam",
-          "Rest",
-          "Hyper Beam"
-        ]
-      },
-      {
-        "pokedexNumber": 26,
-        "name": "Raichu",
-        "type1": "Electric",
-        "baseLevel": 10,
-        "hp": 60,
-        "attack": 90,
-        "defense": 55,
-        "speed": 110,
+        "pokedexNumber": 16,
+        "name": "Pidgey",
+        "type1": "Flying",
+        "baseLevel": 5,
+        "evolvesTo": 17,
+        "evolutionLevel": 10,
+        "hp": 40,
+        "attack": 45,
+        "defense": 40,
+        "speed": 56,
         "moveSet": [
           "Tackle",
-          "Defend",
-          "Growl",
-          "Quick Attack"
+          "Defend"
         ]
-      },
+      }
+    ],
+    "storage": [
       {
-        "pokedexNumber": 38,
-        "name": "Ninetales",
-        "type1": "Fire",
-        "baseLevel": 8,
-        "hp": 73,
-        "attack": 76,
-        "defense": 75,
-        "speed": 100,
+        "pokedexNumber": 13,
+        "name": "Weedle",
+        "type1": "Bug",
+        "baseLevel": 3,
+        "evolvesTo": 14,
+        "evolutionLevel": 7,
+        "hp": 40,
+        "attack": 35,
+        "defense": 30,
+        "speed": 50,
         "moveSet": [
           "Tackle",
-          "Defend",
-          "Ember",
-          "Tail Whip"
+          "Defend"
         ]
       },
       {
-        "pokedexNumber": 134,
-        "name": "Vaporeon",
+        "pokedexNumber": 21,
+        "name": "Spearow",
+        "type1": "Flying",
+        "baseLevel": 5,
+        "evolvesTo": 22,
+        "evolutionLevel": 10,
+        "hp": 40,
+        "attack": 60,
+        "defense": 30,
+        "speed": 70,
+        "moveSet": [
+          "Tackle",
+          "Defend"
+        ]
+      },
+      {
+        "pokedexNumber": 7,
+        "name": "Squirtle",
         "type1": "Water",
         "baseLevel": 5,
-        "hp": 130,
-        "attack": 65,
-        "defense": 60,
-        "speed": 65,
+        "evolvesTo": 8,
+        "evolutionLevel": 10,
+        "hp": 44,
+        "attack": 48,
+        "defense": 65,
+        "speed": 43,
         "moveSet": [
           "Tackle",
-          "Defend",
-          "Growl"
-        ]
-      }
-    ],
-    "storage": [],
-    "itemBag": {
-      "Rare Candy": {
-        "item": {
-          "name": "Rare Candy",
-          "category": "Leveling Item",
-          "description": "A candy that is packed with energy.",
-          "effects": "Increases level by 1 (stat gain depends on Pokémon\u0027s base stats and EVs)",
-          "sellingPrice": 2400
-        },
-        "quantity": 6
-      },
-      "HP Up": {
-        "item": {
-          "name": "HP Up",
-          "category": "Vitamin",
-          "description": "A nutritious drink for Pokémon.",
-          "effects": "+10 HP EVs",
-          "minBuyingPrice": 10000,
-          "maxBuyingPrice": 10000,
-          "sellingPrice": 5000
-        },
-        "quantity": 1
-      }
-    }
-  },
-  {
-    "trainerID": "2",
-    "name": "Charles Leclerc",
-    "birthdate": "2025-07-01",
-    "sex": "M",
-    "hometown": "Monaco",
-    "description": "Ferrari Driver",
-    "money": 488200,
-    "lineup": [
-      {
-        "pokedexNumber": 59,
-        "name": "Arcanine",
-        "type1": "Fire",
-        "baseLevel": 7,
-        "hp": 90,
-        "attack": 110,
-        "defense": 80,
-        "speed": 95,
-        "moveSet": [
-          "Bite",
-          "Roar"
+          "Defend"
         ]
       },
       {
-        "pokedexNumber": 26,
-        "name": "Raichu",
-        "type1": "Electric",
-        "baseLevel": 9,
-        "hp": 60,
-        "attack": 90,
-        "defense": 55,
-        "speed": 112,
+        "pokedexNumber": 35,
+        "name": "Clefairy",
+        "type1": "Shiny",
+        "baseLevel": 6,
+        "evolvesTo": 36,
+        "evolutionLevel": 10,
+        "hp": 70,
+        "attack": 45,
+        "defense": 48,
+        "speed": 35,
         "moveSet": [
           "Tackle",
-          "Defend",
-          "Growl",
-          "Quick Attack"
+          "Defend"
+        ]
+      },
+      {
+        "pokedexNumber": 19,
+        "name": "Rattata",
+        "type1": "Normal",
+        "baseLevel": 4,
+        "evolvesTo": 20,
+        "evolutionLevel": 10,
+        "hp": 30,
+        "attack": 56,
+        "defense": 35,
+        "speed": 72,
+        "moveSet": [
+          "Tackle",
+          "Defend"
         ]
       }
     ],
-    "storage": [],
     "itemBag": {
       "HP Up": {
         "item": {
@@ -165,7 +196,7 @@
           "maxBuyingPrice": 10000,
           "sellingPrice": 5000
         },
-        "quantity": 14
+        "quantity": 2
       },
       "Rare Candy": {
         "item": {
@@ -175,7 +206,7 @@
           "effects": "Increases level by 1 (stat gain depends on Pokémon\u0027s base stats and EVs)",
           "sellingPrice": 2400
         },
-        "quantity": 25
+        "quantity": 8
       },
       "Protein": {
         "item": {
@@ -195,18 +226,6 @@
           "category": "Vitamin",
           "description": "A nutritious drink for Pokémon.",
           "effects": "+10 Defense EVs",
-          "minBuyingPrice": 10000,
-          "maxBuyingPrice": 10000,
-          "sellingPrice": 5000
-        },
-        "quantity": 4
-      },
-      "Carbos": {
-        "item": {
-          "name": "Carbos",
-          "category": "Vitamin",
-          "description": "A nutritious drink for Pokémon.",
-          "effects": "+10 Speed EVs",
           "minBuyingPrice": 10000,
           "maxBuyingPrice": 10000,
           "sellingPrice": 5000
@@ -274,5 +293,134 @@
         "quantity": 1
       }
     }
+  },
+  {
+    "trainerID": "2",
+    "name": "Erylle",
+    "birthdate": "2006-12-15",
+    "sex": "F",
+    "hometown": "Manila",
+    "description": "She is a first-year BS Information Systems student in DLSU. She enjoys watching K-dramas.",
+    "money": 1000000,
+    "lineup": [
+      {
+        "pokedexNumber": 113,
+        "name": "Chansey",
+        "type1": "Normal",
+        "baseLevel": 20,
+        "evolvesTo": 242,
+        "evolutionLevel": 30,
+        "hp": 250,
+        "attack": 5,
+        "defense": 5,
+        "speed": 50,
+        "moveSet": [
+          "Tackle",
+          "Defend"
+        ]
+      },
+      {
+        "pokedexNumber": 147,
+        "name": "Dratini",
+        "type1": "Dragon",
+        "baseLevel": 10,
+        "evolvesTo": 148,
+        "evolutionLevel": 30,
+        "hp": 41,
+        "attack": 64,
+        "defense": 45,
+        "speed": 50,
+        "moveSet": [
+          "Tackle",
+          "Defend"
+        ]
+      },
+      {
+        "pokedexNumber": 175,
+        "name": "Togetic",
+        "type1": "Shiny",
+        "baseLevel": 9,
+        "evolvesTo": 176,
+        "evolutionLevel": 10,
+        "hp": 55,
+        "attack": 40,
+        "defense": 85,
+        "speed": 40,
+        "moveSet": [
+          "Tackle",
+          "Defend"
+        ]
+      },
+      {
+        "pokedexNumber": 25,
+        "name": "Pikachu",
+        "type1": "Electric",
+        "baseLevel": 9,
+        "evolvesTo": 26,
+        "evolutionLevel": 10,
+        "hp": 35,
+        "attack": 55,
+        "defense": 40,
+        "speed": 90,
+        "moveSet": [
+          "Tackle",
+          "Defend"
+        ]
+      },
+      {
+        "pokedexNumber": 7,
+        "name": "Squirtle",
+        "type1": "Water",
+        "baseLevel": 5,
+        "evolvesTo": 8,
+        "evolutionLevel": 10,
+        "hp": 44,
+        "attack": 48,
+        "defense": 65,
+        "speed": 43,
+        "moveSet": [
+          "Tackle",
+          "Defend"
+        ]
+      }
+    ],
+    "storage": [],
+    "itemBag": {}
+  },
+  {
+    "trainerID": "3",
+    "name": "Kirsten",
+    "birthdate": "2005-02-19",
+    "sex": "F",
+    "hometown": "Manila",
+    "description": "She is a first-year BS Information Systems student in DLSU. She is an F1 fan.",
+    "money": 1000000,
+    "lineup": [],
+    "storage": [],
+    "itemBag": {}
+  },
+  {
+    "trainerID": "4",
+    "name": "Wonyoung",
+    "birthdate": "2004-08-31",
+    "sex": "F",
+    "hometown": "South Korea",
+    "description": "Plump, Glowing, Hydration, Boost!",
+    "money": 1000000,
+    "lineup": [],
+    "storage": [],
+    "itemBag": {}
+  },
+  {
+    "trainerID": "5",
+    "name": "Yujin",
+    "birthdate": "2003-09-01",
+    "sex": "F",
+    "hometown": "South Korea",
+    "description": "She is a leader of IVE.",
+    "money": 1000000,
+    "lineup": [],
+    "storage": [],
+    "itemBag": {}
   }
 ]
