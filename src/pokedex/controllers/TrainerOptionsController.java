@@ -203,6 +203,7 @@ public class TrainerOptionsController {
             showAlert("Error", "Failed to return to Trainer Menu screen.", Alert.AlertType.ERROR);
         }
     }
+
     @FXML
     private void handleSell(ActionEvent event) {
         Map<String, Trainer.BagItem> bag = selectedTrainer.getItemBag();

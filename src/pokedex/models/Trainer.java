@@ -145,7 +145,7 @@ public class Trainer implements Serializable {
     }
 
 
-    /** Sells one item, refunding 50% of its base price. */
+    /** Sells an item, refunding 50% of its base price. */
     public void sellItem(String itemName) {
         BagItem bag = itemBag.get(itemName);
         if (bag == null) {
@@ -153,17 +153,29 @@ public class Trainer implements Serializable {
             return;
         }
 
-        Integer baseObj = bag.item.getMinBuyingPrice();
-        if (baseObj == null) {
-            System.out.println("⚠️ Item cannot be sold (Not sold in shops).");
+        int refund = 0;
+
+        // Preferred: calculate 50% of buying price if available
+        Integer buyingPrice = bag.item.getMinBuyingPrice();
+        if (buyingPrice != null && buyingPrice > 0) {
+            refund = buyingPrice / 2;
+        } else {
+            // Fallback: use fixed selling price if defined
+            int fixedSell = bag.item.getSellingPrice();
+            if (fixedSell > 0) {
+                refund = fixedSell;
+            }
+        }
+
+        if (refund <= 0) {
+            System.out.println("⚠️ Item cannot be sold.");
             return;
         }
-        int base = baseObj;
 
-        int refund = base / 2;
         money += refund;
         bag.quantity--;
         if (bag.quantity == 0) itemBag.remove(itemName);
+
         System.out.printf("✅ Sold %s for ₱%,d%n", itemName, refund);
     }
 

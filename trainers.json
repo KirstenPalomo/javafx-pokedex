@@ -120,7 +120,7 @@
     "sex": "M",
     "hometown": "Monaco",
     "description": "Ferrari Driver",
-    "money": 843800,
+    "money": 488200,
     "lineup": [
       {
         "pokedexNumber": 59,
@@ -155,16 +155,6 @@
     ],
     "storage": [],
     "itemBag": {
-      "Rare Candy": {
-        "item": {
-          "name": "Rare Candy",
-          "category": "Leveling Item",
-          "description": "A candy that is packed with energy.",
-          "effects": "Increases level by 1 (stat gain depends on Pokémon\u0027s base stats and EVs)",
-          "sellingPrice": 2400
-        },
-        "quantity": 18
-      },
       "HP Up": {
         "item": {
           "name": "HP Up",
@@ -175,7 +165,113 @@
           "maxBuyingPrice": 10000,
           "sellingPrice": 5000
         },
-        "quantity": 2
+        "quantity": 14
+      },
+      "Rare Candy": {
+        "item": {
+          "name": "Rare Candy",
+          "category": "Leveling Item",
+          "description": "A candy that is packed with energy.",
+          "effects": "Increases level by 1 (stat gain depends on Pokémon\u0027s base stats and EVs)",
+          "sellingPrice": 2400
+        },
+        "quantity": 25
+      },
+      "Protein": {
+        "item": {
+          "name": "Protein",
+          "category": "Vitamin",
+          "description": "A nutritious drink for Pokémon.",
+          "effects": "+10 Attack EVs",
+          "minBuyingPrice": 10000,
+          "maxBuyingPrice": 10000,
+          "sellingPrice": 5000
+        },
+        "quantity": 1
+      },
+      "Iron": {
+        "item": {
+          "name": "Iron",
+          "category": "Vitamin",
+          "description": "A nutritious drink for Pokémon.",
+          "effects": "+10 Defense EVs",
+          "minBuyingPrice": 10000,
+          "maxBuyingPrice": 10000,
+          "sellingPrice": 5000
+        },
+        "quantity": 4
+      },
+      "Carbos": {
+        "item": {
+          "name": "Carbos",
+          "category": "Vitamin",
+          "description": "A nutritious drink for Pokémon.",
+          "effects": "+10 Speed EVs",
+          "minBuyingPrice": 10000,
+          "maxBuyingPrice": 10000,
+          "sellingPrice": 5000
+        },
+        "quantity": 1
+      },
+      "Zinc": {
+        "item": {
+          "name": "Zinc",
+          "category": "Vitamin",
+          "description": "A nutritious drink for Pokémon.",
+          "effects": "+10 Special Defense EVs",
+          "minBuyingPrice": 10000,
+          "maxBuyingPrice": 10000,
+          "sellingPrice": 5000
+        },
+        "quantity": 1
+      },
+      "Health Feather": {
+        "item": {
+          "name": "Health Feather",
+          "category": "Feather",
+          "description": "A feather that slightly increases HP.",
+          "effects": "+1 HP EV",
+          "minBuyingPrice": 300,
+          "maxBuyingPrice": 300,
+          "sellingPrice": 150
+        },
+        "quantity": 1
+      },
+      "Muscle Feather": {
+        "item": {
+          "name": "Muscle Feather",
+          "category": "Feather",
+          "description": "A feather that slightly increases Attack.",
+          "effects": "+1 Attack EV",
+          "minBuyingPrice": 300,
+          "maxBuyingPrice": 300,
+          "sellingPrice": 150
+        },
+        "quantity": 1
+      },
+      "Resist Feather": {
+        "item": {
+          "name": "Resist Feather",
+          "category": "Feather",
+          "description": "A feather that slightly increases Defense.",
+          "effects": "+1 Defense EV",
+          "minBuyingPrice": 300,
+          "maxBuyingPrice": 300,
+          "sellingPrice": 150
+        },
+        "quantity": 1
+      },
+      "Swift Feather": {
+        "item": {
+          "name": "Swift Feather",
+          "category": "Feather",
+          "description": "A feather that slightly increases Speed.",
+          "effects": "+1 Speed EV",
+          "minBuyingPrice": 300,
+          "maxBuyingPrice": 300,
+          "sellingPrice": 150
+        },
+        "quantity": 1
       }
     }
   }
