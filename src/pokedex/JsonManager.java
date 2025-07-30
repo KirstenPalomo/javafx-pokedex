@@ -1,3 +1,10 @@
+/**
+ * Handles saving and loading of core Pokédex data (Trainers, Pokémon, Moves, Items) using JSON.
+ * Utilizes the Gson library to serialize and deserialize objects to/from JSON files.
+ * Also registers custom adapters for LocalDate serialization.
+ *
+ * Authors: Kirsten Palomo, Erylle Galinato
+ */
 package pokedex;
 
 import com.google.gson.Gson;
@@ -20,8 +27,10 @@ import java.util.Arrays;
 import java.util.List;
 
 public class JsonManager {
+    // File constants
     private static final String FILE_NAME = "trainers.json";
 
+    // Shared Gson instance with LocalDate handling and pretty printing
     private static final Gson gson = new GsonBuilder()
             .registerTypeAdapter(LocalDate.class, (JsonSerializer<LocalDate>) (src, type, ctx) ->
                     new JsonPrimitive(src.toString()))
@@ -35,6 +44,11 @@ public class JsonManager {
             .setPrettyPrinting()
             .create();
 
+    /**
+     * Saves the list of Trainer objects to disk in JSON format.
+     *
+     * @param trainers the list of Trainer objects to save
+     */
     public static void saveTrainers(List<Trainer> trainers) {
         try (FileWriter writer = new FileWriter(FILE_NAME)) {
             gson.toJson(trainers, writer);
@@ -44,6 +58,11 @@ public class JsonManager {
         }
     }
 
+    /**
+     * Loads Trainer objects from the trainers.json file.
+     *
+     * @return list of Trainer objects, or null if file not found
+     */
     public static List<Trainer> loadTrainers() {
         try (FileReader reader = new FileReader(FILE_NAME)) {
             Type listType = new TypeToken<List<Trainer>>() {}.getType();
@@ -57,7 +76,11 @@ public class JsonManager {
 
     private static final String POKEMON_FILE = "pokemons.json";
 
-    /** Save the full list of Pokémon to disk */
+    /**
+     * Saves the list of Pokémon objects to disk in JSON format.
+     *
+     * @param pokemons the list of Pokémon to save
+     */
     public static void savePokemons(List<Pokemon> pokemons) {
         try (FileWriter writer = new FileWriter(POKEMON_FILE)) {
             gson.toJson(pokemons, writer);
@@ -67,7 +90,11 @@ public class JsonManager {
         }
     }
 
-    /** Load your list of Pokémon back into memory */
+    /**
+     * Loads Pokémon objects from the pokemons.json file.
+     *
+     * @return list of Pokémon, or null if file not found
+     */
     public static List<Pokemon> loadPokemons() {
         try (FileReader reader = new FileReader(POKEMON_FILE)) {
             Type listType = new TypeToken<List<Pokemon>>(){}.getType();
@@ -79,7 +106,11 @@ public class JsonManager {
     }
     private static final String MOVES_FILE = "moves.json";
 
-    /** Save all moves to disk */
+    /**
+     * Saves all Move objects to disk in JSON format.
+     *
+     * @param moves the list of moves to save
+     */
     public static void saveMoves(List<Move> moves) {
         try (FileWriter writer = new FileWriter(MOVES_FILE)) {
             gson.toJson(moves, writer);
@@ -89,7 +120,11 @@ public class JsonManager {
         }
     }
 
-    /** Load all moves from disk */
+    /**
+     * Loads Move objects from the moves.json file.
+     *
+     * @return list of moves, or null if file not found
+     */
     public static List<Move> loadMoves() {
         try (FileReader reader = new FileReader(MOVES_FILE)) {
             Type listType = new TypeToken<List<Move>>(){}.getType();
@@ -99,6 +134,12 @@ public class JsonManager {
             return null;
         }
     }
+
+    /**
+     * Saves all Item objects to disk in JSON format.
+     *
+     * @param items the list of items to save
+     */
     public static void saveItems(List<Item> items) {
         try (Writer writer = new FileWriter("items.json")) {
             gson.toJson(items, writer); // use the shared gson instance
@@ -108,6 +149,11 @@ public class JsonManager {
         }
     }
 
+    /**
+     * Loads Item objects from the items.json file.
+     *
+     * @return list of items, or empty list if file not found
+     */
     public static List<Item> loadItems() {
         try (Reader reader = new FileReader("items.json")) {
             Gson gson = new Gson();
@@ -117,8 +163,4 @@ public class JsonManager {
             return new ArrayList<>(); // return empty if file doesn't exist
         }
     }
-
-
-
-
 }
