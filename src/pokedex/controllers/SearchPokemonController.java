@@ -1,8 +1,8 @@
 /**
- * Controller for the "Search Pokémon" screen in the Pokédex GUI.
- * Allows users to search for Pokémon by name, number, or type.
- * Displays matching Pokémon details in a scrollable dialog or shows alerts for no results or invalid input.
- * Also allows users to return to the Pokémon Menu.
+ * Controller for the "Search Pokemon" screen in the Pokedex GUI.
+ * Allows users to search for Pokemon by name, number, or type.
+ * Displays matching Pokemon details in a scrollable dialog or shows alerts for no results or invalid input.
+ * Also allows users to return to the Pokemon Menu.
  *
  * Authors: Kirsten Palomo, Erylle Galinato
  */
@@ -48,7 +48,7 @@ public class SearchPokemonController {
     }
 
     /**
-     * Initializes the type choice box with valid Pokémon types.
+     * Initializes the type choice box with valid Pokemon types.
      */
     @FXML
     public void initialize() {
@@ -62,7 +62,7 @@ public class SearchPokemonController {
 
     /**
      * Handles the search action when the user clicks the search button.
-     * Searches by name, type, or Pokédex number and displays results or alerts.
+     * Searches by name, type, or Pokedex number and displays results or alerts.
      *
      * @param event The triggered ActionEvent
      */
@@ -99,7 +99,7 @@ public class SearchPokemonController {
 
         //show results or not found
         if (results.isEmpty()) {
-            showAlert("No Pokémon found.", Alert.AlertType.INFORMATION, event);
+            showAlert("No Pokemon found.", Alert.AlertType.INFORMATION, event);
         } else {
             StringBuilder resultMessage = new StringBuilder();
             for (Pokemon p : results) {
@@ -130,7 +130,7 @@ public class SearchPokemonController {
     }
 
     /**
-     * Shows a basic alert dialog with optional return to the Pokémon menu.
+     * Shows a basic alert dialog with optional return to the Pokemon menu.
      *
      * @param message The message to display
      * @param type The type of alert (e.g., WARNING, INFORMATION)
@@ -153,7 +153,7 @@ public class SearchPokemonController {
     }
 
     /**
-     * Displays a scrollable dialog with Pokémon search results.
+     * Displays a scrollable dialog with Pokemon search results.
      *
      * @param content Text content to show
      * @param event The triggering event for optional return
@@ -161,7 +161,7 @@ public class SearchPokemonController {
     private void showScrollablePokemonDialog(String content, ActionEvent event) {
         Dialog<ButtonType> dialog = new Dialog<>();
         dialog.setTitle("Search Results");
-        dialog.setHeaderText("Pokémon Found:");
+        dialog.setHeaderText("Pokemon Found:");
 
         DialogPane dialogPane = dialog.getDialogPane();
         dialogPane.getButtonTypes().addAll(ButtonType.OK, new ButtonType("Back to Menu", ButtonBar.ButtonData.CANCEL_CLOSE));
@@ -187,7 +187,7 @@ public class SearchPokemonController {
 
 
     /**
-     * Navigates back to the Pokémon Menu screen.
+     * Navigates back to the Pokemon Menu screen.
      *
      * @param event The action event used to switch scenes
      */

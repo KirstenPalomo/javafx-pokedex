@@ -1,6 +1,6 @@
 /**
- * This controller handles the main menu navigation of the Pokédex application.
- * Users can navigate to submodules (Pokémon, Moves, Items, Trainers) or exit the app.
+ * This controller handles the main menu navigation of the Pokedex application.
+ * Users can navigate to submodules (Pokemon, Moves, Items, Trainers) or exit the app.
  * Each button handler saves data before transitioning to the next screen.
  *
  * Authors: Kirsten Palomo, Erylle Galinato
@@ -27,7 +27,7 @@ import java.io.IOException;
 /**
  * Controller for the main menu screen.
  * Provides navigation to other parts of the application:
- * Pokémon, Moves, Items, Trainer Menu, and Exit.
+ * Pokemon, Moves, Items, Trainer Menu, and Exit.
  */
 public class MainMenuController {
 
@@ -69,7 +69,7 @@ public class MainMenuController {
     }
 
     /**
-     * Navigates to the Pokémon menu screen.
+     * Navigates to the Pokemon menu screen.
      * Saves data first and uses a controller factory to inject dependencies.
      *
      * @param event the button click event

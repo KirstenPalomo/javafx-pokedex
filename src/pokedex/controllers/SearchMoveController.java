@@ -1,5 +1,5 @@
 /**
- * Controller for the "Search Move" screen in the Pokédex GUI.
+ * Controller for the "Search Move" screen in the Pokedex GUI.
  * Allows users to search for moves by keyword (name, description, type, or classification).
  * Displays results in an alert dialog and provides an option to return to the Move Menu.
  *
@@ -42,7 +42,7 @@ public class SearchMoveController {
     /**
      * Constructs the controller with manager dependencies injected.
      *
-     * @param pokedexManager Pokédex manager
+     * @param pokedexManager Pokedex manager
      * @param moveManager Move manager
      * @param itemManager Item manager
      * @param trainerManager Trainer manager

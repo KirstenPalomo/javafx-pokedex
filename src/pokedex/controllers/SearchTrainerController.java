@@ -1,5 +1,5 @@
 /**
- * This manages the Trainer Search screen in the Enhanced Pokédex system.
+ * This manages the Trainer Search screen in the Enhanced Pokedex system.
  * Allows searching for trainers using ID, name, sex, birthdate, or hometown.
  * Displays formatted results in a scrollable popup, and returns to the Trainer Menu after.
  *
@@ -52,7 +52,7 @@ public class SearchTrainerController {
     /**
      * Constructs a SearchTrainerController with the necessary manager dependencies.
      *
-     * @param pokedexManager  the Pokédex manager
+     * @param pokedexManager  the Pokedex manager
      * @param moveManager     the move manager
      * @param itemManager     the item manager
      * @param trainerManager  the trainer manager
@@ -178,7 +178,7 @@ public class SearchTrainerController {
 
     /**
      * Formats a trainer’s details for display in the result dialog.
-     * Includes ID, profile, Pokémon lineup, and inventory contents.
+     * Includes ID, profile, Pokemon lineup, and inventory contents.
      *
      * @param t the Trainer to format
      * @return a detailed, human-readable string of trainer information
@@ -198,7 +198,7 @@ public class SearchTrainerController {
         // Lineup
         sb.append("\n\nLineup (").append(t.getLineup().size()).append("/6):");
         if (t.getLineup().isEmpty()) {
-            sb.append("\n  (No Pokémon in lineup)");
+            sb.append("\n  (No Pokemon in lineup)");
         } else {
             for (Pokemon p : t.getLineup()) {
                 sb.append("\n- ").append(p.briefProfile());

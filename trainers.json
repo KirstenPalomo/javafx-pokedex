@@ -6,31 +6,33 @@
     "sex": "M",
     "hometown": "South Korea",
     "description": "He is a member of Monsta X. He is a singer, actor, model, DJ, MC, songwriter, and producer.",
-    "money": 932800,
+    "money": 946100,
     "lineup": [
       {
-        "pokedexNumber": 26,
-        "name": "Raichu",
+        "pokedexNumber": 25,
+        "name": "Pikachu",
         "type1": "Electric",
-        "baseLevel": 10,
-        "hp": 39,
-        "attack": 61,
-        "defense": 44,
-        "speed": 99,
+        "baseLevel": 9,
+        "evolvesTo": 26,
+        "evolutionLevel": 10,
+        "hp": 35,
+        "attack": 55,
+        "defense": 40,
+        "speed": 90,
         "moveSet": [
           "Tackle",
           "Defend"
         ]
       },
       {
-        "pokedexNumber": 38,
-        "name": "Ninetales",
-        "type1": "Fire",
+        "pokedexNumber": 176,
+        "name": "Togekiss",
+        "type1": "Shiny",
         "baseLevel": 10,
-        "hp": 46,
-        "attack": 50,
-        "defense": 48,
-        "speed": 79,
+        "hp": 61,
+        "attack": 44,
+        "defense": 94,
+        "speed": 44,
         "moveSet": [
           "Tackle",
           "Defend"
@@ -40,13 +42,13 @@
         "pokedexNumber": 1,
         "name": "Bulbasaur",
         "type1": "Grass",
-        "baseLevel": 6,
+        "baseLevel": 5,
         "evolvesTo": 2,
         "evolutionLevel": 16,
-        "hp": 50,
-        "attack": 54,
-        "defense": 54,
-        "speed": 50,
+        "hp": 45,
+        "attack": 49,
+        "defense": 49,
+        "speed": 45,
         "moveSet": [
           "Earthquake",
           "Solar Beam",
@@ -55,112 +57,110 @@
         ]
       },
       {
-        "pokedexNumber": 176,
-        "name": "Togekiss",
-        "type1": "Shiny",
-        "baseLevel": 9,
-        "hp": 85,
-        "attack": 50,
-        "defense": 95,
-        "speed": 80,
+        "pokedexNumber": 38,
+        "name": "Ninetales",
+        "type1": "Fire",
+        "baseLevel": 8,
+        "hp": 73,
+        "attack": 76,
+        "defense": 75,
+        "speed": 100,
         "moveSet": [
           "Tackle",
           "Defend"
         ]
       },
       {
-        "pokedexNumber": 7,
-        "name": "Squirtle",
+        "pokedexNumber": 133,
+        "name": "Eevee",
         "type1": "Water",
         "baseLevel": 5,
-        "evolvesTo": 8,
+        "evolvesTo": 134,
         "evolutionLevel": 10,
-        "hp": 64,
-        "attack": 48,
-        "defense": 65,
-        "speed": 43,
+        "hp": 55,
+        "attack": 55,
+        "defense": 50,
+        "speed": 55,
         "moveSet": [
-          "Hydro Pump",
-          "Defend",
-          "Surf",
-          "Scald"
+          "Tackle",
+          "Defend"
         ]
       }
     ],
     "storage": [
       {
-        "pokedexNumber": 13,
-        "name": "Weedle",
-        "type1": "Bug",
-        "baseLevel": 3,
-        "evolvesTo": 14,
-        "evolutionLevel": 7,
-        "hp": 40,
-        "attack": 35,
-        "defense": 30,
-        "speed": 50,
+        "pokedexNumber": 143,
+        "name": "Snorlax",
+        "type1": "Normal",
+        "baseLevel": 30,
+        "hp": 160,
+        "attack": 110,
+        "defense": 65,
+        "speed": 30,
         "moveSet": [
           "Tackle",
           "Defend"
         ]
       },
       {
-        "pokedexNumber": 21,
-        "name": "Spearow",
+        "pokedexNumber": 16,
+        "name": "Pidgey",
         "type1": "Flying",
         "baseLevel": 5,
-        "evolvesTo": 22,
+        "evolvesTo": 17,
         "evolutionLevel": 10,
         "hp": 40,
-        "attack": 60,
+        "attack": 45,
+        "defense": 40,
+        "speed": 56,
+        "moveSet": [
+          "Tackle",
+          "Defend"
+        ]
+      },
+      {
+        "pokedexNumber": 10,
+        "name": "Caterpie",
+        "type1": "Bug",
+        "baseLevel": 3,
+        "evolvesTo": 11,
+        "evolutionLevel": 7,
+        "hp": 45,
+        "attack": 30,
+        "defense": 35,
+        "speed": 45,
+        "moveSet": [
+          "Tackle",
+          "Defend"
+        ]
+      },
+      {
+        "pokedexNumber": 35,
+        "name": "Clefairy",
+        "type1": "Shiny",
+        "baseLevel": 6,
+        "evolvesTo": 36,
+        "evolutionLevel": 10,
+        "hp": 70,
+        "attack": 45,
+        "defense": 48,
+        "speed": 35,
+        "moveSet": [
+          "Tackle",
+          "Defend"
+        ]
+      },
+      {
+        "pokedexNumber": 92,
+        "name": "Gastly",
+        "type1": "Ghost",
+        "baseLevel": 6,
+        "evolvesTo": 93,
+        "evolutionLevel": 10,
+        "hp": 30,
+        "attack": 35,
         "defense": 30,
-        "speed": 70,
-        "moveSet": [
-          "Tackle",
-          "Defend"
-        ]
-      },
-      {
-        "pokedexNumber": 7,
-        "name": "Squirtle",
-        "type1": "Water",
-        "baseLevel": 5,
-        "evolvesTo": 8,
-        "evolutionLevel": 10,
-        "hp": 44,
-        "attack": 48,
-        "defense": 65,
-        "speed": 43,
-        "moveSet": [
-          "Tackle",
-          "Defend"
-        ]
-      },
-      {
-        "pokedexNumber": 59,
-        "name": "Arcanine",
-        "type1": "Fire",
-        "baseLevel": 6,
-        "hp": 90,
-        "attack": 110,
-        "defense": 80,
-        "speed": 95,
-        "moveSet": [
-          "Tackle",
-          "Defend"
-        ]
-      },
-      {
-        "pokedexNumber": 27,
-        "name": "Sandshrew",
-        "type1": "Ground",
-        "baseLevel": 6,
-        "evolvesTo": 28,
-        "evolutionLevel": 10,
-        "hp": 50,
-        "attack": 75,
-        "defense": 85,
-        "speed": 40,
+        "speed": 80,
         "moveSet": [
           "Tackle",
           "Defend"
@@ -214,6 +214,18 @@
         },
         "quantity": 1
       },
+      "Carbos": {
+        "item": {
+          "name": "Carbos",
+          "category": "Vitamin",
+          "description": "A nutritious drink for Pokémon.",
+          "effects": "+10 Speed EVs",
+          "minBuyingPrice": 10000,
+          "maxBuyingPrice": 10000,
+          "sellingPrice": 5000
+        },
+        "quantity": 1
+      },
       "Zinc": {
         "item": {
           "name": "Zinc",
@@ -256,18 +268,6 @@
           "category": "Feather",
           "description": "A feather that slightly increases Defense.",
           "effects": "+1 Defense EV",
-          "minBuyingPrice": 300,
-          "maxBuyingPrice": 300,
-          "sellingPrice": 150
-        },
-        "quantity": 1
-      },
-      "Swift Feather": {
-        "item": {
-          "name": "Swift Feather",
-          "category": "Feather",
-          "description": "A feather that slightly increases Speed.",
-          "effects": "+1 Speed EV",
           "minBuyingPrice": 300,
           "maxBuyingPrice": 300,
           "sellingPrice": 150
@@ -1277,17 +1277,5 @@
         "quantity": 1
       }
     }
-  },
-  {
-    "trainerID": "456",
-    "name": "Sophia",
-    "birthdate": "2006-04-06",
-    "sex": "F",
-    "hometown": "Manila",
-    "description": "She loves Jake, Snoopy, Miffy",
-    "money": 1000000,
-    "lineup": [],
-    "storage": [],
-    "itemBag": {}
   }
 ]

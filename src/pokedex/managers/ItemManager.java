@@ -1,5 +1,5 @@
 /**
- * This manager handles all items in the Enhanced Pokédex system.
+ * This manager handles all items in the Enhanced Pokedex system.
  * It stores and retrieves item data, supports searching by name, category, effect, and price range,
  * and ensures that no duplicate items are added.
  *
@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Singleton manager class responsible for storing and managing items in the Pokédex system.
+ * Singleton manager class responsible for storing and managing items in the Pokedex system.
  * Provides access to all items, including search and filtering functions.
  * Ensures that item names are unique.
  */
@@ -52,12 +52,12 @@ public class ItemManager {
     private ItemManager() {
         //Initialize with some default items
         //Vitamins and candies
-        items.add(new Item("HP Up", "Vitamin", "A nutritious drink for Pokémon.", "+10 HP EVs",10000, 10000, 5000));
-        items.add(new Item("Protein", "Vitamin", "A nutritious drink for Pokémon.", "+10 Attack EVs", 10000, 10000, 5000));
-        items.add(new Item("Iron", "Vitamin", "A nutritious drink for Pokémon.", "+10 Defense EVs", 10000, 10000, 5000));
-        items.add(new Item("Carbos", "Vitamin", "A nutritious drink for Pokémon.", "+10 Speed EVs", 10000, 10000, 5000));
-        items.add(new Item("Zinc", "Vitamin", "A nutritious drink for Pokémon.", "+10 Special Defense EVs", 10000, 10000, 5000));
-        items.add(new Item("Rare Candy", "Leveling Item", "A candy that is packed with energy.", "Increases level by 1 (stat gain depends on Pokémon's base stats and EVs)", null, null, 2400));
+        items.add(new Item("HP Up", "Vitamin", "A nutritious drink for Pokemon.", "+10 HP EVs",10000, 10000, 5000));
+        items.add(new Item("Protein", "Vitamin", "A nutritious drink for Pokemon.", "+10 Attack EVs", 10000, 10000, 5000));
+        items.add(new Item("Iron", "Vitamin", "A nutritious drink for Pokemon.", "+10 Defense EVs", 10000, 10000, 5000));
+        items.add(new Item("Carbos", "Vitamin", "A nutritious drink for Pokemon.", "+10 Speed EVs", 10000, 10000, 5000));
+        items.add(new Item("Zinc", "Vitamin", "A nutritious drink for Pokemon.", "+10 Special Defense EVs", 10000, 10000, 5000));
+        items.add(new Item("Rare Candy", "Leveling Item", "A candy that is packed with energy.", "Increases level by 1 (stat gain depends on Pokemon's base stats and EVs)", null, null, 2400));
 
         //Feather
         items.add(new Item("Health Feather", "Feather", "A feather that slightly increases HP.", "+1 HP EV", 300, 300, 150));
@@ -66,25 +66,25 @@ public class ItemManager {
         items.add(new Item("Swift Feather", "Feather", "A feather that slightly increases Speed.", "+1 Speed EV", 300, 300, 150));
 
         //Evolution stones
-        items.add(new Item("Fire Stone", "Evolution Stone", "A stone that radiates heat.", "Evolves Pokémon like Vulpix, Growlithe, Eevee (into Flareon), etc.", 3000, 5000, 1500));
+        items.add(new Item("Fire Stone", "Evolution Stone", "A stone that radiates heat.", "Evolves Pokemon like Vulpix, Growlithe, Eevee (into Flareon), etc.", 3000, 5000, 1500));
         // Fire Stone: Spec says ₱3000–₱5000, using max ₱5000 for standardization
-        items.add(new Item("Water Stone", "Evolution Stone", "A stone with a blue watery appearance.", "Evolves Pokémon like Poliwhirl, Shellder, Eevee (into Vaporeon), etc.", 3000, 5000, 1500));
+        items.add(new Item("Water Stone", "Evolution Stone", "A stone with a blue watery appearance.", "Evolves Pokemon like Poliwhirl, Shellder, Eevee (into Vaporeon), etc.", 3000, 5000, 1500));
         // Water Stone: Spec says ₱3000–₱5000, using max ₱5000 for standardization
-        items.add(new Item("Thunder Stone", "Evolution Stone", "A stone that sparkles with electricity.", "Evolves Pokémon like Pikachu, Eevee (into Jolteon), Eelektrik, etc.", 3000, 5000, 1500));
+        items.add(new Item("Thunder Stone", "Evolution Stone", "A stone that sparkles with electricity.", "Evolves Pokemon like Pikachu, Eevee (into Jolteon), Eelektrik, etc.", 3000, 5000, 1500));
         // Thunder Stone: Spec says ₱3000–₱5000, using max ₱5000 for standardization
-        items.add(new Item("Leaf Stone", "Evolution Stone", "A stone with a leaf pattern", "Evolves Pokémon like Gloom, Weepinbell, Exeggcute, etc.", 3000, 5000, 1500));
+        items.add(new Item("Leaf Stone", "Evolution Stone", "A stone with a leaf pattern", "Evolves Pokemon like Gloom, Weepinbell, Exeggcute, etc.", 3000, 5000, 1500));
         // Leaf Stone: Spec says ₱3000–₱5000, using max ₱5000 for standardization
-        items.add(new Item("Moon Stone", "Evolution Stone", "A stone that glows faintly in the moonlight.", "Evolves Pokémon like Nidorina, Clefairy, Jigglypuff, etc.", null, null, 1500));
+        items.add(new Item("Moon Stone", "Evolution Stone", "A stone that glows faintly in the moonlight.", "Evolves Pokemon like Nidorina, Clefairy, Jigglypuff, etc.", null, null, 1500));
         // Moon Stone: Spec says ₱3000–₱5000, using max ₱5000 for standardization
-        items.add(new Item("Sun Stone", "Evolution Stone", "A stone that glows like the sun.", "Evolves Pokémon like Gloom (into Bellossom), Sunkern, Cottonee, etc.", 3000, 5000, 1500));
+        items.add(new Item("Sun Stone", "Evolution Stone", "A stone that glows like the sun.", "Evolves Pokemon like Gloom (into Bellossom), Sunkern, Cottonee, etc.", 3000, 5000, 1500));
         // Sun Stone: Spec says ₱3000–₱5000, using max ₱5000 for standardization
-        items.add(new Item("Shiny Stone", "Evolution Stone", "A stone that sparkles brightly.", "Evolves Pokémon like Togetic, Roselia, Minccino, etc.", 3000, 5000, 1500));
+        items.add(new Item("Shiny Stone", "Evolution Stone", "A stone that sparkles brightly.", "Evolves Pokemon like Togetic, Roselia, Minccino, etc.", 3000, 5000, 1500));
         // Shiny Stone: Spec says ₱3000–₱5000, using max ₱5000 for standardization
-        items.add(new Item("Dusk Stone", "Evolution Stone", "A stone that is ominous in appearance.", "Evolves Pokémon like Munkrow, Misdreavus, Doublade, etc.", 3000, 5000, 1500));
+        items.add(new Item("Dusk Stone", "Evolution Stone", "A stone that is ominous in appearance.", "Evolves Pokemon like Munkrow, Misdreavus, Doublade, etc.", 3000, 5000, 1500));
         // Dusk Stone: Spec says ₱3000–₱5000, using max ₱5000 for standardization
         items.add(new Item("Dawn Stone", "Evolution Stone", "A stone that sparkles like the morning sky.", "Evolves male Kirlia into Gallade, female Snorunt into Froslass.", 3000, 5000, 1500));
         // Dawn Stone: Spec says ₱3000–₱5000, using max ₱5000 for standardization
-        items.add(new Item("Ice Stone", "Evolution Stone", "A stone that is cold to the touch.", "Evolves Pokémon like Alolan Vulpix, Galarian Darumaka, Eevee (into Glaceon).", 3000, 5000, 1500));
+        items.add(new Item("Ice Stone", "Evolution Stone", "A stone that is cold to the touch.", "Evolves Pokemon like Alolan Vulpix, Galarian Darumaka, Eevee (into Glaceon).", 3000, 5000, 1500));
         // Ice Stone: Spec says ₱3000–₱5000, using max ₱5000 for standardization
     }
 

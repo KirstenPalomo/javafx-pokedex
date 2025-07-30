@@ -1,5 +1,5 @@
 /**
- * This manager handles all trainers in the Enhanced Pokédex system.
+ * This manager handles all trainers in the Enhanced Pokedex system.
  * It stores and retrieves trainer data, supports searching by ID, name, and hometown,
  * and provides methods to view trainer information and access specific trainer profiles.
  *
@@ -52,7 +52,7 @@ public class TrainerManager {
     trainers.addAll(loaded);
 }
     /**
-     * Displays all trainers with their name, ID, and Pokémon lineup and storage.
+     * Displays all trainers with their name, ID, and Pokemon lineup and storage.
      * Useful for debugging or viewing full trainer records.
      */
     public void viewAllTrainers() {

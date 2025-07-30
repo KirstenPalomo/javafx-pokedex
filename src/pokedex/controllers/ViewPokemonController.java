@@ -1,8 +1,8 @@
 /**
- * Controller for the "View Pokémon" screen in the Pokédex GUI.
- * Displays a list of all registered Pokémon and shows detailed information
- * (e.g., types, stats, evolution, moves, held item) for the selected Pokémon.
- * Also includes a back button to return to the Pokémon Menu screen.
+ * Controller for the "View Pokemon" screen in the Pokedex GUI.
+ * Displays a list of all registered Pokemon and shows detailed information
+ * (e.g., types, stats, evolution, moves, held item) for the selected Pokemon.
+ * Also includes a back button to return to the Pokemon Menu screen.
  *
  * Authors: Kirsten Palomo, Erylle Galinato
  */
@@ -62,8 +62,8 @@ public class ViewPokemonController implements Initializable {
     }
 
     /**
-     * Initializes the ListView of Pokémon and sets up a listener to display
-     * details when a Pokémon is selected.
+     * Initializes the ListView of Pokemon and sets up a listener to display
+     * details when a Pokemon is selected.
      *
      * @param location  Location of the FXML file (not used)
      * @param resources Resource bundle (not used)
@@ -83,13 +83,13 @@ public class ViewPokemonController implements Initializable {
         labelMoves.setText("");
         labelHeldItem.setText("");
 
-        // Load Pokémon list
+        // Load Pokemon list
         ObservableList<Pokemon> allPokemon = FXCollections.observableArrayList(
                 pokedexManager.getAllPokemon() // ← now uses the instance from constructor
         );
         listViewPokemon.setItems(allPokemon);
 
-        // Display Pokémon details on selection
+        // Display Pokemon details on selection
         listViewPokemon.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, selected) -> {
             if (selected != null) {
                 labelPokedexNumber.setText(String.format("#%03d – %s", selected.getPokedexNumber(), selected.getName()));
@@ -134,7 +134,7 @@ public class ViewPokemonController implements Initializable {
     }
 
     /**
-     * Navigates back to the Pokémon Menu screen.
+     * Navigates back to the Pokemon Menu screen.
      *
      * @param event Action event triggered by the "Back" button
      */

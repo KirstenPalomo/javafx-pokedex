@@ -1,5 +1,5 @@
 /**
- * This controller manages the start screen of the Pokédex application.
+ * This controller manages the start screen of the Pokedex application.
  * It initializes font assets and transitions to the main menu upon clicking Start.
  *
  * Uses FXMLLoader with a custom controller factory to inject shared singleton managers.
@@ -29,7 +29,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 /**
- * Controller class for the Pokédex start screen.
+ * Controller class for the Pokedex start screen.
  * Handles UI font initialization and start button navigation logic.
  */
 public class StartScreenController implements Initializable {
@@ -42,7 +42,7 @@ public class StartScreenController implements Initializable {
     /**
      * Constructs the controller with required manager dependencies.
      *
-     * @param pokedexManager the Pokédex manager
+     * @param pokedexManager the Pokedex manager
      * @param moveManager the move manager
      * @param itemManager the item manager
      * @param trainerManager the trainer manager

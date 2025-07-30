@@ -55,7 +55,7 @@ public class AddTrainerController {
     /**
      * Constructs the AddTrainerController with the necessary manager dependencies.
      *
-     * @param pokedexManager  the Pokédex manager for Pokémon reference
+     * @param pokedexManager  the Pokedex manager for Pokemon reference
      * @param moveManager     the Move manager for managing TMs/HMs
      * @param itemManager     the Item manager for inventory logic
      * @param trainerManager  the Trainer manager for trainer storage and retrieval

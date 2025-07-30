@@ -175,12 +175,5 @@
     "description": "The user emits a dazzling flash that may confuse the target and lower their Speed.",
     "classification": "TM",
     "type1": "Shiny"
-  },
-  {
-    "name": "sleep",
-    "description": "I wanna sleep",
-    "classification": "TM",
-    "type1": "Normal",
-    "type2": "Fighting"
   }
 ]

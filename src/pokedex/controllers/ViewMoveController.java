@@ -1,5 +1,5 @@
 /**
- * Controller for the "View Move" screen in the Pokédex GUI.
+ * Controller for the "View Move" screen in the Pokedex GUI.
  * Displays a list of all available moves and shows detailed information about the selected move.
  * Integrates with MoveManager to fetch and display data using JavaFX ListView and labels.
  * Also handles navigation back to the Move Menu screen.
@@ -46,7 +46,7 @@ public class ViewMoveController implements Initializable {
     /**
      * Constructs the controller with manager dependencies injected.
      *
-     * @param pokedexManager Pokédex manager
+     * @param pokedexManager Pokedex manager
      * @param moveManager Move manager
      * @param itemManager Item manager
      * @param trainerManager Trainer manager

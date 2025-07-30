@@ -1,5 +1,5 @@
 /**
- * Entry point for the Pokédex JavaFX application.
+ * Entry point for the Pokedex JavaFX application.
  * This class initializes the application by loading saved data,
  * preparing the necessary managers, and displaying the Start Screen.
  *
@@ -29,7 +29,7 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * Main class that launches the Pokédex JavaFX application.
+ * Main class that launches the Pokedex JavaFX application.
  * It sets up the scene, loads data from JSON, and displays the Start Screen.
  */
 public class Main extends Application {

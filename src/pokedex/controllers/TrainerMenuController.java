@@ -1,5 +1,5 @@
 /**
- * This is the JavaFX controller for the Trainer Menu screen in the Enhanced Pokédex system.
+ * This is the JavaFX controller for the Trainer Menu screen in the Enhanced Pokedex system.
  * Handles navigation between Trainer-related interfaces: Add, View All, Search, and return to Main Menu.
  *
  * Authors: Kirsten Palomo, Erylle Galinato
@@ -37,7 +37,7 @@ public class TrainerMenuController {
     /**
      * Constructs the TrainerMenuController with required manager dependencies.
      *
-     * @param pokedexManager  manages Pokémon data
+     * @param pokedexManager  manages Pokemon data
      * @param moveManager     manages move data
      * @param itemManager     manages item data
      * @param trainerManager  manages trainer data
