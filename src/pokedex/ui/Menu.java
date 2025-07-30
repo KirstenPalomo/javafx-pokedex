@@ -1,3 +1,11 @@
+/**
+ * This class serves as the main menu system for the CLI-based Pokédex application.
+ * It provides interactive options for the user to manage Pokémon, Moves, Items, and Trainers.
+ * The menu allows adding, viewing, and searching various entities using input from the console.
+ * This class utilizes manager classes to access and manipulate data.
+ *
+ * Authors: Kirsten Palomo, Erylle Galinato
+ */
 package pokedex.ui;
 
 import pokedex.JsonManager;
@@ -14,7 +22,10 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/**
+ * Handles the CLI-based interaction menu for managing all Pokédex entities.
+ * Provides options to add, view, search, and manage Trainers, Pokémon, Moves, and Items.
+ */
 public class Menu {
     private static final boolean ALLOW_EXTRA_MOVES = false;
     private static final List<String> VALID_TYPES = List.of(
@@ -28,6 +39,15 @@ public class Menu {
     private final TrainerManager trainerManager;
     private final Scanner scanner;
 
+    /**
+     * Constructs a new Menu instance with the given managers and scanner.
+     *
+     * @param pokedexManager   the manager for handling Pokémon-related logic
+     * @param moveManager      the manager for handling move-related logic
+     * @param itemManager      the manager for handling item-related logic
+     * @param trainerManager   the manager for handling trainer-related logic
+     * @param scanner          the Scanner object for user input
+     */
     public Menu(PokedexManager pokedexManager, MoveManager moveManager, ItemManager itemManager, TrainerManager trainerManager, Scanner scanner) {
         this.pokedexManager = pokedexManager;
         this.moveManager = moveManager;
@@ -36,6 +56,10 @@ public class Menu {
         this.scanner = scanner;
     }
 
+    /**
+     * Displays the main menu and processes user selections.
+     * Includes submenus for managing trainers and saving data upon exit.
+     */
     public void display(){
         int choice;
         do {
@@ -156,15 +180,12 @@ public class Menu {
                             case 8:
                                 selectedTrainer.releasePokemon(scanner);
                                 break;
-//                            case 9:
-//                                selectedTrainer.teachMove(scanner, moveManager);
-//                                break;
-                         case 9: {
-    // 1) Ask Trainer to pick a Pokémon
+                            case 9: {
+    //Ask Trainer to pick a Pokémon
     Pokemon target = selectedTrainer.promptSelectPokemon(scanner);
     if (target == null) break;
 
-    // 2) Prompt for move name and look it up
+    //Prompt for move name and look it up
     System.out.print("Move to teach: ");
     String moveName = scanner.nextLine().trim();
     Move move = moveManager.getMoveByName(moveName);
@@ -173,11 +194,11 @@ public class Menu {
         break;
     }
 
-    // 3) Attempt to teach: your trainer.teachMove(...) should now return a status String
+    //Attempt to teach
     String result = selectedTrainer.teachMove(target, move, moveManager);
     System.out.println(result);
 
-    // 4) If the move‐set was full, offer to forget one TM and learn the new one
+    //If the move‐set was full, offer to forget one TM and learn the new one
     if (result.contains("full") && result.contains("TM")) {
         System.out.print("Would you like to forget a TM and learn “"
                          + move.getName() + "”? (Y/N): ");
@@ -196,7 +217,7 @@ public class Menu {
                 break;
             }
 
-            // 5) Show the TM list
+            //Show the TM list
             System.out.println("Which TM would you like to forget?");
             for (int i = 0; i < tms.size(); i++) {
                 System.out.printf("%d. %s%n", i + 1, tms.get(i));
@@ -215,7 +236,7 @@ public class Menu {
                 break;
             }
 
-            // 6) Perform the swap via your new forgetAndLearnMove(...)
+            // Perform the swap via forgetAndLearnMove
             boolean ok = selectedTrainer.forgetAndLearnMove(
                 target, tms.get(idx), move, moveManager);
             if (ok) {
@@ -228,8 +249,6 @@ public class Menu {
     }
     break;
 }
-
-
                             case 10:
                                 clearScreen();
                                 selectedTrainer.displayProfile();
@@ -247,7 +266,7 @@ public class Menu {
                     searchTrainer();
                     break;
                 case 12:
-                    // 1) save before exit
+                    //save before exit
                     System.out.println("Saving trainers to disk...");
 
                     JsonManager.saveTrainers(trainerManager.getAllTrainers());
@@ -263,6 +282,11 @@ public class Menu {
         } while (choice != 12);
     }
 
+    /**
+     * Prompts the user to input information for a new Trainer.
+     * Validates inputs for ID, name, birthdate, sex, hometown, and description.
+     * Adds the new Trainer to the TrainerManager.
+     */
     private void addTrainer() {
         System.out.println("--- Add Trainer ---");
         // Trainer ID (Numbers only, cannot be empty, no duplicates)
@@ -348,18 +372,32 @@ public class Menu {
         trainerManager.addTrainer(t);
     }
 
+    /**
+     * Prompts the user to enter a keyword and performs a trainer search using the TrainerManager.
+     */
     private void searchTrainer() {
         System.out.print("Enter trainer keyword: ");
         String keyword = scanner.nextLine();
         trainerManager.searchTrainer(keyword);
     }
 
+    /**
+     * Formats a string to proper Pokémon type format (capitalized first letter).
+     *
+     * @param input the raw type input
+     * @return a properly formatted type string or null if invalid
+     */
     private String formatType(String input) {
         if (input == null || input.isBlank()) return null;
         input = input.trim().toLowerCase();
         return input.substring(0, 1).toUpperCase() + input.substring(1);
     }
 
+    /**
+     * Prompts the user to input all fields required to create and add a new Pokémon.
+     * Includes validation, optional evolution details, and confirmation before adding.
+     * Adds the Pokémon to the PokédexManager.
+     */
     private void addPokemonTask() {
         System.out.println("--- Add New Pokémon ---");
 
@@ -443,23 +481,7 @@ public class Menu {
             System.out.println("(Extra moves are not allowed since you don't have a trainer yet — only default moves applied.)");
         }
 
-        // Item heldItem;
-        // while (true) {
-        //     System.out.print("Held Item (name): ");
-        //     String heldItemName = scanner.nextLine().trim();
-        //     if (heldItemName.isEmpty()) {
-        //         System.out.println("⚠️ Held item cannot be empty.");
-        //         continue;
-        //     }
-        //     heldItem = itemManager.getItemByName(heldItemName);
-        //     if (heldItem == null) {
-        //         System.out.println("⚠️ Item not found in database.");
-        //         continue;
-        //     }
-        //     break;
-        // }
-
-        // ✅ Confirmation before adding the Pokémon
+        //Confirmation before adding the Pokémon
         String confirm;
         while (true) {
             System.out.print("Confirm adding this Pokémon? (Y/N): ");
@@ -476,7 +498,7 @@ public class Menu {
             return; // exit the method early
         }
 
-        // ✅ Add to Pokédex only after confirmation
+        //Add to Pokédex only after confirmation
         Pokemon newPokemon = new Pokemon(pokedexNumber, name, type1, type2, baseLevel,
                 evolvesFrom, evolvesTo, evolutionLevel, hp, attack, defense, speed, moveSet, null);
 
@@ -499,7 +521,10 @@ public class Menu {
         }
     }
 
-
+    /**
+     * Handles the addition of a new Pokémon move through console input.
+     * Validates name, description, classification, and types, and confirms with the user before adding.
+     */
     public void addMoveTask() {
         System.out.println("--- Add New Move ---");
 
@@ -576,7 +601,7 @@ public class Menu {
             }
         }
 
-        // ✅ Confirmation before adding the move
+        // Confirmation before adding the move
         String confirm;
         while (true) {
             System.out.print("Confirm adding this move? (Y/N): ");
@@ -598,6 +623,10 @@ public class Menu {
         moveManager.addMove(newMove);
     }
 
+    /**
+     * Displays a submenu for searching Pokémon by name, type, or Pokédex number.
+     * Calls corresponding methods from the PokedexManager.
+     */
     public void pokemonSearch() {
         System.out.println("\n--- Search Pokémon ---");
         System.out.printf("%-5s %-30s%n", "1.", "By Name");
@@ -628,6 +657,9 @@ public class Menu {
         }
     }
 
+    /**
+     * Displays a submenu for searching items by various filters such as name, effect, category, or price range.
+     */
     public void itemSearch(){
         System.out.println("\n--- Search Pokémon Items ---");
         System.out.printf("%-5s %-30s%n", "1.", "By Name");
@@ -667,6 +699,11 @@ public class Menu {
         }
     }
 
+    /**
+     * Reads a required integer input from the user with validation and retry logic.
+     * @param prompt the prompt to display
+     * @return the valid integer entered
+     */
     private int readInt(String prompt) {
         while (true) {
             System.out.print(prompt);
@@ -683,10 +720,21 @@ public class Menu {
         }
     }
 
+    /**
+     * Wrapper for readOptionalInt without zero validation.
+     * @param prompt prompt to display
+     * @return Integer value or null
+     */
     private Integer readOptionalInt(String prompt) {
         return readOptionalInt(prompt, false);
     }
 
+    /**
+     * Reads an optional integer input; returns null if input is -1.
+     * @param prompt the prompt to display
+     * @param allowZero whether 0 is a valid input
+     * @return the parsed Integer or null
+     */
     private Integer readOptionalInt(String prompt, boolean allowZero) {
         while (true) {
             System.out.print(prompt);
@@ -709,28 +757,43 @@ public class Menu {
         }
     }
 
+    /**
+     * Waits for the user to press Enter to continue.
+     */
     private void pauseAndReturn() {
         System.out.print("\nPress Enter to continue...");
         scanner.nextLine(); // Wait for Enter
     }
 
+    /**
+     * Clears the console screen (platform-dependent).
+     */
     private void clearScreen() {
         System.out.print("\033[H\033[2J");
         System.out.flush();
     }
 
+    /**
+     * Displays all Pokémon in the Pokédex using the manager.
+     */
     private void viewAllPokemonTask() {
         clearScreen();
         pokedexManager.viewAll();
         pauseAndReturn();
     }
 
+    /**
+     * Displays all Pokémon moves using the MoveManager.
+     */
     private void viewAllMovesTask() {
         clearScreen();
         moveManager.viewAllMoves();
         pauseAndReturn();
     }
 
+    /**
+     * Displays all items using the ItemManager.
+     */
     private void viewAllItemsTask() {
         clearScreen();
         itemManager.viewAllItems();
