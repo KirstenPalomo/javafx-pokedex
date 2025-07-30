@@ -1,6 +1,6 @@
 /**
- * Controller for the Pokémon Menu screen in the Pokédex GUI.
- * Handles navigation to Add Pokémon, View All Pokémon, Search Pokémon, and back to the Main Menu.
+ * Controller for the Pokemon Menu screen in the Pokedex GUI.
+ * Handles navigation to Add Pokemon, View All Pokemon, Search Pokemon, and back to the Main Menu.
  * Uses FXML loaders with custom controller injection to maintain manager references across scenes.
  *
  * Authors: Kirsten Palomo, Erylle Galinato
@@ -32,7 +32,7 @@ public class PokemonMenuController {
     /**
      * Constructs the controller with references to core managers.
      *
-     * @param pokedexManager Pokédex manager
+     * @param pokedexManager Pokedex manager
      * @param moveManager Move manager
      * @param itemManager Item manager
      * @param trainerManager Trainer manager
@@ -46,7 +46,7 @@ public class PokemonMenuController {
     }
 
     /**
-     * Navigates to the Add Pokémon screen.
+     * Navigates to the Add Pokemon screen.
      *
      * @param event Action event triggered by button click
      */
@@ -67,7 +67,7 @@ public class PokemonMenuController {
     }
 
     /**
-     * Navigates to the View All Pokémon screen.
+     * Navigates to the View All Pokemon screen.
      *
      * @param event Action event triggered by button click
      */
@@ -88,7 +88,7 @@ public class PokemonMenuController {
     }
 
     /**
-     * Navigates to the Search Pokémon screen.
+     * Navigates to the Search Pokemon screen.
      *
      * @param event Action event triggered by button click
      */

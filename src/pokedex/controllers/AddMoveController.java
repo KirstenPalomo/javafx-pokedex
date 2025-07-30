@@ -1,5 +1,5 @@
 /**
- * Controller for the "Add Move" screen in the Pokédex GUI.
+ * Controller for the "Add Move" screen in the Pokedex GUI.
  * Handles user input for creating a new move, validating fields, and updating the MoveManager.
  * Includes logic for preventing duplicates, handling type selections, and navigating back to the move menu.
  *
@@ -46,7 +46,7 @@ public class AddMoveController {
     /**
      * Constructs the controller with manager dependencies injected.
      *
-     * @param pokedexManager The Pokédex manager
+     * @param pokedexManager The Pokedex manager
      * @param moveManager The move manager
      * @param itemManager The item manager
      * @param trainerManager The trainer manager

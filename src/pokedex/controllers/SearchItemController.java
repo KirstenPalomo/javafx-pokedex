@@ -1,5 +1,5 @@
 /**
- * This manages the Search Item screen in the Enhanced Pokédex system.
+ * This manages the Search Item screen in the Enhanced Pokedex system.
  * Allows users to enter keywords, view matching items with full details,
  * and optionally return to the Main Menu.
  *
@@ -32,7 +32,7 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * Controller for searching items in the Pokédex.
+ * Controller for searching items in the Pokedex.
  * Allows users to input keywords and view matching items with full details.
  * Displays results in a scrollable dialog or shows appropriate alerts.
  */
@@ -49,7 +49,7 @@ public class SearchItemController {
     /**
      * Constructs a SearchItemController with the necessary manager dependencies.
      *
-     * @param pokedexManager  manages Pokémon data
+     * @param pokedexManager  manages Pokemon data
      * @param moveManager     manages TM/HM data
      * @param itemManager     manages item data and search
      * @param trainerManager  manages trainer data

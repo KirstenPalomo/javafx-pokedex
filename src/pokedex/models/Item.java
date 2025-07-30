@@ -1,5 +1,5 @@
 /**
- * Represents an item that can be bought, sold, or used in the Pokédex system.
+ * Represents an item that can be bought, sold, or used in the Pokedex system.
  * Each item has a name, category, description, effects, and price information.
  * It is used in various gameplay mechanics such as healing, boosting stats, and evolution.
  * This class also supports logic for displaying item prices in formatted form.
@@ -10,7 +10,7 @@
 package pokedex.models;
 
 /**
- * Represents an item that can be bought, sold, or used in the Pokédex system.
+ * Represents an item that can be bought, sold, or used in the Pokedex system.
  * Each item has a name, category, description, effects, and price information.
  */
 public class Item {

@@ -1,5 +1,5 @@
 /**
- * This allows interaction with Pokémon (view, add, switch, release),
+ * This allows interaction with Pokemon (view, add, switch, release),
  * item usage (buy, sell, use, give, remove), and move teaching. This controller links
  * the UI with the backend managers (PokedexManager, TrainerManager, etc.) and handles
  * user decisions through JavaFX dialog boxes.
@@ -33,7 +33,7 @@ import java.util.stream.IntStream;
 /**
  * Controller for the Trainer Options menu.
  * Handles navigation to all trainer-specific functionalities such as viewing profile,
- * managing Pokémon, using items, buying/selling, etc.
+ * managing Pokemon, using items, buying/selling, etc.
  */
 public class TrainerOptionsController {
 
@@ -46,7 +46,7 @@ public class TrainerOptionsController {
     /**
      * Constructs the controller with all required manager dependencies and the selected trainer.
      *
-     * @param pokedexManager  the central Pokédex manager
+     * @param pokedexManager  the central Pokedex manager
      * @param moveManager     the move manager for handling TM/HM functionality
      * @param itemManager     the item manager for inventory logic
      * @param trainerManager  the trainer manager for CRUD operations
@@ -147,7 +147,7 @@ public class TrainerOptionsController {
 
     /**
      * Displays the full trainer profile in a scrollable alert box,
-     * including personal details, Pokémon lineup, storage, and inventory.
+     * including personal details, Pokemon lineup, storage, and inventory.
      *
      * @param event the button click event triggering this method
      */
@@ -323,7 +323,7 @@ public class TrainerOptionsController {
     }
 
     /**
-     * Allows the trainer to use an item on a Pokémon.
+     * Allows the trainer to use an item on a Pokemon.
      * Supports usage from held items or bag and handles item effects and evolution.
      *
      * @param event the button click event triggering this method
@@ -332,26 +332,26 @@ public class TrainerOptionsController {
     private void handleUse(ActionEvent event) {
         List<Pokemon> lineup = selectedTrainer.getLineup();
         if (lineup.isEmpty()) {
-            showAlert("Use Item", "You have no Pokémon in your lineup.", Alert.AlertType.INFORMATION);
+            showAlert("Use Item", "You have no Pokemon in your lineup.", Alert.AlertType.INFORMATION);
             return;
         }
 
-        // Step 1: Choose Pokémon
+        // Step 1: Choose Pokemon
         List<String> pokemonNames = lineup.stream().map(Pokemon::getName).toList();
         ChoiceDialog<String> pokeDialog = new ChoiceDialog<>(pokemonNames.get(0), pokemonNames);
         pokeDialog.setTitle("Use Item");
-        pokeDialog.setHeaderText("Select a Pokémon");
-        pokeDialog.setContentText("Which Pokémon?");
+        pokeDialog.setHeaderText("Select a Pokemon");
+        pokeDialog.setContentText("Which Pokemon?");
 
         pokeDialog.showAndWait().ifPresent(pokemonName -> {
-            // Find the selected Pokémon object from the lineup
+            // Find the selected Pokemon object from the lineup
             Pokemon target = lineup.stream()
                     .filter(p -> p.getName().equals(pokemonName))
                     .findFirst()
                     .orElse(null);
 
             if (target == null) {
-                showAlert("Use Item", "Selected Pokémon not found.", Alert.AlertType.ERROR);
+                showAlert("Use Item", "Selected Pokemon not found.", Alert.AlertType.ERROR);
                 return;
             }
 
@@ -381,13 +381,13 @@ public class TrainerOptionsController {
                         Alert evoPrompt = new Alert(Alert.AlertType.CONFIRMATION);
                         evoPrompt.setTitle("Evolution");
                         evoPrompt.setHeaderText(target.getName() + " can now evolve!");
-                        evoPrompt.setContentText("Do you want to evolve this Pokémon now?");
+                        evoPrompt.setContentText("Do you want to evolve this Pokemon now?");
                         Optional<ButtonType> confirm = evoPrompt.showAndWait();
 
                         if (confirm.isPresent() && confirm.get() == ButtonType.OK) {
                             Pokemon evolvedForm = pokedexManager.getPokemonByNumber(target.getEvolvesTo());
                             if (evolvedForm != null) {
-                                // Update Pokémon properties after evolution
+                                // Update Pokemon properties after evolution
                                 target.setName(evolvedForm.getName());
                                 target.setPokedexNumber(evolvedForm.getPokedexNumber());
                                 target.setEvolvesTo(evolvedForm.getEvolvesTo());
@@ -459,7 +459,7 @@ public class TrainerOptionsController {
                             Alert evoPrompt = new Alert(Alert.AlertType.CONFIRMATION);
                             evoPrompt.setTitle("Evolution");
                             evoPrompt.setHeaderText(target.getName() + " reached level " + newLevel + "!");
-                            evoPrompt.setContentText("Do you want to evolve this Pokémon now?");
+                            evoPrompt.setContentText("Do you want to evolve this Pokemon now?");
                             Optional<ButtonType> result = evoPrompt.showAndWait();
 
                             if (result.isPresent() && result.get() == ButtonType.OK) {
@@ -475,10 +475,10 @@ public class TrainerOptionsController {
                                     target.setType1(evolvedForm.getType1());
                                     target.setType2(evolvedForm.getType2());
                                 } else {
-                                    log.append("Evolution failed. Evolved form not found in Pokédex.\n");
+                                    log.append("Evolution failed. Evolved form not found in Pokedex.\n");
                                 }
                             } else {
-                                log.append("Pokémon was not evolved.\n");
+                                log.append("Pokemon was not evolved.\n");
                             }
                         }
 
@@ -548,7 +548,7 @@ public class TrainerOptionsController {
     }
 
     /**
-     * Allows the trainer to add a Pokémon from the Pokédex to their lineup or storage.
+     * Allows the trainer to add a Pokemon from the Pokedex to their lineup or storage.
      * Ensures that duplicates are not added to the lineup.
      *
      * @param event the button click event triggering this method
@@ -558,7 +558,7 @@ public class TrainerOptionsController {
         List<Pokemon> allPokemon = pokedexManager.getAllPokemon();
 
         if (allPokemon.isEmpty()) {
-            showAlert("Add Pokémon", "No Pokémon available in the Pokédex.", Alert.AlertType.INFORMATION);
+            showAlert("Add Pokemon", "No Pokemon available in the Pokedex.", Alert.AlertType.INFORMATION);
             return;
         }
 
@@ -567,14 +567,14 @@ public class TrainerOptionsController {
                 .toList();
 
         ChoiceDialog<String> dialog = new ChoiceDialog<>(pokemonNames.get(0), pokemonNames);
-        dialog.setTitle("Add Pokémon");
-        dialog.setHeaderText("Select a Pokémon to add to your team");
-        dialog.setContentText("Choose Pokémon:");
+        dialog.setTitle("Add Pokemon");
+        dialog.setHeaderText("Select a Pokemon to add to your team");
+        dialog.setContentText("Choose Pokemon:");
 
         dialog.showAndWait().ifPresent(pokemonName -> {
             Pokemon original = pokedexManager.getPokemonByName(pokemonName);
             if (original == null) {
-                showAlert("Add Pokémon", "Pokémon not found in Pokédex.", Alert.AlertType.ERROR);
+                showAlert("Add Pokemon", "Pokemon not found in Pokedex.", Alert.AlertType.ERROR);
                 return;
             }
 
@@ -585,21 +585,21 @@ public class TrainerOptionsController {
                     .anyMatch(existing -> existing.getName().equalsIgnoreCase(p.getName()));
 
             if (alreadyInLineup) {
-                showAlert("Add Pokémon", p.getName() + " is already in your lineup.", Alert.AlertType.WARNING);
+                showAlert("Add Pokemon", p.getName() + " is already in your lineup.", Alert.AlertType.WARNING);
                 return;
             }
 
             boolean addedToLineup = selectedTrainer.addPokemon(p);
             if (addedToLineup) {
-                showAlert("Add Pokémon", p.getName() + " was added to your lineup.", Alert.AlertType.INFORMATION);
+                showAlert("Add Pokemon", p.getName() + " was added to your lineup.", Alert.AlertType.INFORMATION);
             } else {
-                showAlert("Add Pokémon", p.getName() + " was added to storage (lineup is full).", Alert.AlertType.INFORMATION);
+                showAlert("Add Pokemon", p.getName() + " was added to storage (lineup is full).", Alert.AlertType.INFORMATION);
             }
         });
     }
 
     /**
-     * Assigns an item from the trainer's inventory to a selected Pokémon as a held item.
+     * Assigns an item from the trainer's inventory to a selected Pokemon as a held item.
      * Replaces any existing held item after confirmation.
      *
      * @param event the button click event triggering this method
@@ -608,15 +608,15 @@ public class TrainerOptionsController {
     private void handleGive(ActionEvent event) {
         List<Pokemon> lineup = selectedTrainer.getLineup();
         if (lineup.isEmpty()) {
-            showAlert("Give Item", "You have no Pokémon in your lineup.", Alert.AlertType.INFORMATION);
+            showAlert("Give Item", "You have no Pokemon in your lineup.", Alert.AlertType.INFORMATION);
             return;
         }
 
         List<String> pokemonNames = lineup.stream().map(Pokemon::getName).toList();
         ChoiceDialog<String> pokeDialog = new ChoiceDialog<>(pokemonNames.get(0), pokemonNames);
         pokeDialog.setTitle("Give Item");
-        pokeDialog.setHeaderText("Select a Pokémon");
-        pokeDialog.setContentText("Choose Pokémon:");
+        pokeDialog.setHeaderText("Select a Pokemon");
+        pokeDialog.setContentText("Choose Pokemon:");
 
         pokeDialog.showAndWait().ifPresent(pokemonName -> {
             Pokemon selectedPokemon = lineup.stream()
@@ -625,7 +625,7 @@ public class TrainerOptionsController {
                     .orElse(null);
 
             if (selectedPokemon == null) {
-                showAlert("Give Item", "Selected Pokémon not found.", Alert.AlertType.ERROR);
+                showAlert("Give Item", "Selected Pokemon not found.", Alert.AlertType.ERROR);
                 return;
             }
 
@@ -679,7 +679,7 @@ public class TrainerOptionsController {
     }
 
     /**
-     * Removes a held item from a selected Pokémon.
+     * Removes a held item from a selected Pokemon.
      * Prompts for confirmation before discarding the item.
      *
      * @param event the button click event triggering this method
@@ -688,15 +688,15 @@ public class TrainerOptionsController {
     private void handleRemove(ActionEvent event) {
         List<Pokemon> lineup = selectedTrainer.getLineup();
         if (lineup.isEmpty()) {
-            showAlert("Remove Held Item", "You have no Pokémon in your lineup.", Alert.AlertType.INFORMATION);
+            showAlert("Remove Held Item", "You have no Pokemon in your lineup.", Alert.AlertType.INFORMATION);
             return;
         }
 
         List<String> pokemonNames = lineup.stream().map(Pokemon::getName).toList();
         ChoiceDialog<String> pokeDialog = new ChoiceDialog<>(pokemonNames.get(0), pokemonNames);
         pokeDialog.setTitle("Remove Held Item");
-        pokeDialog.setHeaderText("Select a Pokémon");
-        pokeDialog.setContentText("Choose Pokémon:");
+        pokeDialog.setHeaderText("Select a Pokemon");
+        pokeDialog.setContentText("Choose Pokemon:");
 
         pokeDialog.showAndWait().ifPresent(pokemonName -> {
             Pokemon selectedPokemon = lineup.stream()
@@ -705,7 +705,7 @@ public class TrainerOptionsController {
                     .orElse(null);
 
             if (selectedPokemon == null) {
-                showAlert("Remove Held Item", "Selected Pokémon not found.", Alert.AlertType.ERROR);
+                showAlert("Remove Held Item", "Selected Pokemon not found.", Alert.AlertType.ERROR);
                 return;
             }
 
@@ -734,7 +734,7 @@ public class TrainerOptionsController {
     }
 
     /**
-     * Switches a Pokémon from the trainer's active lineup with one in storage.
+     * Switches a Pokemon from the trainer's active lineup with one in storage.
      * Requires that both lists are non-empty.
      *
      * @param event the button click event triggering this method
@@ -745,7 +745,7 @@ public class TrainerOptionsController {
         List<Pokemon> storage = selectedTrainer.getStorage();
 
         if (lineup.isEmpty() || storage.isEmpty()) {
-            showAlert("Switch Pokémon", "You need at least one Pokémon in both lineup and storage to switch.", Alert.AlertType.INFORMATION);
+            showAlert("Switch Pokemon", "You need at least one Pokemon in both lineup and storage to switch.", Alert.AlertType.INFORMATION);
             return;
         }
 
@@ -753,9 +753,9 @@ public class TrainerOptionsController {
         List<String> storageNames = storage.stream().map(Pokemon::getName).toList();
 
         ChoiceDialog<String> lineupDialog = new ChoiceDialog<>(lineupNames.get(0), lineupNames);
-        lineupDialog.setTitle("Switch Pokémon");
-        lineupDialog.setHeaderText("Select a Pokémon from the LINEUP");
-        lineupDialog.setContentText("Choose Pokémon:");
+        lineupDialog.setTitle("Switch Pokemon");
+        lineupDialog.setHeaderText("Select a Pokemon from the LINEUP");
+        lineupDialog.setContentText("Choose Pokemon:");
 
         lineupDialog.showAndWait().ifPresent(lineupName -> {
             int lineupIndex = IntStream.range(0, lineup.size())
@@ -764,15 +764,15 @@ public class TrainerOptionsController {
                     .orElse(-1);
 
             if (lineupIndex == -1) {
-                showAlert("Switch Pokémon", "Lineup Pokémon not found.", Alert.AlertType.ERROR);
+                showAlert("Switch Pokemon", "Lineup Pokemon not found.", Alert.AlertType.ERROR);
                 return;
             }
 
-            // Now prompt for storage Pokémon
+            // Now prompt for storage Pokemon
             ChoiceDialog<String> storageDialog = new ChoiceDialog<>(storageNames.get(0), storageNames);
-            storageDialog.setTitle("Switch Pokémon");
-            storageDialog.setHeaderText("Select a Pokémon from the STORAGE");
-            storageDialog.setContentText("Choose Pokémon:");
+            storageDialog.setTitle("Switch Pokemon");
+            storageDialog.setHeaderText("Select a Pokemon from the STORAGE");
+            storageDialog.setContentText("Choose Pokemon:");
 
             storageDialog.showAndWait().ifPresent(storageName -> {
                 int storageIndex = IntStream.range(0, storage.size())
@@ -781,7 +781,7 @@ public class TrainerOptionsController {
                         .orElse(-1);
 
                 if (storageIndex == -1) {
-                    showAlert("Switch Pokémon", "Storage Pokémon not found.", Alert.AlertType.ERROR);
+                    showAlert("Switch Pokemon", "Storage Pokemon not found.", Alert.AlertType.ERROR);
                     return;
                 }
 
@@ -792,8 +792,8 @@ public class TrainerOptionsController {
     }
 
     /**
-     * Allows the trainer to release a Pokémon from either the lineup or storage.
-     * Prompts for confirmation before permanently deleting the Pokémon.
+     * Allows the trainer to release a Pokemon from either the lineup or storage.
+     * Prompts for confirmation before permanently deleting the Pokemon.
      *
      * @param event the button click event triggering this method
      */
@@ -802,7 +802,7 @@ public class TrainerOptionsController {
         List<String> options = List.of("Lineup", "Storage");
 
         ChoiceDialog<String> sourceDialog = new ChoiceDialog<>(options.get(0), options);
-        sourceDialog.setTitle("Release Pokémon");
+        sourceDialog.setTitle("Release Pokemon");
         sourceDialog.setHeaderText("Select a source");
         sourceDialog.setContentText("Release from:");
 
@@ -813,16 +813,16 @@ public class TrainerOptionsController {
         List<Pokemon> targetList = source.equals("Lineup") ? selectedTrainer.getLineup() : selectedTrainer.getStorage();
 
         if (targetList.isEmpty()) {
-            showAlert("Release Pokémon", "There are no Pokémon in your " + source.toLowerCase() + ".", Alert.AlertType.WARNING);
+            showAlert("Release Pokemon", "There are no Pokemon in your " + source.toLowerCase() + ".", Alert.AlertType.WARNING);
             return;
         }
 
         List<String> pokeNames = targetList.stream().map(Pokemon::getName).toList();
 
         ChoiceDialog<String> pokeDialog = new ChoiceDialog<>(pokeNames.get(0), pokeNames);
-        pokeDialog.setTitle("Release Pokémon");
-        pokeDialog.setHeaderText("Select a Pokémon to release from " + source);
-        pokeDialog.setContentText("Choose Pokémon:");
+        pokeDialog.setTitle("Release Pokemon");
+        pokeDialog.setHeaderText("Select a Pokemon to release from " + source);
+        pokeDialog.setContentText("Choose Pokemon:");
 
         Optional<String> selectedPoke = pokeDialog.showAndWait();
         if (selectedPoke.isEmpty()) return;
@@ -853,8 +853,8 @@ public class TrainerOptionsController {
     }
 
     /**
-     * Allows the trainer to teach a move to a selected Pokémon.
-     * If the Pokémon already knows 4 moves, the user will choose one to forget.
+     * Allows the trainer to teach a move to a selected Pokemon.
+     * If the Pokemon already knows 4 moves, the user will choose one to forget.
      *
      * @param event the button click event triggering this method
      */
@@ -862,16 +862,16 @@ public class TrainerOptionsController {
     private void handleTeach(ActionEvent event) {
         List<Pokemon> lineup = selectedTrainer.getLineup();
         if (lineup.isEmpty()) {
-            showAlert("Teach Move", "You have no Pokémon in your lineup.", Alert.AlertType.INFORMATION);
+            showAlert("Teach Move", "You have no Pokemon in your lineup.", Alert.AlertType.INFORMATION);
             return;
         }
 
-        // Step 1: Select Pokémon
+        // Step 1: Select Pokemon
         List<String> pokemonNames = lineup.stream().map(Pokemon::getName).toList();
         ChoiceDialog<String> pokeDialog = new ChoiceDialog<>(pokemonNames.get(0), pokemonNames);
-        pokeDialog.setTitle("Select Pokémon");
-        pokeDialog.setHeaderText("Choose which Pokémon to teach a move to:");
-        pokeDialog.setContentText("Pokémon:");
+        pokeDialog.setTitle("Select Pokemon");
+        pokeDialog.setHeaderText("Choose which Pokemon to teach a move to:");
+        pokeDialog.setContentText("Pokemon:");
 
         Optional<String> selectedPoke = pokeDialog.showAndWait();
         if (selectedPoke.isEmpty()) return;

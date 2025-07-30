@@ -1,7 +1,7 @@
 /**
- * Represents a move that a Pokémon can learn in the Pokédex system.
+ * Represents a move that a Pokemon can learn in the Pokedex system.
  * Each move has a name, description, classification (e.g., HM, TM), and one or two types.
- * Used in teaching Pokémon new abilities and displaying move data.
+ * Used in teaching Pokemon new abilities and displaying move data.
  *
  * Authors: Kirsten Palomo, Erylle Galinato
  */

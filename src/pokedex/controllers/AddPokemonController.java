@@ -1,8 +1,8 @@
 /**
- * Controller for the "Add Pokémon" screen in the Pokédex GUI.
- * Allows users to input Pokémon details, validates all fields, and adds a new Pokémon to the Pokédex.
+ * Controller for the "Add Pokemon" screen in the Pokedex GUI.
+ * Allows users to input Pokemon details, validates all fields, and adds a new Pokemon to the Pokedex.
  * Handles user confirmation, duplicate checking, evolution input, and optional cry message.
- * Returns to the Pokémon menu after a successful addition.
+ * Returns to the Pokemon menu after a successful addition.
  *
  * Authors: Kirsten Palomo, Erylle Galinato
  */
@@ -39,7 +39,7 @@ public class AddPokemonController {
     @FXML private ComboBox<String> type1ComboBox;
     @FXML private ComboBox<String> type2ComboBox;
 
-    // List of valid Pokémon types
+    // List of valid Pokemon types
     private final List<String> pokemonTypes = List.of(
             "Normal", "Fire", "Water", "Grass", "Electric", "Ice", "Fighting", "Poison",
             "Ground", "Flying", "Psychic", "Bug", "Rock", "Ghost", "Dragon", "Dark",
@@ -64,7 +64,7 @@ public class AddPokemonController {
     }
 
     /**
-     * Initializes the ComboBoxes with Pokémon types and default selections.
+     * Initializes the ComboBoxes with Pokemon types and default selections.
      */
     @FXML
     public void initialize() {
@@ -75,8 +75,8 @@ public class AddPokemonController {
     }
 
     /**
-     * Handles the "Add Pokémon" button click event.
-     * Validates input, confirms action, checks for duplicates, creates Pokémon, and adds to the Pokédex.
+     * Handles the "Add Pokemon" button click event.
+     * Validates input, confirms action, checks for duplicates, creates Pokemon, and adds to the Pokedex.
      *
      * @param event The button click event
      */
@@ -123,19 +123,19 @@ public class AddPokemonController {
 
             //check for duplicates
             if (pokedexManager.hasPokemonWithNumber(number)) {
-                showAlert(Alert.AlertType.ERROR, "Duplicate Pokedex Number", "A Pokémon with this Pokedex number already exists.");
+                showAlert(Alert.AlertType.ERROR, "Duplicate Pokedex Number", "A Pokemon with this Pokedex number already exists.");
                 return;
             }
 
             if (pokedexManager.hasPokemonWithName(name)) {
-                showAlert(Alert.AlertType.ERROR, "Duplicate Name", "A Pokémon with this name already exists.");
+                showAlert(Alert.AlertType.ERROR, "Duplicate Name", "A Pokemon with this name already exists.");
                 return;
             }
 
             // Confirm add
             Alert confirmAlert = new Alert(Alert.AlertType.CONFIRMATION);
-            confirmAlert.setTitle("Confirm Pokémon Add");
-            confirmAlert.setHeaderText("Are you sure you want to add this Pokémon?");
+            confirmAlert.setTitle("Confirm Pokemon Add");
+            confirmAlert.setHeaderText("Are you sure you want to add this Pokemon?");
             confirmAlert.setContentText("Name: " + name + "\nType: " + type1 + (type2 != null ? "/" + type2 : ""));
             confirmAlert.getButtonTypes().setAll(ButtonType.YES, ButtonType.NO);
             confirmAlert.showAndWait();
@@ -164,7 +164,7 @@ public class AddPokemonController {
             cryAlert.showAndWait();
 
             if (cryAlert.getResult() == ButtonType.YES) {
-                showAlert(Alert.AlertType.INFORMATION, "Pokémon Cries", name.toUpperCase() + "!");
+                showAlert(Alert.AlertType.INFORMATION, "Pokemon Cries", name.toUpperCase() + "!");
             }
 
             goBackToMenu(event);
@@ -178,7 +178,7 @@ public class AddPokemonController {
     }
 
     /**
-     * Returns the user to the Pokémon Menu screen.
+     * Returns the user to the Pokemon Menu screen.
      *
      * @param event The action event triggering the navigation
      * @throws IOException If the FXML cannot be loaded
@@ -195,7 +195,7 @@ public class AddPokemonController {
     }
 
     /**
-     * Clears all fields in the Add Pokémon form.
+     * Clears all fields in the Add Pokemon form.
      */
     private void clearFields() {
         nameField.clear();

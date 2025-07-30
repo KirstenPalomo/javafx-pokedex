@@ -1,11 +1,11 @@
 /**
- * This class represents a Pokémon Trainer in the Pokédex system.
- * Trainers have personal profiles, a lineup and storage for Pokémon,
+ * This class represents a Pokemon Trainer in the Pokedex system.
+ * Trainers have personal profiles, a lineup and storage for Pokemon,
  * an inventory system for items, and methods to interact with both.
  *
- * Core functionality includes buying/selling items, using items on Pokémon,
- * teaching and forgetting moves, managing Pokémon lineup/storage,
- * and triggering Pokémon evolutions through level-up or stones.
+ * Core functionality includes buying/selling items, using items on Pokemon,
+ * teaching and forgetting moves, managing Pokemon lineup/storage,
+ * and triggering Pokemon evolutions through level-up or stones.
  *
  * Authors: Kirsten Palomo, Erylle Galinato
  */
@@ -25,7 +25,7 @@ import java.time.LocalDate;
 import java.util.*;
 
 /**
- * Represents a Pokémon Trainer with profile info, lineup, storage,
+ * Represents a Pokemon Trainer with profile info, lineup, storage,
  * item bag, and interactive methods for gameplay mechanics.
  */
 public class Trainer implements Serializable {
@@ -42,7 +42,7 @@ public class Trainer implements Serializable {
     // ── Funds ────────────────────────────────────────────────────────────────
     private int money;
 
-    // ── Pokémon ─────────────────────────────────────────────────────────────
+    // ── Pokemon ─────────────────────────────────────────────────────────────
     private final List<Pokemon> lineup;   // up to 6
     private final List<Pokemon> storage;
 
@@ -155,10 +155,10 @@ public class Trainer implements Serializable {
     /** @return current amount of money the trainer has */
     public int getMoney()           { return money; }
 
-    /** @return the trainer’s current Pokémon lineup (read-only) */
+    /** @return the trainer’s current Pokemon lineup (read-only) */
     public List<Pokemon> getLineup()  { return Collections.unmodifiableList(lineup); }
 
-    /** @return the trainer’s storage Pokémon list (read-only) */
+    /** @return the trainer’s storage Pokemon list (read-only) */
     public List<Pokemon> getStorage() { return Collections.unmodifiableList(storage); }
 
     /** @return the trainer’s item bag map (modifiable) */
@@ -288,18 +288,18 @@ public class Trainer implements Serializable {
                 total, itemBag.size());
     }
 
-    // ── Core Pokémon Logic ──────────────────────────────────────────────────
+    // ── Core Pokemon Logic ──────────────────────────────────────────────────
 
     /**
-     * Adds a Pokémon to the trainer's lineup if there is space (max 6),
+     * Adds a Pokemon to the trainer's lineup if there is space (max 6),
      * otherwise adds it to the storage.
      * Prevents duplicates in the lineup.
      *
-     * @param p the Pokémon to add
+     * @param p the Pokemon to add
      * @return true if added to lineup, false if added to storage
      */
     public boolean addPokemon(Pokemon p) {
-        // Prevent duplicate Pokémon in lineup by name
+        // Prevent duplicate Pokemon in lineup by name
         for (Pokemon existing : lineup) {
             if (existing.getName().equalsIgnoreCase(p.getName())) {
                 System.out.println("⚠️ " + p.getName() + " is already in the lineup.");
@@ -317,10 +317,10 @@ public class Trainer implements Serializable {
     }
 
     /**
-     * Switches a Pokémon between the lineup and storage based on index.
+     * Switches a Pokemon between the lineup and storage based on index.
      *
-     * @param li index of Pokémon in lineup
-     * @param si index of Pokémon in storage
+     * @param li index of Pokemon in lineup
+     * @param si index of Pokemon in storage
      */
     public void switchPokemon(int li, int si) {
         if (li < 0 || li >= lineup.size() || si < 0 || si >= storage.size()) {
@@ -330,25 +330,25 @@ public class Trainer implements Serializable {
         Pokemon temp = lineup.get(li);
         lineup.set(li, storage.get(si));
         storage.set(si, temp);
-        System.out.println("✅ Pokémon switched.");
+        System.out.println("✅ Pokemon switched.");
     }
 
     /**
-     * Releases a Pokémon by name from either lineup or storage.
+     * Releases a Pokemon by name from either lineup or storage.
      *
-     * @param pokeName name of the Pokémon to release
+     * @param pokeName name of the Pokemon to release
      */
     public void releasePokemon(String pokeName) {
         boolean removed = lineup.removeIf(p -> p.getName().equalsIgnoreCase(pokeName));
         if (!removed) removed = storage.removeIf(p -> p.getName().equalsIgnoreCase(pokeName));
-        System.out.println(removed ? "✅ Released " + pokeName : "⚠️ Pokémon not found.");
+        System.out.println(removed ? "✅ Released " + pokeName : "⚠️ Pokemon not found.");
     }
 
     /**
-     * Attempts to teach a move to the target Pokémon.
+     * Attempts to teach a move to the target Pokemon.
      * Checks for compatibility and move limit (max 4), and supports HM restriction.
      *
-     * @param target the Pokémon to learn the move
+     * @param target the Pokemon to learn the move
      * @param move the move to teach
      * @param moveManager the MoveManager instance used for lookup
      * @return result message (e.g., success, already knows, not compatible, or needs to forget)
@@ -389,7 +389,7 @@ public class Trainer implements Serializable {
      * Replaces a TM move with a new move.
      * Does not allow HMs to be forgotten.
      *
-     * @param target the Pokémon to modify
+     * @param target the Pokemon to modify
      * @param forgetMove the move to be forgotten
      * @param newMove the new move to learn
      * @param moveManager reference to MoveManager for move classification check
@@ -520,7 +520,7 @@ public class Trainer implements Serializable {
 
 
     /**
-     * Prompts the user to choose an item and apply it to a selected Pokémon.
+     * Prompts the user to choose an item and apply it to a selected Pokemon.
      *
      * @param sc Scanner for user input
      * @param pokedexManager reference to PokedexManager for evolution logic
@@ -550,7 +550,7 @@ public class Trainer implements Serializable {
         }
 
         if (lineup.isEmpty()) {
-            System.out.println("⚠️ No Pokémon in your lineup to use this item on.");
+            System.out.println("⚠️ No Pokemon in your lineup to use this item on.");
             return;
         }
 
@@ -564,8 +564,8 @@ public class Trainer implements Serializable {
     }
 
     /**
-     * Prompts the user to give an item to a Pokémon.
-     * If the Pokémon is already holding something, it is replaced.
+     * Prompts the user to give an item to a Pokemon.
+     * If the Pokemon is already holding something, it is replaced.
      *
      * @param sc Scanner for user input
      * @param im ItemManager to fetch item by name
@@ -584,7 +584,7 @@ public class Trainer implements Serializable {
             return;
         }
 
-        // If Pokémon already holds something, discard it
+        // If Pokemon already holds something, discard it
         if (p.getHeldItem() != null) {
             System.out.println("⚠️ " + p.getName() + " is currently holding: " + p.getHeldItem().getName());
             System.out.print("Giving a new item will discard the current one. Proceed? (Y/N): ");
@@ -604,7 +604,7 @@ public class Trainer implements Serializable {
     }
 
     /**
-     * Prompts the user to remove a held item from a Pokémon.
+     * Prompts the user to remove a held item from a Pokemon.
      * The item is discarded after removal.
      *
      * @param sc Scanner for user input
@@ -633,16 +633,16 @@ public class Trainer implements Serializable {
 
 
     /**
-     * Prompts for a Pokémon name and adds it to lineup or storage.
+     * Prompts for a Pokemon name and adds it to lineup or storage.
      *
      * @param sc Scanner for user input
-     * @param pm PokedexManager for retrieving Pokémon by name
+     * @param pm PokedexManager for retrieving Pokemon by name
      */
     public void addToLineup(Scanner sc, PokedexManager pm) {
-        System.out.print("Pokémon to add: ");
+        System.out.print("Pokemon to add: ");
         Pokemon p = pm.getPokemonByName(sc.nextLine().trim());
         if (p==null) {
-            System.out.println("⚠️ Not in Pokédex.");
+            System.out.println("⚠️ Not in Pokedex.");
             return;
         }
         System.out.println(addPokemon(p)
@@ -651,7 +651,7 @@ public class Trainer implements Serializable {
     }
 
     /**
-     * Prompts user to switch a Pokémon from lineup to storage and vice versa.
+     * Prompts user to switch a Pokemon from lineup to storage and vice versa.
      *
      * @param sc Scanner for user input
      */
@@ -684,7 +684,7 @@ public class Trainer implements Serializable {
 
 
     /**
-     * Wrapper for prompting the user to select a Pokémon to release.
+     * Wrapper for prompting the user to select a Pokemon to release.
      *
      * @param sc Scanner for user input
      */
@@ -698,7 +698,7 @@ public class Trainer implements Serializable {
     }
 
     /**
-     * Prompts for a Pokémon and move, checks compatibility and move limit,
+     * Prompts for a Pokemon and move, checks compatibility and move limit,
      * and handles forgetting moves if needed.
      *
      * @param sc Scanner for user input
@@ -763,14 +763,14 @@ public class Trainer implements Serializable {
 
 
     /**
-     * Prompts the user to choose a Pokémon from lineup or storage.
+     * Prompts the user to choose a Pokemon from lineup or storage.
      *
      * @param sc Scanner for input
-     * @return selected Pokémon or null if cancelled/invalid
+     * @return selected Pokemon or null if cancelled/invalid
      */
     private Pokemon choosePokemon(Scanner sc) {
         List<Pokemon> all = new ArrayList<>();
-        System.out.println("Select a Pokémon:");
+        System.out.println("Select a Pokemon:");
         for (Pokemon p : lineup) {
             all.add(p);
             System.out.printf("%d. %s (Lineup)%n", all.size(), p.getName());
@@ -790,12 +790,12 @@ public class Trainer implements Serializable {
     }
 
     /**
-     * Applies the effect of an item (e.g., Rare Candy, Vitamin, Evolution Stone) on a Pokémon.
+     * Applies the effect of an item (e.g., Rare Candy, Vitamin, Evolution Stone) on a Pokemon.
      * Determines the item category and delegates to the correct helper method.
      *
      * @param item the item to use
-     * @param target the Pokémon to use the item on
-     * @param pokedexManager reference for evolution rules and Pokédex data
+     * @param target the Pokemon to use the item on
+     * @param pokedexManager reference for evolution rules and Pokedex data
      * @param scanner used for any additional input (unused)
      */
     public void useItem(Item item, Pokemon target, PokedexManager pokedexManager, Scanner scanner) {
@@ -824,10 +824,10 @@ public class Trainer implements Serializable {
     }
 
     /**
-     * Uses the Pokémon's held item (if any) and applies its effect.
+     * Uses the Pokemon's held item (if any) and applies its effect.
      * Held item is removed after use.
      *
-     * @param target the Pokémon using its held item
+     * @param target the Pokemon using its held item
      * @param pokedexManager reference for evolution rules
      * @return status message (e.g., effect applied or no effect)
      */
@@ -851,11 +851,11 @@ public class Trainer implements Serializable {
     }
 
     /**
-     * Applies the effect of a vitamin or feather to a Pokémon.
+     * Applies the effect of a vitamin or feather to a Pokemon.
      * Boosts the corresponding stat by +10 (vitamin) or +1 (feather).
      *
      * @param item the item used
-     * @param target the Pokémon receiving the stat boost
+     * @param target the Pokemon receiving the stat boost
      */
     public void applyVitaminEffect(Item item, Pokemon target) {
         String effect = item.getEffects().toLowerCase();
@@ -875,10 +875,10 @@ public class Trainer implements Serializable {
     }
 
     /**
-     * Applies the effect of a Rare Candy to level up a Pokémon by 1.
-     * Increases all stats by 10% and checks if the Pokémon can evolve.
+     * Applies the effect of a Rare Candy to level up a Pokemon by 1.
+     * Increases all stats by 10% and checks if the Pokemon can evolve.
      *
-     * @param target the Pokémon to level up
+     * @param target the Pokemon to level up
      * @param pokedexManager reference for evolution data
      * @return evolution-ready message with updated stats
      */
@@ -917,19 +917,19 @@ public class Trainer implements Serializable {
     }
 
     /**
-     * Evolves a Pokémon using the specified evolution stone,
+     * Evolves a Pokemon using the specified evolution stone,
      * if the stone is valid and the evolution is allowed.
-     * Updates all applicable Pokémon properties.
+     * Updates all applicable Pokemon properties.
      *
      * @param item the evolution stone being used
-     * @param target the Pokémon to evolve
+     * @param target the Pokemon to evolve
      * @param pokedexManager reference for allowed evolutions and evolution result
      */
     private void applyEvolutionStoneEffect(Item item, Pokemon target, PokedexManager pokedexManager) {
         String stoneUsed = item.getName(); // e.g., "Fire Stone", "Water Stone"
         String targetNameLower = target.getName().toLowerCase();
 
-        // Check if Pokémon is allowed to evolve via stone
+        // Check if Pokemon is allowed to evolve via stone
         if (!pokedexManager.getAllowedStoneEvolutionNames().contains(targetNameLower)) {
             System.out.println("⚠️ " + target.getName() + " cannot evolve using an evolution stone.");
             return;
@@ -951,7 +951,7 @@ public class Trainer implements Serializable {
         // Retrieve evolved form
         Pokemon evolvedForm = pokedexManager.getPokemonByNumber(evolvesTo);
         if (evolvedForm == null) {
-            System.out.println("⚠️ Evolution data not found in Pokédex.");
+            System.out.println("⚠️ Evolution data not found in Pokedex.");
             return;
         }
 
@@ -977,7 +977,7 @@ public class Trainer implements Serializable {
     /**
      * Displays all profile information for the trainer, including:
      * - Personal details
-     * - Pokémon in lineup and storage
+     * - Pokemon in lineup and storage
      * - Items held
      */
     public void displayProfile() {
@@ -997,7 +997,7 @@ public class Trainer implements Serializable {
             }
         }
 
-        System.out.println("\n--- Storage (" + storage.size() + " Pokémon) ---");
+        System.out.println("\n--- Storage (" + storage.size() + " Pokemon) ---");
         if (storage.isEmpty()) {
             System.out.println("  (None)");
         } else {

@@ -1,5 +1,5 @@
 /**
- * This displays all Pokémon items in a table format in the Enhanced Pokédex system.
+ * This displays all Pokemon items in a table format in the Enhanced Pokedex system.
  * Items are shown with tooltips for easier readability. Columns include name, category, description,
  * effects, buy price, and sell price. Allows users to return to the Item Menu.
  *
@@ -34,7 +34,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 /**
- * Controller for displaying all Pokémon items in a table.
+ * Controller for displaying all Pokemon items in a table.
  * Each item is shown with its name, category, description, effect, and prices.
  * Tooltips are applied to help users view full text on hover.
  * Provides a back button to return to the Item Menu screen.
@@ -57,7 +57,7 @@ public class ViewItemController implements Initializable {
     /**
      * Constructs the controller with required manager dependencies.
      *
-     * @param pokedexManager the Pokédex manager
+     * @param pokedexManager the Pokedex manager
      * @param moveManager the move manager
      * @param itemManager the item manager
      * @param trainerManager the trainer manager

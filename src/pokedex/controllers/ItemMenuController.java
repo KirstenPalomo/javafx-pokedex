@@ -1,5 +1,5 @@
 /**
- * This manages the Item Menu screen in the Enhanced Pokédex system.
+ * This manages the Item Menu screen in the Enhanced Pokedex system.
  * Supports viewing all items, searching, adding new items via a dialog,
  * and returning to the main menu. This controller interacts with the ItemManager and
  * persists updates via the JsonManager.
@@ -32,7 +32,7 @@ import java.io.IOException;
 /**
  * Controller for the Item Menu screen.
  * Allows users to view, search, and add items, or return to the main menu.
- * Part of the Enhanced Pokédex project (JavaFX GUI).
+ * Part of the Enhanced Pokedex project (JavaFX GUI).
  */
 public class ItemMenuController {
 
@@ -44,7 +44,7 @@ public class ItemMenuController {
     /**
      * Constructs the controller with access to all required managers.
      *
-     * @param pokedexManager   handles access to Pokémon data
+     * @param pokedexManager   handles access to Pokemon data
      * @param moveManager      handles TM/HM data and logic
      * @param itemManager      manages items, including inventory and search
      * @param trainerManager   manages trainer data and interaction

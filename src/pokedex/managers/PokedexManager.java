@@ -1,10 +1,10 @@
 /**
- * Handles storage, retrieval, and searching of Pokémon objects in the Pokédex system.
+ * Handles storage, retrieval, and searching of Pokemon objects in the Pokedex system.
  * Implements the singleton pattern to ensure a single shared instance.
- * Provides methods for adding new Pokémon, searching by name/type/number,
+ * Provides methods for adding new Pokemon, searching by name/type/number,
  * and determining evolution logic such as valid stone evolutions.
  *
- * Used by both CLI and GUI components to access and manage the Pokédex data.
+ * Used by both CLI and GUI components to access and manage the Pokedex data.
  *
  * Authors: Kirsten Palomo, Erylle Galinato
  */
@@ -22,7 +22,7 @@ public class PokedexManager {
     private static PokedexManager instance;
 
     /**
-     * Private constructor. Loads Pokémon from JSON file or initializes an empty list.
+     * Private constructor. Loads Pokemon from JSON file or initializes an empty list.
      */
     private PokedexManager() {
         pokedex = JsonManager.loadPokemons(); // load from file
@@ -46,13 +46,13 @@ public class PokedexManager {
     // Internal list of pokemon
     private List<Pokemon> pokedex = new ArrayList<>();
 
-    // Allowed Pokémon names for stone-based evolution
+    // Allowed Pokemon names for stone-based evolution
     private static final List<String> ALLOWED_STONE_EVOLUTION_NAMES = List.of(
             "pikachu", "vulpix", "growlithe", "togetic", "eevee"
     );
 
     /**
-     * Returns a list of Pokémon names that are allowed to evolve via stones.
+     * Returns a list of Pokemon names that are allowed to evolve via stones.
      *
      * @return List of names
      */
@@ -61,11 +61,11 @@ public class PokedexManager {
     }
 
     /**
-     * Checks if the stone used is correct for evolving the given Pokémon.
+     * Checks if the stone used is correct for evolving the given Pokemon.
      *
-     * @param pokemonName Name of the Pokémon
+     * @param pokemonName Name of the Pokemon
      * @param stoneUsed Name of the stone
-     * @return True if the stone can evolve the Pokémon, false otherwise
+     * @return True if the stone can evolve the Pokemon, false otherwise
      */
     public boolean isCorrectStoneForEvolution(String pokemonName, String stoneUsed) {
         String name = pokemonName.toLowerCase();
@@ -83,9 +83,9 @@ public class PokedexManager {
 
 
     /**
-     * Adds a Pokémon to the Pokédex if no duplicate by name or number exists.
+     * Adds a Pokemon to the Pokedex if no duplicate by name or number exists.
      *
-     * @param p Pokémon to add
+     * @param p Pokemon to add
      * @return True if added successfully, false if duplicate
      */
     public boolean addPokemon(Pokemon p) {
@@ -100,7 +100,7 @@ public class PokedexManager {
     }
 
     /**
-     * Prints all Pokémon in the Pokédex to the console.
+     * Prints all Pokemon in the Pokedex to the console.
      * Displays a message if the list is empty.
      */
     public void viewAll() {
@@ -114,10 +114,10 @@ public class PokedexManager {
     }
 
     /**
-     * Searches for Pokémon by name (case-insensitive, partial match).
+     * Searches for Pokemon by name (case-insensitive, partial match).
      *
      * @param name Name or keyword
-     * @return List of matching Pokémon
+     * @return List of matching Pokemon
      */
     public List<Pokemon> searchByName(String name) {
         List<Pokemon> found = new ArrayList<>();
@@ -132,10 +132,10 @@ public class PokedexManager {
     }
 
     /**
-     * Searches for Pokémon by type (matches type1 or type2).
+     * Searches for Pokemon by type (matches type1 or type2).
      *
      * @param type Type to search (e.g., Fire, Water)
-     * @return List of matching Pokémon
+     * @return List of matching Pokemon
      */
     public List<Pokemon> searchByType(String type) {
         List<Pokemon> found = new ArrayList<>();
@@ -151,10 +151,10 @@ public class PokedexManager {
     }
 
     /**
-     * Returns a Pokémon based on its Pokédex number.
+     * Returns a Pokemon based on its Pokedex number.
      *
-     * @param number Pokédex number
-     * @return Pokémon if found, null otherwise
+     * @param number Pokedex number
+     * @return Pokemon if found, null otherwise
      */
     public Pokemon getByPokedexNumber(int number) {
         for (Pokemon p : pokedex) {
@@ -166,24 +166,24 @@ public class PokedexManager {
     }
 
     /**
-     * Searches and prints a Pokémon by number. Used for CLI display.
+     * Searches and prints a Pokemon by number. Used for CLI display.
      *
-     * @param number Pokédex number
+     * @param number Pokedex number
      */
     public void searchByNumber(int number) {
         for (Pokemon p : pokedex) {
             if (p.getPokedexNumber() == number) {
-                System.out.println("Pokémon found:\n\n" + p);
+                System.out.println("Pokemon found:\n\n" + p);
                 return;
             }
         }
-        System.out.println("No Pokémon found with Pokédex #" + number);
+        System.out.println("No Pokemon found with Pokedex #" + number);
     }
 
     /**
-     * Checks if a Pokémon with the given Pokédex number exists.
+     * Checks if a Pokemon with the given Pokedex number exists.
      *
-     * @param number Pokédex number
+     * @param number Pokedex number
      * @return True if exists, false otherwise
      */
     public boolean hasPokemonWithNumber(int number) {
@@ -196,10 +196,10 @@ public class PokedexManager {
     }
 
     /**
-     * Retrieves a Pokémon by its Pokédex number.
+     * Retrieves a Pokemon by its Pokedex number.
      *
-     * @param number Pokédex number
-     * @return Pokémon object or null
+     * @param number Pokedex number
+     * @return Pokemon object or null
      */
     public Pokemon getPokemonByNumber(int number) {
         for (Pokemon p : pokedex) {
@@ -211,9 +211,9 @@ public class PokedexManager {
     }
 
     /**
-     * Checks if a Pokémon with the given name exists (case-insensitive).
+     * Checks if a Pokemon with the given name exists (case-insensitive).
      *
-     * @param name Pokémon name
+     * @param name Pokemon name
      * @return True if found, false otherwise
      */
     public boolean hasPokemonWithName(String name) {
@@ -226,10 +226,10 @@ public class PokedexManager {
     }
 
     /**
-     * Retrieves a Pokémon object by its name (case-insensitive).
+     * Retrieves a Pokemon object by its name (case-insensitive).
      *
-     * @param name Name of the Pokémon
-     * @return Pokémon object or null
+     * @param name Name of the Pokemon
+     * @return Pokemon object or null
      */
     public Pokemon getPokemonByName(String name) {
         for (Pokemon p : pokedex) {
@@ -241,9 +241,9 @@ public class PokedexManager {
     }
 
     /**
-     * Replaces the current Pokédex list with a new list (used during loading).
+     * Replaces the current Pokedex list with a new list (used during loading).
      *
-     * @param loaded List of Pokémon to load
+     * @param loaded List of Pokemon to load
      */
     public void setAllPokemon(List<Pokemon> loaded) {
         pokedex.clear();
@@ -251,9 +251,9 @@ public class PokedexManager {
     }
 
     /**
-     * Returns a deduplicated list of all Pokémon in the Pokédex.
+     * Returns a deduplicated list of all Pokemon in the Pokedex.
      *
-     * @return List of unique Pokémon
+     * @return List of unique Pokemon
      */
     public List<Pokemon> getAllPokemon() {
         List<Pokemon> uniqueList = new ArrayList<>();

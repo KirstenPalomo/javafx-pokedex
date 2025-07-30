@@ -1,5 +1,5 @@
 /**
- * This displays and manages all Trainers in the Enhanced Pokédex system.
+ * This displays and manages all Trainers in the Enhanced Pokedex system.
  * Users can select a trainer from a list to view their details or proceed to manage that trainer.
  * Also includes navigation back to the Trainer Menu screen.
  *
@@ -52,7 +52,7 @@ public class ViewTrainerController {
     /**
      * Constructs the controller with manager dependencies.
      *
-     * @param pokedexManager  the Pokédex manager
+     * @param pokedexManager  the Pokedex manager
      * @param moveManager     the move manager
      * @param itemManager     the item manager
      * @param trainerManager  the trainer manager

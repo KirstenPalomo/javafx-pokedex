@@ -551,21 +551,5 @@
       "Tackle",
       "Defend"
     ]
-  },
-  {
-    "pokedexNumber": 456,
-    "name": "Sophia",
-    "type1": "Fairy",
-    "type2": "Water",
-    "baseLevel": 10,
-    "evolutionLevel": 11,
-    "hp": 100,
-    "attack": 100,
-    "defense": 100,
-    "speed": 100,
-    "moveSet": [
-      "Tackle",
-      "Defend"
-    ]
   }
 ]

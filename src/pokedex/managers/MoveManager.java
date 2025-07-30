@@ -1,9 +1,9 @@
 /**
- * Handles storage, retrieval, and searching of Move objects in the Pokédex system.
+ * Handles storage, retrieval, and searching of Move objects in the Pokedex system.
  * Implements the singleton pattern to ensure a single shared instance across the application.
  * Provides methods to add moves, view all, search by various attributes, and retrieve specific moves.
  *
- * Used by controllers and models to manage move-related functionality such as teaching Pokémon new moves.
+ * Used by controllers and models to manage move-related functionality such as teaching Pokemon new moves.
  *
  * Authors: Kirsten Palomo, Erylle Galinato
  */

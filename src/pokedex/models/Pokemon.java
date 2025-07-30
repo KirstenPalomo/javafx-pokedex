@@ -1,6 +1,6 @@
 /**
- * Represents a Pokémon in the Pokédex system.
- * Each Pokémon has a Pokédex number, name, types, stats, evolution details, moveset, and an optional held item.
+ * Represents a Pokemon in the Pokedex system.
+ * Each Pokemon has a Pokedex number, name, types, stats, evolution details, moveset, and an optional held item.
  * This class supports logic for move management, stat modification, cloning, and profile generation.
  * Used  in trainer lineups, storage, and battle-related operations.
  * Authors: Kirsten Palomo, Erylle Galinato
@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Pokemon {
-    // Core Pokémon attributes
+    // Core Pokemon attributes
     private int pokedexNumber;
     private String name;
     private String type1;
@@ -36,24 +36,24 @@ public class Pokemon {
     private Item heldItem;
 
     /**
-     * Constructs a new Pokémon with the given attributes.
+     * Constructs a new Pokemon with the given attributes.
      * Default moves "Tackle" and "Defend" are always added.
      * Extra moves are added only if space is available (max of 4 total).
      *
-     * @param pokedexNumber Pokédex number of the Pokémon
-     * @param name Name of the Pokémon
+     * @param pokedexNumber Pokedex number of the Pokemon
+     * @param name Name of the Pokemon
      * @param type1 Primary type
      * @param type2 Secondary type (can be null)
-     * @param baseLevel Base level of the Pokémon
-     * @param evolvesFrom Pokédex number of pre-evolution
-     * @param evolvesTo Pokédex number of evolved form
+     * @param baseLevel Base level of the Pokemon
+     * @param evolvesFrom Pokedex number of pre-evolution
+     * @param evolvesTo Pokedex number of evolved form
      * @param evolutionLevel Level at which it evolves
      * @param hp Base HP stat
      * @param attack Base Attack stat
      * @param defense Base Defense stat
      * @param speed Base Speed stat
      * @param extraMoves List of additional move names (optional)
-     * @param heldItem Item currently held by this Pokémon (can be null)
+     * @param heldItem Item currently held by this Pokemon (can be null)
      */
     public Pokemon(int pokedexNumber, String name, String type1, String type2, int baseLevel,
                    Integer evolvesFrom, Integer evolvesTo, Integer evolutionLevel, int hp, int attack,
@@ -252,7 +252,7 @@ public class Pokemon {
     }
 
     /**
-     * Returns a formatted brief profile string for this Pokémon.
+     * Returns a formatted brief profile string for this Pokemon.
      *
      * @return Brief description including type, moves, and held item
      */
@@ -266,10 +266,10 @@ public class Pokemon {
     }
 
     /**
-     * Checks if two Pokémon are equal based on Pokédex number.
+     * Checks if two Pokemon are equal based on Pokedex number.
      *
      * @param o Other object
-     * @return True if same Pokédex number, false otherwise
+     * @return True if same Pokedex number, false otherwise
      */
     @Override
     public boolean equals(Object o) {
@@ -291,7 +291,7 @@ public class Pokemon {
         return String.format("#%03d – %s", pokedexNumber, name);
     }
 
-    // ✅ CLONE METHOD
+    // CLONE METHOD
     /**
      * Creates and returns a deep copy of the Pokemon.
      * Note: The held item is not deep-copied, only its reference is reused.
