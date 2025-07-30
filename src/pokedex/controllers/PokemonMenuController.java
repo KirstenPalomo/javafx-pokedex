@@ -1,10 +1,4 @@
-/**
- * Controller for the Pokemon Menu screen in the Pokedex GUI.
- * Handles navigation to Add Pokemon, View All Pokemon, Search Pokemon, and back to the Main Menu.
- * Uses FXML loaders with custom controller injection to maintain manager references across scenes.
- *
- * Authors: Kirsten Palomo, Erylle Galinato
- */
+
 package pokedex.controllers;
 
 import javafx.fxml.FXML;
@@ -22,6 +16,13 @@ import pokedex.managers.TrainerManager;
 import java.io.IOException;
 import java.util.Objects;
 
+/**
+ * This controls the Pokemon Menu screen in the Pokedex GUI.
+ * Handles navigation to Add Pokemon, View All Pokemon, Search Pokemon, and back to the Main Menu.
+ * Uses FXML loaders with custom controller injection to maintain manager references across scenes.
+ *
+ * Authors: Kirsten Palomo, Erylle Galinato
+ */
 public class PokemonMenuController {
 
     private final PokedexManager pokedexManager;

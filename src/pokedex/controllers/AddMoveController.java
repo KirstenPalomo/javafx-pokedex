@@ -1,10 +1,4 @@
-/**
- * Controller for the "Add Move" screen in the Pokedex GUI.
- * Handles user input for creating a new move, validating fields, and updating the MoveManager.
- * Includes logic for preventing duplicates, handling type selections, and navigating back to the move menu.
- *
- * Authors: Kirsten Palomo, Erylle Galinato
- */
+
 
 package pokedex.controllers;
 
@@ -22,7 +16,13 @@ import pokedex.managers.ItemManager;
 import pokedex.managers.TrainerManager;
 
 import java.util.List;
-
+/**
+ * Controller for the "Add Move" screen in the Pokedex GUI.
+ * Handles user input for creating a new move, validating fields, and updating the MoveManager.
+ * Includes logic for preventing duplicates, handling type selections, and navigating back to the move menu.
+ *
+ * Authors: Kirsten Palomo, Erylle Galinato
+ */
 public class AddMoveController {
 
     @FXML private TextField nameField;

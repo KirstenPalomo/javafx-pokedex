@@ -1,10 +1,4 @@
-/**
- * Controller for the "Search Move" screen in the Pokedex GUI.
- * Allows users to search for moves by keyword (name, description, type, or classification).
- * Displays results in an alert dialog and provides an option to return to the Move Menu.
- *
- * Authors: Kirsten Palomo, Erylle Galinato
- */
+
 
 package pokedex.controllers;
 
@@ -29,7 +23,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-
+/**
+ * Controller for the "Search Move" screen in the Pokedex GUI.
+ * Allows users to search for moves by keyword (name, description, type, or classification).
+ * Displays results in an alert dialog and provides an option to return to the Move Menu.
+ *
+ * Authors: Kirsten Palomo, Erylle Galinato
+ */
 public class SearchMoveController {
 
     @FXML private TextField keywordField;

@@ -1,3 +1,5 @@
+
+package pokedex.models;
 /**
  * Represents a move that a Pokemon can learn in the Pokedex system.
  * Each move has a name, description, classification (e.g., HM, TM), and one or two types.
@@ -5,8 +7,6 @@
  *
  * Authors: Kirsten Palomo, Erylle Galinato
  */
-package pokedex.models;
-
 public class Move {
     private String name;
     private String description;

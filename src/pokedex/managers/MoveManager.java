@@ -1,3 +1,9 @@
+
+package pokedex.managers;
+
+import pokedex.models.Move;
+import java.util.ArrayList;
+import java.util.List;
 /**
  * Handles storage, retrieval, and searching of Move objects in the Pokedex system.
  * Implements the singleton pattern to ensure a single shared instance across the application.
@@ -7,12 +13,6 @@
  *
  * Authors: Kirsten Palomo, Erylle Galinato
  */
-package pokedex.managers;
-
-import pokedex.models.Move;
-import java.util.ArrayList;
-import java.util.List;
-
 public class MoveManager {
     private static MoveManager instance; // 🔹 Singleton instance
 

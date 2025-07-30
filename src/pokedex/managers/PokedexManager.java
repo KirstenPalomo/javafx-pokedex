@@ -1,3 +1,10 @@
+
+package pokedex.managers;
+
+import pokedex.JsonManager;
+import pokedex.models.Pokemon;
+import java.util.ArrayList;
+import java.util.List;
 /**
  * Handles storage, retrieval, and searching of Pokemon objects in the Pokedex system.
  * Implements the singleton pattern to ensure a single shared instance.
@@ -8,13 +15,6 @@
  *
  * Authors: Kirsten Palomo, Erylle Galinato
  */
-package pokedex.managers;
-
-import pokedex.JsonManager;
-import pokedex.models.Pokemon;
-import java.util.ArrayList;
-import java.util.List;
-
 public class PokedexManager {
     private static final PokedexManager INSTANCE = new PokedexManager();
 

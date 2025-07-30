@@ -1,3 +1,10 @@
+
+package pokedex.models;
+
+import pokedex.models.Item;
+
+import java.util.ArrayList;
+import java.util.List;
 /**
  * Represents a Pokemon in the Pokedex system.
  * Each Pokemon has a Pokedex number, name, types, stats, evolution details, moveset, and an optional held item.
@@ -5,13 +12,6 @@
  * Used  in trainer lineups, storage, and battle-related operations.
  * Authors: Kirsten Palomo, Erylle Galinato
  */
-package pokedex.models;
-
-import pokedex.models.Item;
-
-import java.util.ArrayList;
-import java.util.List;
-
 public class Pokemon {
     // Core Pokemon attributes
     private int pokedexNumber;

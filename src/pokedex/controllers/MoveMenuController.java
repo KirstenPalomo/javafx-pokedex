@@ -1,10 +1,3 @@
-/**
- * Controller for the Move Menu screen in the Pokedex GUI.
- * Handles navigation to Add Move, View All Moves, Search Move, and back to Main Menu.
- * Uses FXML loader with custom controller injection to pass manager instances between screens.
- *
- * Authors: Kirsten Palomo, Erylle Galinato
- */
 
 package pokedex.controllers;
 
@@ -21,6 +14,13 @@ import pokedex.managers.PokedexManager;
 import pokedex.managers.TrainerManager;
 
 import java.io.IOException;
+/**
+ * Controller for the Move Menu screen in the Pokedex GUI.
+ * Handles navigation to Add Move, View All Moves, Search Move, and back to Main Menu.
+ * Uses FXML loader with custom controller injection to pass manager instances between screens.
+ *
+ * Authors: Kirsten Palomo, Erylle Galinato
+ */
 
 public class MoveMenuController {
 

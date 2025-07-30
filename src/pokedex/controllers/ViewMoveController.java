@@ -1,11 +1,4 @@
-/**
- * Controller for the "View Move" screen in the Pokedex GUI.
- * Displays a list of all available moves and shows detailed information about the selected move.
- * Integrates with MoveManager to fetch and display data using JavaFX ListView and labels.
- * Also handles navigation back to the Move Menu screen.
- *
- * Authors: Kirsten Palomo, Erylle Galinato
- */
+
 package pokedex.controllers;
 
 import javafx.fxml.FXML;
@@ -29,7 +22,14 @@ import pokedex.models.Move;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-
+/**
+ * Controller for the "View Move" screen in the Pokedex GUI.
+ * Displays a list of all available moves and shows detailed information about the selected move.
+ * Integrates with MoveManager to fetch and display data using JavaFX ListView and labels.
+ * Also handles navigation back to the Move Menu screen.
+ *
+ * Authors: Kirsten Palomo, Erylle Galinato
+ */
 public class ViewMoveController implements Initializable {
 
     @FXML private ListView<Move> listViewMove;

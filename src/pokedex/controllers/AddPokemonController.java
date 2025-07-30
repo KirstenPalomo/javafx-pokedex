@@ -1,11 +1,4 @@
-/**
- * Controller for the "Add Pokemon" screen in the Pokedex GUI.
- * Allows users to input Pokemon details, validates all fields, and adds a new Pokemon to the Pokedex.
- * Handles user confirmation, duplicate checking, evolution input, and optional cry message.
- * Returns to the Pokemon menu after a successful addition.
- *
- * Authors: Kirsten Palomo, Erylle Galinato
- */
+
 package pokedex.controllers;
 
 import javafx.fxml.FXML;
@@ -23,7 +16,14 @@ import pokedex.managers.PokedexManager;
 import pokedex.managers.TrainerManager;
 
 import java.util.List;
-
+/**
+ * Controller for the "Add Pokemon" screen in the Pokedex GUI.
+ * Allows users to input Pokemon details, validates all fields, and adds a new Pokemon to the Pokedex.
+ * Handles user confirmation, duplicate checking, evolution input, and optional cry message.
+ * Returns to the Pokemon menu after a successful addition.
+ *
+ * Authors: Kirsten Palomo, Erylle Galinato
+ */
 public class AddPokemonController {
     // FXML Fields for user input
     @FXML private TextField nameField;
