@@ -1,3 +1,11 @@
+/**
+ * Entry point for the Pokédex JavaFX application.
+ * This class initializes the application by loading saved data,
+ * preparing the necessary managers, and displaying the Start Screen.
+ *
+ * Authors: Kirsten Palomo, Erylle Galinato
+ */
+
 package pokedex.app;
 
 import javafx.application.Application;
@@ -20,7 +28,18 @@ import pokedex.controllers.StartScreenController;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * Main class that launches the Pokédex JavaFX application.
+ * It sets up the scene, loads data from JSON, and displays the Start Screen.
+ */
 public class Main extends Application {
+    /**
+     * Starts the JavaFX application by initializing managers,
+     * loading saved data, and displaying the Start Screen.
+     *
+     * @param stage the primary stage for this application
+     * @throws Exception if FXML or resource files are not found
+     */
     @Override
     public void start(Stage stage) throws Exception {
         Font.loadFont(Objects.requireNonNull(getClass().getResourceAsStream("/assets/PressStart2P-Regular.ttf")), 12);
@@ -47,7 +66,7 @@ public class Main extends Application {
         }
 
 
-        // 💡 Use FXMLLoader with controller factory
+        // Load the Start Screen with controller injection
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/StartScreen.fxml"));
         loader.setControllerFactory(param -> new StartScreenController(
                 pokedexManager, moveManager, itemManager, trainerManager
@@ -55,6 +74,7 @@ public class Main extends Application {
 
         Parent root = loader.load();
 
+        // Attach stylesheet and show the stage
         Scene scene = new Scene(root);
         scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/css/style.css")).toExternalForm());
 
@@ -62,6 +82,12 @@ public class Main extends Application {
         stage.setScene(scene);
         stage.show();
     }
+
+    /**
+     * Main method to launch the application.
+     *
+     * @param args command-line arguments (not used)
+     */
     public static void main(String[] args) {
         launch(args);
     }

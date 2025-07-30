@@ -1,3 +1,11 @@
+/**
+ * Controller for the "Search Pokémon" screen in the Pokédex GUI.
+ * Allows users to search for Pokémon by name, number, or type.
+ * Displays matching Pokémon details in a scrollable dialog or shows alerts for no results or invalid input.
+ * Also allows users to return to the Pokémon Menu.
+ *
+ * Authors: Kirsten Palomo, Erylle Galinato
+ */
 package pokedex.controllers;
 
 import javafx.event.ActionEvent;
@@ -16,6 +24,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Constructs the controller and injects required manager dependencies.
+ */
 public class SearchPokemonController {
 
     @FXML private TextField nameField;
@@ -36,6 +47,9 @@ public class SearchPokemonController {
         this.trainerManager = trainerManager;
     }
 
+    /**
+     * Initializes the type choice box with valid Pokémon types.
+     */
     @FXML
     public void initialize() {
         List<String> types = List.of(
@@ -46,6 +60,12 @@ public class SearchPokemonController {
         typeChoiceBox.getItems().addAll(types);
     }
 
+    /**
+     * Handles the search action when the user clicks the search button.
+     * Searches by name, type, or Pokédex number and displays results or alerts.
+     *
+     * @param event The triggered ActionEvent
+     */
     @FXML
     private void handleSearch(ActionEvent event) {
         String name = nameField.getText().trim();
@@ -54,10 +74,13 @@ public class SearchPokemonController {
 
         List<Pokemon> results = new ArrayList<>();
 
+        //search by name
         if (!name.isEmpty()) {
             results = pokedexManager.searchByName(name);
+        //search by type
         } else if (type != null && !type.isEmpty()) {
             results = pokedexManager.searchByType(type);
+        //search by number
         } else if (!numberStr.isEmpty()) {
             try {
                 int number = Integer.parseInt(numberStr);
@@ -74,6 +97,7 @@ public class SearchPokemonController {
             return;
         }
 
+        //show results or not found
         if (results.isEmpty()) {
             showAlert("No Pokémon found.", Alert.AlertType.INFORMATION, event);
         } else {
@@ -105,6 +129,13 @@ public class SearchPokemonController {
         }
     }
 
+    /**
+     * Shows a basic alert dialog with optional return to the Pokémon menu.
+     *
+     * @param message The message to display
+     * @param type The type of alert (e.g., WARNING, INFORMATION)
+     * @param event The triggering event for optional navigation
+     */
     private void showAlert(String message, Alert.AlertType type, ActionEvent event) {
         Alert alert = new Alert(type);
         alert.setTitle("Search");
@@ -121,6 +152,12 @@ public class SearchPokemonController {
         }
     }
 
+    /**
+     * Displays a scrollable dialog with Pokémon search results.
+     *
+     * @param content Text content to show
+     * @param event The triggering event for optional return
+     */
     private void showScrollablePokemonDialog(String content, ActionEvent event) {
         Dialog<ButtonType> dialog = new Dialog<>();
         dialog.setTitle("Search Results");
@@ -149,6 +186,11 @@ public class SearchPokemonController {
     }
 
 
+    /**
+     * Navigates back to the Pokémon Menu screen.
+     *
+     * @param event The action event used to switch scenes
+     */
     private void returnToMenu(ActionEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/PokemonMenu.fxml"));

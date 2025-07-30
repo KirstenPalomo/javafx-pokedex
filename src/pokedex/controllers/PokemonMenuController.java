@@ -1,3 +1,10 @@
+/**
+ * Controller for the Pokémon Menu screen in the Pokédex GUI.
+ * Handles navigation to Add Pokémon, View All Pokémon, Search Pokémon, and back to the Main Menu.
+ * Uses FXML loaders with custom controller injection to maintain manager references across scenes.
+ *
+ * Authors: Kirsten Palomo, Erylle Galinato
+ */
 package pokedex.controllers;
 
 import javafx.fxml.FXML;
@@ -22,6 +29,14 @@ public class PokemonMenuController {
     private final ItemManager itemManager;
     private final TrainerManager trainerManager;
 
+    /**
+     * Constructs the controller with references to core managers.
+     *
+     * @param pokedexManager Pokédex manager
+     * @param moveManager Move manager
+     * @param itemManager Item manager
+     * @param trainerManager Trainer manager
+     */
     public PokemonMenuController(PokedexManager pokedexManager, MoveManager moveManager,
                                  ItemManager itemManager, TrainerManager trainerManager) {
         this.pokedexManager = pokedexManager;
@@ -30,6 +45,11 @@ public class PokemonMenuController {
         this.trainerManager = trainerManager;
     }
 
+    /**
+     * Navigates to the Add Pokémon screen.
+     *
+     * @param event Action event triggered by button click
+     */
     @FXML
     private void handleAddPokemon(ActionEvent event) {
         try {
@@ -46,6 +66,11 @@ public class PokemonMenuController {
         }
     }
 
+    /**
+     * Navigates to the View All Pokémon screen.
+     *
+     * @param event Action event triggered by button click
+     */
     @FXML
     private void handleViewAll(ActionEvent event) {
         try {
@@ -62,6 +87,11 @@ public class PokemonMenuController {
         }
     }
 
+    /**
+     * Navigates to the Search Pokémon screen.
+     *
+     * @param event Action event triggered by button click
+     */
     @FXML
     private void handleSearchPokemon(ActionEvent event) {
         try {
@@ -78,6 +108,11 @@ public class PokemonMenuController {
         }
     }
 
+    /**
+     * Navigates back to the Main Menu screen.
+     *
+     * @param event Action event triggered by button click
+     */
     @FXML
     private void handleBack(ActionEvent event) {
         try {
