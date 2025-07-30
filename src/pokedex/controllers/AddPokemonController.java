@@ -1,3 +1,11 @@
+/**
+ * Controller for the "Add Pokémon" screen in the Pokédex GUI.
+ * Allows users to input Pokémon details, validates all fields, and adds a new Pokémon to the Pokédex.
+ * Handles user confirmation, duplicate checking, evolution input, and optional cry message.
+ * Returns to the Pokémon menu after a successful addition.
+ *
+ * Authors: Kirsten Palomo, Erylle Galinato
+ */
 package pokedex.controllers;
 
 import javafx.fxml.FXML;
@@ -17,7 +25,7 @@ import pokedex.managers.TrainerManager;
 import java.util.List;
 
 public class AddPokemonController {
-
+    // FXML Fields for user input
     @FXML private TextField nameField;
     @FXML private TextField pokedexNumberField;
     @FXML private TextField levelField;
@@ -31,17 +39,22 @@ public class AddPokemonController {
     @FXML private ComboBox<String> type1ComboBox;
     @FXML private ComboBox<String> type2ComboBox;
 
+    // List of valid Pokémon types
     private final List<String> pokemonTypes = List.of(
             "Normal", "Fire", "Water", "Grass", "Electric", "Ice", "Fighting", "Poison",
             "Ground", "Flying", "Psychic", "Bug", "Rock", "Ghost", "Dragon", "Dark",
             "Steel", "Fairy"
     );
 
+    // Manager dependencies
     private final PokedexManager pokedexManager;
     private final MoveManager moveManager;
     private final ItemManager itemManager;
     private final TrainerManager trainerManager;
 
+    /**
+     * Constructs the controller with references to all required managers.
+     */
     public AddPokemonController(PokedexManager pokedexManager, MoveManager moveManager,
                                 ItemManager itemManager, TrainerManager trainerManager) {
         this.pokedexManager = pokedexManager;
@@ -50,6 +63,9 @@ public class AddPokemonController {
         this.trainerManager = trainerManager;
     }
 
+    /**
+     * Initializes the ComboBoxes with Pokémon types and default selections.
+     */
     @FXML
     public void initialize() {
         type1ComboBox.getItems().addAll(pokemonTypes);
@@ -58,9 +74,16 @@ public class AddPokemonController {
         type2ComboBox.setValue("None");
     }
 
+    /**
+     * Handles the "Add Pokémon" button click event.
+     * Validates input, confirms action, checks for duplicates, creates Pokémon, and adds to the Pokédex.
+     *
+     * @param event The button click event
+     */
     @FXML
     private void handleAddPokemon(ActionEvent event) {
         try {
+            //read and validate all text inputs
             String name = nameField.getText().trim();
             String pokedexText = pokedexNumberField.getText().trim();
             String levelText = levelField.getText().trim();
@@ -76,6 +99,7 @@ public class AddPokemonController {
                 return;
             }
 
+            //parse numeric input
             int number = Integer.parseInt(pokedexText);
             int level = Integer.parseInt(levelText);
             int hp = Integer.parseInt(hpText);
@@ -83,6 +107,7 @@ public class AddPokemonController {
             int defense = Integer.parseInt(defenseText);
             int speed = Integer.parseInt(speedText);
 
+            //parse evolution related fields
             String evolvesFromText = evolvesFromField.getText().trim();
             String evolvesToText = evolvesToField.getText().trim();
             String evolutionLevelText = evolutionLevelField.getText().trim();
@@ -91,10 +116,12 @@ public class AddPokemonController {
             Integer evolvesTo = evolvesToText.isEmpty() || evolvesToText.equals("-1") ? null : Integer.parseInt(evolvesToText);
             Integer evolutionLevel = evolutionLevelText.isEmpty() ? null : Integer.parseInt(evolutionLevelText);
 
+            //parse type input
             String type1 = type1ComboBox.getValue();
             String type2 = type2ComboBox.getValue();
             if (type2.equals("None")) type2 = null;
 
+            //check for duplicates
             if (pokedexManager.hasPokemonWithNumber(number)) {
                 showAlert(Alert.AlertType.ERROR, "Duplicate Pokedex Number", "A Pokémon with this Pokedex number already exists.");
                 return;
@@ -117,6 +144,7 @@ public class AddPokemonController {
                 return;
             }
 
+            //add pokemon
             Pokemon newPokemon = new Pokemon(
                     number, name, type1, type2, level,
                     evolvesFrom, evolvesTo, evolutionLevel,
@@ -127,6 +155,7 @@ public class AddPokemonController {
             pokedexManager.addPokemon(newPokemon);
             clearFields();
 
+            //optional cry
             Alert cryAlert = new Alert(Alert.AlertType.CONFIRMATION);
             cryAlert.setTitle("Cry Out?");
             cryAlert.setHeaderText("Let " + name + " cry out?");
@@ -148,6 +177,12 @@ public class AddPokemonController {
         }
     }
 
+    /**
+     * Returns the user to the Pokémon Menu screen.
+     *
+     * @param event The action event triggering the navigation
+     * @throws IOException If the FXML cannot be loaded
+     */
     private void goBackToMenu(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/PokemonMenu.fxml"));
         loader.setControllerFactory(param -> new PokemonMenuController(
@@ -159,6 +194,9 @@ public class AddPokemonController {
         stage.show();
     }
 
+    /**
+     * Clears all fields in the Add Pokémon form.
+     */
     private void clearFields() {
         nameField.clear();
         pokedexNumberField.clear();
@@ -174,6 +212,13 @@ public class AddPokemonController {
         type2ComboBox.setValue("None");
     }
 
+    /**
+     * Shows an alert popup with the given information.
+     *
+     * @param type    Type of the alert
+     * @param title   Title of the alert window
+     * @param message Message to display
+     */
     private void showAlert(Alert.AlertType type, String title, String message) {
         Alert alert = new Alert(type);
         alert.setTitle(title);

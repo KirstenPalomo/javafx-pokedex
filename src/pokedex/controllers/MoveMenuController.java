@@ -1,3 +1,11 @@
+/**
+ * Controller for the Move Menu screen in the Pokédex GUI.
+ * Handles navigation to Add Move, View All Moves, Search Move, and back to Main Menu.
+ * Uses FXML loader with custom controller injection to pass manager instances between screens.
+ *
+ * Authors: Kirsten Palomo, Erylle Galinato
+ */
+
 package pokedex.controllers;
 
 import javafx.event.ActionEvent;
@@ -21,6 +29,15 @@ public class MoveMenuController {
     private final ItemManager itemManager;
     private final TrainerManager trainerManager;
 
+    /**
+     * Constructs the controller with all required manager instances.
+     *
+     * @param pokedexManager The Pokédex manager
+     * @param moveManager The move manager
+     * @param itemManager The item manager
+     * @param trainerManager The trainer manager
+     */
+
     public MoveMenuController(PokedexManager pokedexManager, MoveManager moveManager,
                               ItemManager itemManager, TrainerManager trainerManager) {
         this.pokedexManager = pokedexManager;
@@ -29,6 +46,11 @@ public class MoveMenuController {
         this.trainerManager = trainerManager;
     }
 
+    /**
+     * Navigates to the Add Move screen.
+     *
+     * @param event The button click event
+     */
     @FXML
     private void handleAddMove(ActionEvent event) {
         try {
@@ -45,6 +67,11 @@ public class MoveMenuController {
         }
     }
 
+    /**
+     * Navigates to the View All Moves screen.
+     *
+     * @param event The button click event
+     */
     @FXML
     private void handleViewAll(ActionEvent event) {
         try {
@@ -61,6 +88,11 @@ public class MoveMenuController {
         }
     }
 
+    /**
+     * Navigates to the Search Move screen.
+     *
+     * @param event The button click event
+     */
     @FXML
     private void handleSearch(ActionEvent event) {
         try {
@@ -77,6 +109,11 @@ public class MoveMenuController {
         }
     }
 
+    /**
+     * Navigates back to the Main Menu screen.
+     *
+     * @param event The button click event
+     */
     @FXML
     private void handleBack(ActionEvent event) {
         try {

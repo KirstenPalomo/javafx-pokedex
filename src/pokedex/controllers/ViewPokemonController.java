@@ -1,3 +1,11 @@
+/**
+ * Controller for the "View Pokémon" screen in the Pokédex GUI.
+ * Displays a list of all registered Pokémon and shows detailed information
+ * (e.g., types, stats, evolution, moves, held item) for the selected Pokémon.
+ * Also includes a back button to return to the Pokémon Menu screen.
+ *
+ * Authors: Kirsten Palomo, Erylle Galinato
+ */
 package pokedex.controllers;
 
 import javafx.fxml.FXML;
@@ -42,7 +50,9 @@ public class ViewPokemonController implements Initializable {
     private final ItemManager itemManager;
     private final TrainerManager trainerManager;
 
-    // ✅ Constructor to accept managers
+    /**
+     * Constructs the controller and stores references to manager instances.
+     */
     public ViewPokemonController(PokedexManager pokedexManager, MoveManager moveManager,
                                  ItemManager itemManager, TrainerManager trainerManager) {
         this.pokedexManager = pokedexManager;
@@ -51,6 +61,13 @@ public class ViewPokemonController implements Initializable {
         this.trainerManager = trainerManager;
     }
 
+    /**
+     * Initializes the ListView of Pokémon and sets up a listener to display
+     * details when a Pokémon is selected.
+     *
+     * @param location  Location of the FXML file (not used)
+     * @param resources Resource bundle (not used)
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         // Clear initial text
@@ -116,6 +133,11 @@ public class ViewPokemonController implements Initializable {
         });
     }
 
+    /**
+     * Navigates back to the Pokémon Menu screen.
+     *
+     * @param event Action event triggered by the "Back" button
+     */
     @FXML
     private void handleBack(ActionEvent event) {
         try {
