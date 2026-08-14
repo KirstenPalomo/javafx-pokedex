@@ -1,0 +1,14 @@
+# macOS
+.DS_Store
+
+# IntelliJ IDEA
+.idea/
+*.iml
+
+# Java build output
+out/
+target/
+*.class
+
+# VS Code
+.vscode/
