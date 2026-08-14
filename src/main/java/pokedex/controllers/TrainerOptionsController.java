@@ -295,8 +295,6 @@ public class TrainerOptionsController {
                 return;
             }
 
-            int originalMoney = selectedTrainer.getMoney();
-            int unitPrice = bagItem.getItem().getSellingPrice();
             int totalEarned = 0;
             int totalSold = 0;
 

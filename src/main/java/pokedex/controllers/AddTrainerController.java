@@ -29,7 +29,6 @@ import pokedex.models.Trainer;
 
 import java.io.IOException;
 import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
 
 /**
  * Controller for the Add Trainer form.

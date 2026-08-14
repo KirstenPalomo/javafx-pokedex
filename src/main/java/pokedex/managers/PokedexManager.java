@@ -16,8 +16,6 @@ import java.util.List;
  * Authors: Kirsten Palomo, Erylle Galinato
  */
 public class PokedexManager {
-    private static final PokedexManager INSTANCE = new PokedexManager();
-
     // Singleton instance
     private static PokedexManager instance;
 

@@ -1,8 +1,6 @@
 
 package pokedex.models;
 
-import pokedex.models.Item;
-
 import java.util.ArrayList;
 import java.util.List;
 /**

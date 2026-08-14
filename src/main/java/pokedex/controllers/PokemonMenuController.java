@@ -14,7 +14,6 @@ import pokedex.managers.PokedexManager;
 import pokedex.managers.TrainerManager;
 
 import java.io.IOException;
-import java.util.Objects;
 
 /**
  * This controls the Pokemon Menu screen in the Pokedex GUI.

@@ -13,7 +13,6 @@ import pokedex.managers.PokedexManager;
 import pokedex.managers.MoveManager;
 import pokedex.managers.ItemManager;
 import pokedex.managers.TrainerManager;
-import pokedex.models.Item;
 import pokedex.models.Move;
 import pokedex.models.Pokemon;
 import pokedex.models.Trainer;
