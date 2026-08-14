@@ -79,7 +79,7 @@ This Pokédex application was developed as a **CCPROG3 machine project**. It pro
 
 Make sure you have the following installed:
 
-* **Java 17 or later**
+* **Java 17**
 * **Apache Maven**
 
 Verify your installation:
@@ -117,8 +117,8 @@ mvn javafx:run
 
 ## Authors
 
-**Kirsten Palomo**
-**Erylle Galinato**
+- **Kirsten Palomo**
+- **Erylle Galinato**
 
 ---
 
